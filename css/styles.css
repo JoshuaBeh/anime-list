@@ -142,11 +142,14 @@ li {
   visibility: hidden;
 }
 
+.arrow-down-div {
+  padding-bottom: 10px;
+  padding-left: 77px;
+}
+
 .fa-arrow-down {
   color: white;
   font-size: 2rem;
-  padding-bottom: 10px;
-  padding-left: 77px;
 }
 
 @media screen and (min-width: 768px) {
