@@ -8,11 +8,11 @@ function renderTopAnime(response, i) {
   var li = document.createElement('li');
 
   var rowDiv = document.createElement('div');
-  rowDiv.className = 'row top-background';
+  rowDiv.className = 'row top-background relative';
   li.appendChild(rowDiv);
 
   var col20Div = document.createElement('div');
-  col20Div.className = 'col-20 center';
+  col20Div.className = 'col-20 center relative';
   rowDiv.appendChild(col20Div);
 
   var img = document.createElement('img');
@@ -21,7 +21,7 @@ function renderTopAnime(response, i) {
   col20Div.appendChild(img);
 
   var col80Div = document.createElement('div');
-  col80Div.className = 'col-80 inline';
+  col80Div.className = 'col-80 inline relative';
   rowDiv.appendChild(col80Div);
 
   var title = document.createElement('a');
