@@ -1,7 +1,11 @@
 var $topAnimeList = document.querySelector('#top-anime');
+var $arrowDown = document.querySelector('.fa-arrow-down');
+var $backToTop = document.querySelector('.back-to-top');
+var $topOfPage = document.querySelector('.anchor-background');
+var pageNumber = 1;
 function topAnimeGet() {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.jikan.moe/v4/top/anime?page=1');
+  xhr.open('GET', 'https://api.jikan.moe/v4/top/anime?page=' + pageNumber);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     var response = xhr.response.data;
@@ -46,3 +50,13 @@ function topAnimeGet() {
   xhr.send();
 }
 topAnimeGet();
+
+$arrowDown.addEventListener('click', function (event) {
+  pageNumber++;
+  topAnimeGet();
+  return pageNumber;
+});
+
+$backToTop.addEventListener('click', function (event) {
+  $topOfPage.scrollIntoView();
+});
