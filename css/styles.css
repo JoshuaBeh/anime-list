@@ -1,3 +1,11 @@
+body {
+  background-color: #232628;
+}
+
+img.top-image {
+  height: 100%;
+}
+
 .center {
   display: flex;
   justify-content: center;
@@ -7,6 +15,12 @@
 .justify-between {
   display: flex;
   justify-content: space-around;
+  align-items: center;
+}
+
+.inline {
+  display: inline-flex;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -26,6 +40,17 @@ a:active {
   text-decoration: none;
 }
 
+ul {
+  margin: 0;
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
 .anime {
   color: white;
   font-size: 2rem;
@@ -36,9 +61,15 @@ a:active {
   font-size: 1.4rem;
 }
 
-.fas {
-  font-size: 0.8rem;
+.fa-search {
+  font-size: 0.7rem;
   color: white;
+}
+
+.fa-star {
+  font-size: 1rem;
+  color: gold;
+  padding-right: 15px;
 }
 
 .background {
@@ -49,11 +80,21 @@ a:active {
   background-color: #222435;
 }
 
+.top-background {
+  background-color: #1a1c1e;
+}
+
 .top-anime {
   color: white;
   background-color: #2d4c90;
 }
 
-.margin-0 {
-  margin: 0;
+.top-scores {
+  color: white;
+  margin-right: 60px;
+}
+
+.top-titles {
+  font-size: 1.8rem;
+  color: #27b3fd;
 }

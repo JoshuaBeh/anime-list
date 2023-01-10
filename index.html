@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <div class="background">
+  <div>
     <header>
       <div class="container anchor-background">
         <div class="row">
@@ -19,23 +19,31 @@
             <a class="anime" href="#">Anime</a>
             <a class="nav-anchor" href="#">List</a>
             <a class="nav-anchor" href="#">Characters</a>
-            <a class="nav-anchor" href="#"><i class="fas fa-search"></i>Search</a>
+            <a class="nav-anchor inline" href="#"><i class="fas fa-search"></i>Search</a>
+          </div>
+        </div>
+        <div class="row top-anime">
+          <div class="col-full center">
+            <h1>Top Anime</h1>
           </div>
         </div>
       </div>
     </header>
     <main>
       <div class="container">
-        <div class="row top-anime">
-          <div class="col-full center">
-            <h1>Top Anime</h1>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-full">
-
-          </div>
-        </div>
+        <ul id="top-anime">
+          <li>
+            <div class="row top-background">
+              <div class="col-20 center">
+                <img src="https://cdn.myanimelist.net/r/50x70/images/anime/1764/126627.webp?s=08520f4c12e14b0af58ed2ea9fbd328b">
+              </div>
+              <div class="col-80 inline">
+                <a class="top-titles" href="#">Bleach: Thousand Year Blood War</a>
+                <h1 class="top-scores inline star-hide"><i class="fa-solid fa-star"></i>9.14</h1>
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
     </main>
   </div>
