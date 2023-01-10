@@ -2,6 +2,11 @@ var $topAnimeList = document.querySelector('#top-anime');
 var $arrowDown = document.querySelector('.fa-arrow-down');
 var $backToTop = document.querySelector('.back-to-top');
 var $topOfPage = document.querySelector('.anchor-background');
+var $searchAnchor = document.querySelector('#search-pop-up');
+var $outerDiv = document.querySelector('.search-pop-up');
+var $header = document.querySelector('header');
+var $topAnimeView = document.querySelector('[data-view="top-anime"]');
+var $popUpSearch = document.querySelector('.pop-up-search');
 var pageNumber = 1;
 
 function renderTopAnime(response, i) {
@@ -70,3 +75,11 @@ $arrowDown.addEventListener('click', function (event) {
 $backToTop.addEventListener('click', function (event) {
   $topOfPage.scrollIntoView();
 });
+
+function searchPopUpHandler(event) {
+  $outerDiv.classList.add('pop-up-background');
+  $header.classList.add('z-index-neg');
+  $topAnimeView.classList.add('z-index-neg');
+  $popUpSearch.classList.remove('hidden');
+}
+$searchAnchor.addEventListener('click', searchPopUpHandler);
