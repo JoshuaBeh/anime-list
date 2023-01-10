@@ -1,0 +1,160 @@
+body {
+  background-color: #232628;
+}
+
+img.top-image {
+  height: 100%;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.justify-between {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.inline {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.back-to-top-div {
+  padding-bottom: 15px;
+  padding-right: 10px;
+}
+
+.back-to-top {
+  font-size: 1.2rem;
+  border: 1px solid #232628;
+  border-radius: 6px;
+  color: #27b3fd;
+  background-color: #1a1c1e;
+  height: 2rem;
+  width: 5rem;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+i:hover {
+  cursor: pointer;
+}
+
+a:active {
+  text-decoration: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+ul {
+  margin: 0;
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+.margin-10tb {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+#anchor-bar {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.anime {
+  color: white;
+  font-size: 2rem;
+}
+
+.nav-anchor {
+  color: #0094ff;
+  font-size: 1.4rem;
+}
+
+.fa-search {
+  font-size: 0.7rem;
+  color: white;
+  padding-right: 3px;
+  padding-bottom: 0.5px;
+}
+
+.fa-star {
+  font-size: 1rem;
+  color: gold;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.background {
+  background-color: #232628;
+}
+
+.anchor-background {
+  background-color: #222435;
+}
+
+.top-background {
+  background-color: #1a1c1e;
+}
+
+.top-anime {
+  color: white;
+  background-color: #2d4c90;
+}
+
+.top-scores {
+  color: white;
+  margin-right: 60px;
+}
+
+.top-titles {
+  font-size: 1.5rem;
+  padding-right: 15px;
+  color: #27b3fd;
+}
+
+.fa-arrow-left {
+  color: #232628;
+  visibility: hidden;
+}
+
+.arrow-down-div {
+  padding-bottom: 10px;
+  padding-left: 77px;
+}
+
+.fa-arrow-down {
+  color: white;
+  font-size: 2rem;
+}
+
+@media screen and (min-width: 768px) {
+  .top-titles {
+    font-size: 1.8rem;
+    padding-right: 0;
+  }
+}
