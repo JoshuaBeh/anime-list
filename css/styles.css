@@ -6,6 +6,12 @@ img.top-image {
   height: 100%;
 }
 
+img.search-result-img {
+  object-fit: fill;
+  width: 190px;
+  height: 267px;
+}
+
 .center {
   display: flex;
   justify-content: center;
@@ -27,6 +33,12 @@ img.top-image {
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.search-img-margin {
+  margin-top: 20px;
+  margin-right: 10px;
+  margin-left: 25px;
 }
 
 .back-to-top-div {
@@ -78,6 +90,19 @@ ul {
 li {
   margin-top: 18px;
   margin-bottom: 18px;
+}
+
+.search-title-div {
+  width: 76%;
+  background-color: #1a1c1e;
+  height: 40px;
+}
+
+.search-title {
+  font-size: 1.3rem;
+  color: #27b3fd;
+  margin: 0;
+  text-align: center;
 }
 
 .margin-10tb {
@@ -212,5 +237,9 @@ input.search-input:active {
 
   .search-bar {
     width: 768px;
+  }
+
+  .search-title-div {
+    width: 100%;
   }
 }

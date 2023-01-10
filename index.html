@@ -25,7 +25,7 @@
       </div>
     </header>
     <main class="container relative">
-      <div data-view="top-anime">
+      <div data-view="top-anime" class="hidden">
         <div class="row top-anime relative">
           <div class="col-full center relative">
             <h1 class="margin-10tb">Top Anime</h1>
@@ -46,17 +46,14 @@
         </div>
       </div>
       <div data-view="search-result">
-        <div class="row">
-          <div class="col-full">
-
-          </div>
+        <div id="search-append" class="row">
         </div>
       </div>
       <div class="row pop-up-search hidden">
         <div class="col-full center">
           <div class="search-bar align-center">
             <div class="search-bar-icon-div">
-              <i class="fas fa-search"></i>
+              <i id="search-button" class="fas fa-search"></i>
             </div>
             <input class="search-input" type="text" placeholder="Search Anime">
           </div>

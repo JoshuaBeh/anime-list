@@ -6,7 +6,12 @@ var $searchAnchor = document.querySelector('#search-pop-up');
 var $outerDiv = document.querySelector('.search-pop-up');
 var $header = document.querySelector('header');
 var $topAnimeView = document.querySelector('[data-view="top-anime"]');
+var $searchResultView = document.querySelector('[data-view="search-result"]');
 var $popUpSearch = document.querySelector('.pop-up-search');
+var $searchInput = document.querySelector('.search-input');
+var $searchButton = document.querySelector('#search-button');
+var $searchAppend = document.querySelector('#search-append');
+var userSearchInput = '';
 var pageNumber = 1;
 
 function renderTopAnime(response, i) {
@@ -80,6 +85,69 @@ function searchPopUpHandler(event) {
   $outerDiv.classList.add('pop-up-background');
   $header.classList.add('z-index-neg');
   $topAnimeView.classList.add('z-index-neg');
+  $searchResultView.classList.add('z-index-neg');
   $popUpSearch.classList.remove('hidden');
 }
 $searchAnchor.addEventListener('click', searchPopUpHandler);
+
+function removeSearchResults() {
+  $searchAppend.replaceChildren();
+}
+
+function searchResultGet() {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://api.jikan.moe/v4/anime?q=' + userSearchInput);
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    removeSearchResults();
+    var response = xhr.response.data;
+    for (var i = 0; i < response.length; i++) {
+      renderSearchResult(response, i);
+    }
+  });
+  xhr.send();
+}
+
+$searchInput.addEventListener('input', function (event) {
+  userSearchInput = event.target.value;
+  return userSearchInput;
+});
+
+$searchButton.addEventListener('click', function () {
+  searchResultGet();
+  $outerDiv.classList.remove('pop-up-background');
+  $header.classList.remove('z-index-neg');
+  $topAnimeView.classList.remove('z-index-neg');
+  $searchResultView.classList.remove('z-index-neg');
+  $popUpSearch.classList.add('hidden');
+});
+
+function renderSearchResult(response, i) {
+  var col5025div = document.createElement('div');
+  col5025div.className = 'col-50-25';
+  $searchAppend.appendChild(col5025div);
+
+  var imgDiv = document.createElement('div');
+  imgDiv.className = 'search-img-margin';
+  col5025div.appendChild(imgDiv);
+
+  var img = document.createElement('img');
+  img.className = 'search-result-img';
+  img.setAttribute('src', response[i].images.jpg.image_url);
+  imgDiv.appendChild(img);
+
+  var divForTitle = document.createElement('div');
+  divForTitle.className = 'center search-title-div';
+  imgDiv.appendChild(divForTitle);
+
+  var anchorTitle = document.createElement('a');
+  anchorTitle.className = 'search-title';
+  if (response[i].title.length > 15) {
+    anchorTitle.textContent = response[i].title.split('').splice(0, 15).join('') + '...';
+  } else {
+    anchorTitle.textContent = response[i].title;
+  }
+  divForTitle.appendChild(anchorTitle);
+
+  return $searchAppend;
+}
