@@ -130,6 +130,11 @@ li {
   margin-left: 15px;
 }
 
+#synopsis {
+  font-weight: normal;
+  line-height: 1.2;
+}
+
 .synopsis {
   color: rgb(172, 172, 172);
 }
