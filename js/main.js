@@ -12,6 +12,7 @@ var $searchInput = document.querySelector('.search-input');
 var $searchButton = document.querySelector('#search-button');
 var $searchAppend = document.querySelector('#search-append');
 var $animeNavAnchor = document.querySelector('.anime');
+var $selectedAnimeView = document.querySelector('[data-view="selected-anime"]');
 var userSearchInput = '';
 var pageNumber = 1;
 
@@ -23,11 +24,11 @@ function renderTopAnime(response, i) {
   var li = document.createElement('li');
 
   var rowDiv = document.createElement('div');
-  rowDiv.className = 'row top-background relative';
+  rowDiv.className = 'row top-background';
   li.appendChild(rowDiv);
 
   var col20Div = document.createElement('div');
-  col20Div.className = 'col-20 center relative';
+  col20Div.className = 'col-20 center';
   rowDiv.appendChild(col20Div);
 
   var img = document.createElement('img');
@@ -36,11 +37,10 @@ function renderTopAnime(response, i) {
   col20Div.appendChild(img);
 
   var col80Div = document.createElement('div');
-  col80Div.className = 'col-80 inline relative';
+  col80Div.className = 'col-80 inline';
   rowDiv.appendChild(col80Div);
 
   var title = document.createElement('a');
-  title.setAttribute('href', '#');
   title.className = 'top-titles';
   title.textContent = response[i].title;
   col80Div.appendChild(title);
@@ -91,6 +91,7 @@ function searchPopUpHandler(event) {
   $header.classList.add('z-index-neg');
   $topAnimeView.classList.add('z-index-neg');
   $searchResultView.classList.add('z-index-neg');
+  $selectedAnimeView.classList.add('z-index-neg');
   $popUpSearch.classList.remove('hidden');
 }
 $searchAnchor.addEventListener('click', searchPopUpHandler);
@@ -125,12 +126,14 @@ $searchButton.addEventListener('click', function () {
   $header.classList.remove('z-index-neg');
   $topAnimeView.classList.remove('z-index-neg');
   $searchResultView.classList.remove('z-index-neg');
+  $selectedAnimeView.classList.remove('z-index-neg');
   $popUpSearch.classList.add('hidden');
 });
 
 function renderSearchResult(response, i) {
   var col5025div = document.createElement('div');
   col5025div.className = 'col-50-25';
+  col5025div.setAttribute('id', response[i].mal_id);
   $searchAppend.appendChild(col5025div);
 
   var imgDiv = document.createElement('div');
@@ -158,12 +161,65 @@ function renderSearchResult(response, i) {
   return $searchAppend;
 }
 
+var $selectedTitle = document.querySelector('.selected-title');
+var $selectedPicture = document.querySelector('.selected-picture');
+var $score = document.querySelector('#score');
+var $episodes = document.querySelector('#episodes');
+var $rank = document.querySelector('#rank');
+var $premiered = document.querySelector('#premiered');
+var $status = document.querySelector('#status');
+var $type = document.querySelector('#type');
+var $synopsis = document.querySelector('#synopsis');
+function selectedAnimeGet(userTarget) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://api.jikan.moe/v4/anime/' + userTarget);
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    var response = xhr.response.data;
+    $selectedTitle.textContent = response.title;
+    $selectedPicture.setAttribute('src', response.images.jpg.large_image_url);
+    var starIcon = document.createElement('i');
+    starIcon.setAttribute('id', 'star-fix');
+    starIcon.className = 'fa-solid fa-star';
+    $score.textContent = response.score;
+    $score.prepend(starIcon);
+    $episodes.textContent = response.episodes;
+    $rank.textContent = response.rank;
+    $premiered.textContent = response.aired.prop.from.year;
+    if (response.airing === true) {
+      $status.textContent = 'Currently Airing';
+    } else {
+      $status.textContent = 'Finished';
+    }
+    $type.textContent = response.type;
+    $synopsis.textContent = response.synopsis;
+  });
+  xhr.send();
+}
+
+var userTarget = '';
+function userSelectAnimeHandler(event) {
+  var closestSelectedDiv = event.target.closest('.col-50-25');
+  var closestID = closestSelectedDiv.getAttribute('id');
+  userTarget = closestID;
+  selectedAnimeGet(userTarget);
+  viewSwap('selected-anime');
+  return userTarget;
+}
+$searchAppend.addEventListener('click', userSelectAnimeHandler);
+
 function viewSwap(userview) {
   if (userview === 'top-anime') {
     $topAnimeView.classList.remove('hidden');
     $searchResultView.classList.add('hidden');
+    $selectedAnimeView.classList.add('hidden');
   } else if (userview === 'search-result') {
-    $topAnimeView.classList.add('hidden');
     $searchResultView.classList.remove('hidden');
+    $topAnimeView.classList.add('hidden');
+    $selectedAnimeView.classList.add('hidden');
+  } else if (userview === 'selected-anime') {
+    $selectedAnimeView.classList.remove('hidden');
+    $topAnimeView.classList.add('hidden');
+    $searchResultView.classList.add('hidden');
   }
 }

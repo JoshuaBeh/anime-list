@@ -2,6 +2,10 @@ body {
   background-color: #232628;
 }
 
+span {
+  color: white;
+}
+
 img.top-image {
   height: 100%;
 }
@@ -33,6 +37,10 @@ img.search-result-img {
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.white {
+  color: white;
 }
 
 .search-img-margin {
@@ -105,9 +113,39 @@ li {
   text-align: center;
 }
 
+.margin-0t {
+  margin-top: 0;
+}
+
+.margin-15t {
+  margin-top: 15px;
+}
+
 .margin-10tb {
   margin-top: 15px;
   margin-bottom: 15px;
+}
+
+.margin-15l {
+  margin-left: 15px;
+}
+
+#synopsis {
+  font-weight: normal;
+  line-height: 1.2;
+}
+
+.synopsis {
+  color: rgb(172, 172, 172);
+}
+
+#star-fix {
+  padding-left: 25px;
+}
+
+.selected-anime-stats {
+  padding-left: 25px;
+  color: rgb(172, 172, 172);
 }
 
 #anchor-bar {
@@ -206,6 +244,43 @@ input.search-input:active {
   color: white;
   border: none;
   width: 80%;
+}
+
+.characters-button-div {
+  margin-left: 15px;
+}
+
+.characters-button {
+  border: 1px solid #0465aa;
+  border-radius: 3px;
+  height: 2rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: white;
+  background-color: #0465aa;
+}
+
+.add-button-div {
+  margin-right: 15px;
+}
+
+.add-button {
+  border: 1px solid red;
+  border-radius: 3px;
+  height: 2rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: white;
+  background-color: red;
+}
+
+.selected-title {
+  color: #27b3fd;
+}
+
+img.selected-picture {
+  width: 100%;
+  object-fit: contain;
 }
 
 .relative {
