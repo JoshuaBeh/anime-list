@@ -11,8 +11,13 @@ var $popUpSearch = document.querySelector('.pop-up-search');
 var $searchInput = document.querySelector('.search-input');
 var $searchButton = document.querySelector('#search-button');
 var $searchAppend = document.querySelector('#search-append');
+var $animeNavAnchor = document.querySelector('.anime');
 var userSearchInput = '';
 var pageNumber = 1;
+
+$animeNavAnchor.addEventListener('click', function () {
+  viewSwap('top-anime');
+});
 
 function renderTopAnime(response, i) {
   var li = document.createElement('li');
@@ -96,7 +101,7 @@ function removeSearchResults() {
 
 function searchResultGet() {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.jikan.moe/v4/anime?q=' + userSearchInput);
+  xhr.open('GET', 'https://api.jikan.moe/v4/anime?q=' + userSearchInput + '&sfw');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     removeSearchResults();
@@ -115,6 +120,7 @@ $searchInput.addEventListener('input', function (event) {
 
 $searchButton.addEventListener('click', function () {
   searchResultGet();
+  viewSwap('search-result');
   $outerDiv.classList.remove('pop-up-background');
   $header.classList.remove('z-index-neg');
   $topAnimeView.classList.remove('z-index-neg');
@@ -150,4 +156,14 @@ function renderSearchResult(response, i) {
   divForTitle.appendChild(anchorTitle);
 
   return $searchAppend;
+}
+
+function viewSwap(userview) {
+  if (userview === 'top-anime') {
+    $topAnimeView.classList.remove('hidden');
+    $searchResultView.classList.add('hidden');
+  } else if (userview === 'search-result') {
+    $topAnimeView.classList.add('hidden');
+    $searchResultView.classList.remove('hidden');
+  }
 }
