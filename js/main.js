@@ -40,7 +40,6 @@ function renderTopAnime(response, i) {
   rowDiv.appendChild(col80Div);
 
   var title = document.createElement('a');
-  title.setAttribute('href', '#');
   title.className = 'top-titles';
   title.textContent = response[i].title;
   col80Div.appendChild(title);
