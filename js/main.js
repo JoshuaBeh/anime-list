@@ -1,3 +1,4 @@
+/* global userData */
 var $topAnimeList = document.querySelector('#top-anime');
 var $arrowDown = document.querySelector('.fa-arrow-down');
 var $backToTop = document.querySelector('.back-to-top');
@@ -10,6 +11,7 @@ var $searchResultView = document.querySelector('[data-view="search-result"]');
 var $popUpSearch = document.querySelector('.pop-up-search');
 var $searchInput = document.querySelector('.search-input');
 var $searchButton = document.querySelector('#search-button');
+var $addButton = document.querySelector('.add-button');
 var $searchAppend = document.querySelector('#search-append');
 var $animeNavAnchor = document.querySelector('.anime');
 var $selectedAnimeView = document.querySelector('[data-view="selected-anime"]');
@@ -177,6 +179,24 @@ function selectedAnimeGet(userTarget) {
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     var response = xhr.response.data;
+    var userDataArr = userData.animeList;
+    for (var i = 0; i < userDataArr.length; i++) {
+      if (userDataArr[i].id === response.mal_id) {
+        $addButton.setAttribute('id', 'inlist');
+        $addButton.textContent = 'IN LIST';
+        break;
+      } else {
+        $addButton.setAttribute('id', 'not-inlist');
+        $addButton.textContent = 'ADD';
+      }
+    }
+
+    selectedAnimeInfo.img = response.images.jpg.small_image_url;
+    selectedAnimeInfo.score = response.score;
+    selectedAnimeInfo.id = response.mal_id;
+    selectedAnimeInfo.episodes = response.episodes;
+    selectedAnimeInfo.inList = true;
+
     $selectedTitle.textContent = response.title;
     $selectedPicture.setAttribute('src', response.images.jpg.large_image_url);
     var starIcon = document.createElement('i');
@@ -198,25 +218,50 @@ function selectedAnimeGet(userTarget) {
   xhr.send();
 }
 
-var userTarget = '';
+var selectedAnimeInfo = {
+  img: '',
+  score: 0,
+  id: 0,
+  episodes: 0,
+  progress: 0,
+  inList: false
+};
 function userSelectAnimeHandler(event) {
   var closestSelectedDiv = event.target.closest('.col-50-25');
   var closestID = closestSelectedDiv.getAttribute('id');
-  userTarget = closestID;
+  var userTarget = closestID;
   selectedAnimeGet(userTarget);
   viewSwap('selected-anime');
-  return userTarget;
 }
 $searchAppend.addEventListener('click', userSelectAnimeHandler);
 
 function userSelectTopAnimeHandler(event) {
   var closestListItem = event.target.closest('li');
-  userTarget = closestListItem.getAttribute('id');
+  var userTarget = closestListItem.getAttribute('id');
   selectedAnimeGet(userTarget);
   viewSwap('selected-anime');
-  return userTarget;
 }
 $topAnimeList.addEventListener('click', userSelectTopAnimeHandler);
+
+function addButtonHandler(event) {
+  var userDataArr = userData.animeList;
+  var trueOrFalse = true;
+  for (var i = 0; i < userDataArr.length; i++) {
+    if (userDataArr[i].id === selectedAnimeInfo.id) {
+      trueOrFalse = false;
+      userDataArr.splice(i, 1);
+      $addButton.setAttribute('id', 'not-inlist');
+      $addButton.textContent = 'ADD';
+      break;
+    }
+  }
+  if (trueOrFalse === true) {
+    userDataArr.unshift(selectedAnimeInfo);
+    $addButton.setAttribute('id', 'inlist');
+    $addButton.textContent = 'IN LIST';
+  }
+}
+$addButton.addEventListener('click', addButtonHandler);
 
 function viewSwap(userview) {
   if (userview === 'top-anime') {
