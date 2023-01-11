@@ -25,7 +25,7 @@
       </div>
     </header>
     <main class="container relative">
-      <div data-view="top-anime">
+      <div data-view="top-anime" class="hidden"> <!--remove hidden-->
         <div class="row top-anime relative">
           <div class="col-full center relative">
             <h1 class="margin-10tb">Top Anime</h1>
@@ -51,32 +51,37 @@
         </div>
       </div>
       <div data-view="selected-anime">
-        <div class="row">
+        <div class="row margin-15t">
           <div class="col-full inline">
-            <div>
-              <button>CHARACTERS</button>
+            <div class="characters-button-div">
+              <button class="characters-button">CHARACTERS</button>
             </div>
-            <div>
-              <button>ADD</button>
+            <div class="add-button-div">
+              <button class="add-button">ADD</button>
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row margin-15l">
           <div class="col-full">
-            <h1>Naruto</h1>
+            <h1 class="selected-title">Naruto</h1>
           </div>
         </div>
-        <div class="row">
-          <div class="col-50-25">
-
+        <div class="row margin-15l">
+          <div class="col-40-33 selected-picture-div">
+            <img class="selected-picture" src="https://cdn.myanimelist.net/images/anime/13/17405l.jpg">
           </div>
-          <div class="col-50-75">
-
+          <div class="col-60">
+            <h1 class="white margin-0t align-center"><i id="star-fix" class="fa-solid fa-star"></i>7.98</h1>
+            <h3 class="selected-anime-stats">Episodes:&nbsp; <span id="episodes">220</span></h3>
+            <h3 class="selected-anime-stats">Rank:&nbsp; <span id="rank">610</span></h3>
+            <h3 class="selected-anime-stats">Premiered:&nbsp; <span id="premiered">2002</span></h3>
+            <h3 class="selected-anime-stats">Status:&nbsp; <span id="status">Finished Airing</span></h3>
+            <h3 class="selected-anime-stats">Type:&nbsp; <span id="type">TV</span></h3>
           </div>
         </div>
-        <div class="row">
+        <div class="row margin-15l">
           <div class="col-full">
-
+            <h3 class="synopsis">Synopsis:&nbsp; <span id="synopsis"></span></h3>
           </div>
         </div>
       </div>

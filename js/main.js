@@ -157,6 +157,19 @@ function renderSearchResult(response, i) {
   return $searchAppend;
 }
 
+// eslint-disable-next-line no-unused-vars
+function selectedAnimeGet() {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://api.jikan.moe/v4/anime/20');
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    removeSearchResults();
+    // eslint-disable-next-line no-unused-vars
+    var response = xhr.response.data;
+  });
+  xhr.send();
+}
+
 function viewSwap(userview) {
   if (userview === 'top-anime') {
     $topAnimeView.classList.remove('hidden');
