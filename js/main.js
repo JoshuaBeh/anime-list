@@ -22,6 +22,7 @@ $animeNavAnchor.addEventListener('click', function () {
 
 function renderTopAnime(response, i) {
   var li = document.createElement('li');
+  li.setAttribute('id', response[i].mal_id);
 
   var rowDiv = document.createElement('div');
   rowDiv.className = 'row top-background';
@@ -208,11 +209,21 @@ function userSelectAnimeHandler(event) {
 }
 $searchAppend.addEventListener('click', userSelectAnimeHandler);
 
+function userSelectTopAnimeHandler(event) {
+  var closestListItem = event.target.closest('li');
+  userTarget = closestListItem.getAttribute('id');
+  selectedAnimeGet(userTarget);
+  viewSwap('selected-anime');
+  return userTarget;
+}
+$topAnimeList.addEventListener('click', userSelectTopAnimeHandler);
+
 function viewSwap(userview) {
   if (userview === 'top-anime') {
     $topAnimeView.classList.remove('hidden');
     $searchResultView.classList.add('hidden');
     $selectedAnimeView.classList.add('hidden');
+    removeSearchResults();
   } else if (userview === 'search-result') {
     $searchResultView.classList.remove('hidden');
     $topAnimeView.classList.add('hidden');
@@ -221,5 +232,6 @@ function viewSwap(userview) {
     $selectedAnimeView.classList.remove('hidden');
     $topAnimeView.classList.add('hidden');
     $searchResultView.classList.add('hidden');
+    removeSearchResults();
   }
 }
