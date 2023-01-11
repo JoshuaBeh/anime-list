@@ -12,7 +12,7 @@ var $searchInput = document.querySelector('.search-input');
 var $searchButton = document.querySelector('#search-button');
 var $searchAppend = document.querySelector('#search-append');
 var $animeNavAnchor = document.querySelector('.anime');
-var $selectedAnime = document.querySelector('[data-view="selected-anime"]');
+var $selectedAnimeView = document.querySelector('[data-view="selected-anime"]');
 var userSearchInput = '';
 var pageNumber = 1;
 
@@ -24,11 +24,11 @@ function renderTopAnime(response, i) {
   var li = document.createElement('li');
 
   var rowDiv = document.createElement('div');
-  rowDiv.className = 'row top-background relative';
+  rowDiv.className = 'row top-background';
   li.appendChild(rowDiv);
 
   var col20Div = document.createElement('div');
-  col20Div.className = 'col-20 center relative';
+  col20Div.className = 'col-20 center';
   rowDiv.appendChild(col20Div);
 
   var img = document.createElement('img');
@@ -37,7 +37,7 @@ function renderTopAnime(response, i) {
   col20Div.appendChild(img);
 
   var col80Div = document.createElement('div');
-  col80Div.className = 'col-80 inline relative';
+  col80Div.className = 'col-80 inline';
   rowDiv.appendChild(col80Div);
 
   var title = document.createElement('a');
@@ -91,6 +91,7 @@ function searchPopUpHandler(event) {
   $header.classList.add('z-index-neg');
   $topAnimeView.classList.add('z-index-neg');
   $searchResultView.classList.add('z-index-neg');
+  $selectedAnimeView.classList.add('z-index-neg');
   $popUpSearch.classList.remove('hidden');
 }
 $searchAnchor.addEventListener('click', searchPopUpHandler);
@@ -125,6 +126,7 @@ $searchButton.addEventListener('click', function () {
   $header.classList.remove('z-index-neg');
   $topAnimeView.classList.remove('z-index-neg');
   $searchResultView.classList.remove('z-index-neg');
+  $selectedAnimeView.classList.remove('z-index-neg');
   $popUpSearch.classList.add('hidden');
 });
 
@@ -210,13 +212,13 @@ function viewSwap(userview) {
   if (userview === 'top-anime') {
     $topAnimeView.classList.remove('hidden');
     $searchResultView.classList.add('hidden');
-    $selectedAnime.classList.add('hidden');
+    $selectedAnimeView.classList.add('hidden');
   } else if (userview === 'search-result') {
     $searchResultView.classList.remove('hidden');
     $topAnimeView.classList.add('hidden');
-    $selectedAnime.classList.add('hidden');
+    $selectedAnimeView.classList.add('hidden');
   } else if (userview === 'selected-anime') {
-    $selectedAnime.classList.remove('hidden');
+    $selectedAnimeView.classList.remove('hidden');
     $topAnimeView.classList.add('hidden');
     $searchResultView.classList.add('hidden');
   }
