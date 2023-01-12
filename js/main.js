@@ -22,10 +22,10 @@ $animeNavAnchor.addEventListener('click', function () {
   viewSwap('top-anime');
 });
 
-window.addEventListener('load', function () {
-  selectedAnimeGet(userData.userTarget);
-  viewSwap(userData.view);
-});
+// window.addEventListener('load', function () {
+//   selectedAnimeGet(userData.userTarget);
+//   viewSwap(userData.view);
+// });
 
 function renderTopAnime(response, i) {
   var li = document.createElement('li');

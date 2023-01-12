@@ -6,7 +6,10 @@ html {
   display: none !important;
 }
 
-h1.star-hide {
+h1.star-hide,
+h2.type-hide,
+h3.type-hide,
+span.type-hide {
   display: none;
 }
 
@@ -36,6 +39,14 @@ h1.star-hide {
 
 .col-50-25 {
   width: 50%;
+}
+
+.col-10 {
+  width: 10%;
+}
+
+.col-90 {
+  width: 90%;
 }
 
 .col-20 {
@@ -72,7 +83,10 @@ h1.star-hide {
     width: 77%;
   }
 
-  h1.star-hide {
+  h1.star-hide,
+  h2.type-hide,
+  h3.type-hide,
+  span.type-hide {
     display: inline-flex;
   }
 }
