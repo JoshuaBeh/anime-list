@@ -248,7 +248,8 @@ function addButtonHandler(event) {
       userDataArr.splice(i, 1);
       $addButton.setAttribute('id', 'not-inlist');
       $addButton.textContent = 'ADD';
-      window.location.reload(true);
+      var dataJSON = JSON.stringify(userData);
+      window.localStorage.setItem('animelist-local-storage', dataJSON);
       break;
     }
   }
@@ -256,13 +257,16 @@ function addButtonHandler(event) {
     userDataArr.unshift(selectedAnimeInfo);
     $addButton.setAttribute('id', 'inlist');
     $addButton.textContent = 'IN LIST';
-    window.location.reload(true);
+    var userDataJSON = JSON.stringify(userData);
+    window.localStorage.setItem('animelist-local-storage', userDataJSON);
   }
 }
 $addButton.addEventListener('click', addButtonHandler);
 
 function checkDataForButton(response) {
-  var userDataArr = userData.animeList;
+  var testStorage = window.localStorage.getItem('animelist-local-storage');
+  var parseStorage = JSON.parse(testStorage);
+  var userDataArr = parseStorage.animeList;
   var trueOrFalse;
   if (userDataArr.length === 0) {
     return;
