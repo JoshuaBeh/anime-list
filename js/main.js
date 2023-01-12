@@ -22,6 +22,11 @@ $animeNavAnchor.addEventListener('click', function () {
   viewSwap('top-anime');
 });
 
+window.addEventListener('load', function () {
+  selectedAnimeGet(userData.userTarget);
+  viewSwap(userData.view);
+});
+
 function renderTopAnime(response, i) {
   var li = document.createElement('li');
   li.setAttribute('id', response[i].mal_id);
@@ -218,6 +223,7 @@ var selectedAnimeInfo = {
 function userSelectAnimeHandler(event) {
   var closestSelectedDiv = event.target.closest('.col-50-25');
   var closestID = closestSelectedDiv.getAttribute('id');
+  userData.userTarget = closestID;
   var userTarget = closestID;
   selectedAnimeGet(userTarget);
   viewSwap('selected-anime');
@@ -227,6 +233,7 @@ $searchAppend.addEventListener('click', userSelectAnimeHandler);
 function userSelectTopAnimeHandler(event) {
   var closestListItem = event.target.closest('li');
   var userTarget = closestListItem.getAttribute('id');
+  userData.userTarget = userTarget;
   selectedAnimeGet(userTarget);
   viewSwap('selected-anime');
 }
@@ -241,6 +248,7 @@ function addButtonHandler(event) {
       userDataArr.splice(i, 1);
       $addButton.setAttribute('id', 'not-inlist');
       $addButton.textContent = 'ADD';
+      window.location.reload(true);
       break;
     }
   }
@@ -248,6 +256,7 @@ function addButtonHandler(event) {
     userDataArr.unshift(selectedAnimeInfo);
     $addButton.setAttribute('id', 'inlist');
     $addButton.textContent = 'IN LIST';
+    window.location.reload(true);
   }
 }
 $addButton.addEventListener('click', addButtonHandler);

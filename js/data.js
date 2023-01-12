@@ -1,6 +1,7 @@
 /* exported data */
 
 var userData = {
+  userTarget: '',
   animeList: [],
   view: 'top-anime',
   nextListItem: 1
