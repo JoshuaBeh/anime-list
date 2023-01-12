@@ -14,7 +14,7 @@ span.type-hide {
 }
 
 .container {
-  max-width: 575px;
+  max-width: 576px;
   margin: 0 auto;
   padding: 0;
 }
@@ -27,6 +27,12 @@ span.type-hide {
 .col-full,
 .col-half {
   width: 100%;
+}
+
+.col-list-pop-up {
+  background-color: #1a1c1e;
+  width: 400px;
+  padding: 25px;
 }
 
 .col-40-33 {
@@ -69,6 +75,10 @@ span.type-hide {
 
   .col-half {
     width: 50%;
+  }
+
+  .col-list-pop-up {
+    width: 600px;
   }
 
   .col-40-33 {

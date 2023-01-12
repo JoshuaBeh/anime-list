@@ -6,6 +6,11 @@ span {
   color: white;
 }
 
+label {
+  font-size: 1.2rem;
+  color: white;
+}
+
 img.top-image {
   height: 100%;
 }
@@ -333,7 +338,7 @@ img.selected-picture {
 .pop-up-list {
   position: fixed;
   left: 50%;
-  top: 50%;
+  top: 40%;
   transform: translateX(-50%);
 }
 
@@ -358,6 +363,41 @@ img.selected-picture {
 #score-input,
 #progress-input {
   display: block;
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  height: 40px;
+  background-color: #232628;
+  color: white;
+  width: 100px;
+}
+
+.delete-button-div {
+  margin-top: 30px;
+}
+
+.delete-button {
+  background-color: red;
+  color: white;
+  font-size: 1.1rem;
+  border: 1px solid red;
+  border-radius: 5px;
+  width: 85px;
+  height: 35px;
+}
+
+.save-button-div {
+  margin-bottom: 15px;
+}
+
+.save-button {
+  background-color: #1788b8;
+  color: white;
+  font-size: 1.1rem;
+  border: 1px solid #1788b8;
+  border-radius: 5px;
+  width: 85px;
+  height: 35px;
 }
 
 @media screen and (min-width: 768px) {
