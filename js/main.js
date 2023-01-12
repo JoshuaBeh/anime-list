@@ -179,18 +179,7 @@ function selectedAnimeGet(userTarget) {
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     var response = xhr.response.data;
-    var userDataArr = userData.animeList;
-    for (var i = 0; i < userDataArr.length; i++) {
-      if (userDataArr[i].id === response.mal_id) {
-        $addButton.setAttribute('id', 'inlist');
-        $addButton.textContent = 'IN LIST';
-        break;
-      } else {
-        $addButton.setAttribute('id', 'not-inlist');
-        $addButton.textContent = 'ADD';
-      }
-    }
-
+    checkDataForButton(response);
     selectedAnimeInfo.img = response.images.jpg.small_image_url;
     selectedAnimeInfo.score = response.score;
     selectedAnimeInfo.id = response.mal_id;
@@ -263,20 +252,48 @@ function addButtonHandler(event) {
 }
 $addButton.addEventListener('click', addButtonHandler);
 
+function checkDataForButton(response) {
+  var userDataArr = userData.animeList;
+  var trueOrFalse;
+  if (userDataArr.length === 0) {
+    return;
+  }
+  for (var i = 0; i < userDataArr.length; i++) {
+    if (userDataArr[i].id === response.mal_id) {
+      trueOrFalse = true;
+      break;
+    } else {
+      trueOrFalse = false;
+    }
+  }
+  if (trueOrFalse === true) {
+    $addButton.setAttribute('id', 'inlist');
+    $addButton.textContent = 'IN LIST';
+    return $addButton;
+  } else {
+    $addButton.setAttribute('id', 'not-inlist');
+    $addButton.textContent = 'ADD';
+    return $addButton;
+  }
+}
+
 function viewSwap(userview) {
   if (userview === 'top-anime') {
     $topAnimeView.classList.remove('hidden');
     $searchResultView.classList.add('hidden');
     $selectedAnimeView.classList.add('hidden');
+    userData.view = 'top-anime';
     removeSearchResults();
   } else if (userview === 'search-result') {
     $searchResultView.classList.remove('hidden');
     $topAnimeView.classList.add('hidden');
     $selectedAnimeView.classList.add('hidden');
+    userData.view = 'search-result';
   } else if (userview === 'selected-anime') {
     $selectedAnimeView.classList.remove('hidden');
     $topAnimeView.classList.add('hidden');
     $searchResultView.classList.add('hidden');
+    userData.view = 'selected-anime';
     removeSearchResults();
   }
 }
