@@ -14,12 +14,18 @@ var $searchButton = document.querySelector('#search-button');
 var $addButton = document.querySelector('.add-button');
 var $searchAppend = document.querySelector('#search-append');
 var $animeNavAnchor = document.querySelector('.anime');
+var $listNavAnchor = document.querySelector('.list-anchor');
 var $selectedAnimeView = document.querySelector('[data-view="selected-anime"]');
+var $animeListView = document.querySelector('[data-view="anime-list"]');
 var userSearchInput = '';
 var pageNumber = 1;
 
 $animeNavAnchor.addEventListener('click', function () {
   viewSwap('top-anime');
+});
+
+$listNavAnchor.addEventListener('click', function () {
+  viewSwap('anime-list');
 });
 
 // window.addEventListener('load', function () {
@@ -189,6 +195,7 @@ function selectedAnimeGet(userTarget) {
     selectedAnimeInfo.score = response.score;
     selectedAnimeInfo.id = response.mal_id;
     selectedAnimeInfo.episodes = response.episodes;
+    selectedAnimeInfo.title = response.title;
     selectedAnimeInfo.inList = true;
 
     $selectedTitle.textContent = response.title;
@@ -216,6 +223,7 @@ var selectedAnimeInfo = {
   img: '',
   score: 0,
   id: 0,
+  title: '',
   episodes: 0,
   progress: 0,
   inList: false
@@ -240,7 +248,9 @@ function userSelectTopAnimeHandler(event) {
 $topAnimeList.addEventListener('click', userSelectTopAnimeHandler);
 
 function addButtonHandler(event) {
-  var userDataArr = userData.animeList;
+  var testStorage = window.localStorage.getItem('animelist-local-storage');
+  var parseStorage = JSON.parse(testStorage);
+  var userDataArr = parseStorage.animeList;
   var trueOrFalse = true;
   for (var i = 0; i < userDataArr.length; i++) {
     if (userDataArr[i].id === selectedAnimeInfo.id) {
@@ -248,8 +258,10 @@ function addButtonHandler(event) {
       userDataArr.splice(i, 1);
       $addButton.setAttribute('id', 'not-inlist');
       $addButton.textContent = 'ADD';
-      var dataJSON = JSON.stringify(userData);
+      var dataJSON = JSON.stringify(parseStorage);
       window.localStorage.setItem('animelist-local-storage', dataJSON);
+      // eslint-disable-next-line no-global-assign
+      userData = parseStorage;
       break;
     }
   }
@@ -257,8 +269,10 @@ function addButtonHandler(event) {
     userDataArr.unshift(selectedAnimeInfo);
     $addButton.setAttribute('id', 'inlist');
     $addButton.textContent = 'IN LIST';
-    var userDataJSON = JSON.stringify(userData);
+    var userDataJSON = JSON.stringify(parseStorage);
     window.localStorage.setItem('animelist-local-storage', userDataJSON);
+    // eslint-disable-next-line no-global-assign
+    userData = parseStorage;
   }
 }
 $addButton.addEventListener('click', addButtonHandler);
@@ -290,23 +304,59 @@ function checkDataForButton(response) {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
+function renderAnimeList(userData) {
+  var outerRowDiv = document.createElement('div');
+  outerRowDiv.className = 'row center top-background margin-30t';
+
+  var col10Div = document.createElement('div');
+  col10Div.className = 'col-10';
+  outerRowDiv.appendChild(col10Div);
+
+  var img = document.createElement('img');
+  img.setAttribute('src', userData.img);
+  col10Div.appendChild(img);
+
+  var col90div = document.createElement('div');
+  col90div.className = 'col-90 white';
+  outerRowDiv.appendChild(col90div);
+
+  var innerRowDiv = document.createElement('div');
+  innerRowDiv.className = 'row list-inline';
+  col90div.appendChild(innerRowDiv);
+
+  var h3 = document.createElement('h3');
+  h3.className = 'padding-left-fix margin-tb-fix';
+  h3.textContent = userData.title;
+}
+
 function viewSwap(userview) {
   if (userview === 'top-anime') {
     $topAnimeView.classList.remove('hidden');
     $searchResultView.classList.add('hidden');
     $selectedAnimeView.classList.add('hidden');
+    $animeListView.classList.add('hidden');
     userData.view = 'top-anime';
     removeSearchResults();
   } else if (userview === 'search-result') {
     $searchResultView.classList.remove('hidden');
     $topAnimeView.classList.add('hidden');
     $selectedAnimeView.classList.add('hidden');
+    $animeListView.classList.add('hidden');
     userData.view = 'search-result';
   } else if (userview === 'selected-anime') {
     $selectedAnimeView.classList.remove('hidden');
     $topAnimeView.classList.add('hidden');
     $searchResultView.classList.add('hidden');
+    $animeListView.classList.add('hidden');
     userData.view = 'selected-anime';
+    removeSearchResults();
+  } else if (userview === 'anime-list') {
+    $animeListView.classList.remove('hidden');
+    $topAnimeView.classList.add('hidden');
+    $searchResultView.classList.add('hidden');
+    $selectedAnimeView.classList.add('hidden');
+    userData.view = 'anime-list';
     removeSearchResults();
   }
 }
