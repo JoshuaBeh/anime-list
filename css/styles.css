@@ -358,6 +358,7 @@ img.selected-picture {
 .span-fix {
   display: block;
   margin-top: 15px;
+  margin-left: 20px;
 }
 
 #score-input,
@@ -400,6 +401,10 @@ img.selected-picture {
   height: 35px;
 }
 
+ul#anime-list > li {
+  margin: 0;
+}
+
 @media screen and (min-width: 768px) {
   .top-titles {
     font-size: 1.8rem;
@@ -415,7 +420,7 @@ img.selected-picture {
   }
 
   .padding-right {
-    padding-right: 300px;
+    padding-right: 300;
   }
 
   .list-inline {
@@ -433,10 +438,21 @@ img.selected-picture {
     margin-bottom: 18.72px;
   }
 
+  h3 {
+    width: 400px;
+  }
+
+  .anime-list-inline {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .span-fix {
     display: inline-flex;
     margin-top: 0;
     margin-left: 105px;
+    margin-right: 80px;
   }
 
   .margin-left-70 {

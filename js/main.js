@@ -25,13 +25,15 @@ $animeNavAnchor.addEventListener('click', function () {
 });
 
 $listNavAnchor.addEventListener('click', function () {
+  $ulAnimeList.replaceChildren();
+  loadAnimeList();
   viewSwap('anime-list');
 });
 
-// window.addEventListener('load', function () {
-//   selectedAnimeGet(userData.userTarget);
-//   viewSwap(userData.view);
-// });
+window.addEventListener('load', function () {
+  selectedAnimeGet(userData.userTarget);
+  viewSwap(userData.view);
+});
 
 function renderTopAnime(response, i) {
   var li = document.createElement('li');
@@ -196,6 +198,7 @@ function selectedAnimeGet(userTarget) {
     selectedAnimeInfo.id = response.mal_id;
     selectedAnimeInfo.episodes = response.episodes;
     selectedAnimeInfo.title = response.title;
+    selectedAnimeInfo.type = response.type;
     selectedAnimeInfo.inList = true;
 
     $selectedTitle.textContent = response.title;
@@ -222,6 +225,7 @@ function selectedAnimeGet(userTarget) {
 var selectedAnimeInfo = {
   img: '',
   score: 0,
+  myScore: 0,
   id: 0,
   title: '',
   episodes: 0,
@@ -306,8 +310,12 @@ function checkDataForButton(response) {
 
 // eslint-disable-next-line no-unused-vars
 function renderAnimeList(userData) {
+  var li = document.createElement('li');
+  li.className = userData.id;
+
   var outerRowDiv = document.createElement('div');
-  outerRowDiv.className = 'row center top-background margin-30t';
+  outerRowDiv.className = 'row center top-background';
+  li.appendChild(outerRowDiv);
 
   var col10Div = document.createElement('div');
   col10Div.className = 'col-10';
@@ -317,17 +325,38 @@ function renderAnimeList(userData) {
   img.setAttribute('src', userData.img);
   col10Div.appendChild(img);
 
-  var col90div = document.createElement('div');
-  col90div.className = 'col-90 white';
-  outerRowDiv.appendChild(col90div);
-
-  var innerRowDiv = document.createElement('div');
-  innerRowDiv.className = 'row list-inline';
-  col90div.appendChild(innerRowDiv);
+  var col90Div = document.createElement('div');
+  col90Div.className = 'col-90 white anime-list-inline';
+  outerRowDiv.appendChild(col90Div);
 
   var h3 = document.createElement('h3');
   h3.className = 'padding-left-fix margin-tb-fix';
   h3.textContent = userData.title;
+  col90Div.appendChild(h3);
+
+  var spanFixDiv = document.createElement('div');
+  spanFixDiv.className = 'span-fix';
+  col90Div.appendChild(spanFixDiv);
+
+  var scoreSpan = document.createElement('span');
+  scoreSpan.textContent = 'Score: ' + userData.myScore;
+  spanFixDiv.appendChild(scoreSpan);
+
+  var progressSpan = document.createElement('span');
+  progressSpan.className = 'margin-left-70';
+  progressSpan.textContent = 'Progress: ' + userData.progress + '/' + userData.episodes;
+  spanFixDiv.appendChild(progressSpan);
+
+  return li;
+}
+var $ulAnimeList = document.querySelector('#anime-list');
+function loadAnimeList() {
+  var testStorage = window.localStorage.getItem('animelist-local-storage');
+  var parseStorage = JSON.parse(testStorage);
+  var userDataArr = parseStorage.animeList;
+  userDataArr.forEach(userData => {
+    $ulAnimeList.appendChild(renderAnimeList(userData));
+  });
 }
 
 function viewSwap(userview) {

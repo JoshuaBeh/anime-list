@@ -8,8 +8,7 @@ html {
 
 h1.star-hide,
 h2.type-hide,
-h3.type-hide,
-span.type-hide {
+h3.type-hide {
   display: none;
 }
 
@@ -95,8 +94,7 @@ span.type-hide {
 
   h1.star-hide,
   h2.type-hide,
-  h3.type-hide,
-  span.type-hide {
+  h3.type-hide {
     display: inline-flex;
   }
 }
