@@ -6,12 +6,14 @@ html {
   display: none !important;
 }
 
-h1.star-hide {
+h1.star-hide,
+h2.type-hide,
+h3.type-hide {
   display: none;
 }
 
 .container {
-  max-width: 575px;
+  max-width: 576px;
   margin: 0 auto;
   padding: 0;
 }
@@ -26,6 +28,12 @@ h1.star-hide {
   width: 100%;
 }
 
+.col-list-pop-up {
+  background-color: #1a1c1e;
+  width: 400px;
+  padding: 25px;
+}
+
 .col-40-33 {
   width: 40%;
 }
@@ -36,6 +44,14 @@ h1.star-hide {
 
 .col-50-25 {
   width: 50%;
+}
+
+.col-10 {
+  width: 10%;
+}
+
+.col-90 {
+  width: 90%;
 }
 
 .col-20 {
@@ -53,11 +69,15 @@ h1.star-hide {
 
   .col-full,
   .col-half {
-    padding: 0;
+    width: 100%;
   }
 
   .col-half {
     width: 50%;
+  }
+
+  .col-list-pop-up {
+    width: 600px;
   }
 
   .col-40-33 {
@@ -72,7 +92,9 @@ h1.star-hide {
     width: 77%;
   }
 
-  h1.star-hide {
+  h1.star-hide,
+  h2.type-hide,
+  h3.type-hide {
     display: inline-flex;
   }
 }

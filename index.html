@@ -17,8 +17,8 @@
         <div class="row relative">
           <div id="anchor-bar" class="col-full justify-between relative">
             <a class="anime" href="#">Anime</a>
-            <a class="nav-anchor" href="#">List</a>
-            <a class="nav-anchor" href="#">Characters</a>
+            <a class="nav-anchor list-anchor" href="#">List</a>
+            <a class="nav-anchor characters-anchor" href="#">Characters</a>
             <a id="search-pop-up" class="nav-anchor inline" href="#"><i class="fas fa-search font-0-7"></i>Search</a>
           </div>
         </div>
@@ -32,6 +32,7 @@
           </div>
         </div>
         <ul id="top-anime">
+
         </ul>
         <div class="row relative">
           <div class="col-full inline relative">
@@ -85,6 +86,10 @@
           </div>
         </div>
       </div>
+      <div data-view="anime-list" class="hidden relative">
+        <ul id="anime-list" class="margin-30t">
+        </ul>
+      </div>
       <div class="row pop-up-search hidden">
         <div class="col-full center">
           <div class="search-bar align-center">
@@ -92,6 +97,36 @@
               <i id="search-button" class="fas fa-search"></i>
             </div>
             <input class="search-input" type="text" placeholder="Search Anime">
+          </div>
+        </div>
+      </div>
+      <div class="row pop-up-list center hidden">
+        <div class="col-list-pop-up">
+          <div class="row">
+            <div class="col-full flex-end">
+              <div class="save-button-div">
+                <button class="save-button">Save</button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-full inline-around">
+              <div>
+                <label for="score-input">Score</label>
+                <input id="score-input" type="text" placeholder="5.5">
+              </div>
+              <div>
+                <label for="progress-input">Progress</label>
+                <input id="progress-input" type="text" placeholder="10">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-full flex-end">
+              <div class="delete-button-div">
+                <button class="delete-button">Delete</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
