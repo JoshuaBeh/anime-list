@@ -419,6 +419,26 @@ function saveListEntry(event) {
 }
 $saveButton.addEventListener('click', saveListEntry);
 
+var $deleteButton = document.querySelector('.delete-button');
+function deleteButtonHandler() {
+  var testStorage = window.localStorage.getItem('animelist-local-storage');
+  var parseStorage = JSON.parse(testStorage);
+  var userDataArr = parseStorage.animeList;
+  for (var i = 0; i < userDataArr.length; i++) {
+    if (userDataArr[i].id.toString() === userData.currentListItem) {
+      userDataArr.splice(i, 1);
+    }
+  }
+  var dataJSON = JSON.stringify(parseStorage);
+  window.localStorage.setItem('animelist-local-storage', dataJSON);
+  // eslint-disable-next-line no-global-assign
+  userData = parseStorage;
+  $ulAnimeList.replaceChildren();
+  loadAnimeList();
+  animeListClosePopUp();
+}
+$deleteButton.addEventListener('click', deleteButtonHandler);
+
 function animeListPopUp() {
   $outerDiv.classList.add('pop-up-background');
   $header.classList.add('z-index-neg');
