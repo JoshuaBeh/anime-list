@@ -458,7 +458,6 @@ ul#anime-list > li {
 
   .anime-list-inline {
     display: inline-flex;
-    justify-content: center;
     align-items: center;
   }
 
