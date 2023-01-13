@@ -313,6 +313,11 @@ input.search-input:active {
   border: 1px solid red;
 }
 
+#not-inlist:hover {
+  background-color: green;
+  border: 1px solid green;
+}
+
 .selected-title {
   color: #27b3fd;
 }

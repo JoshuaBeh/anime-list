@@ -17,6 +17,7 @@ var $animeNavAnchor = document.querySelector('.anime');
 var $listNavAnchor = document.querySelector('.list-anchor');
 var $selectedAnimeView = document.querySelector('[data-view="selected-anime"]');
 var $animeListView = document.querySelector('[data-view="anime-list"]');
+var $ulAnimeList = document.querySelector('#anime-list');
 var userSearchInput = '';
 var pageNumber = 1;
 
@@ -352,7 +353,7 @@ function renderAnimeList(userData) {
 
   return li;
 }
-var $ulAnimeList = document.querySelector('#anime-list');
+
 function loadAnimeList() {
   var testStorage = window.localStorage.getItem('animelist-local-storage');
   var parseStorage = JSON.parse(testStorage);
