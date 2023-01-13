@@ -13,12 +13,19 @@ label {
 
 img.top-image {
   height: 100%;
+  width: 56.25px;
 }
 
 img.search-result-img {
   object-fit: fill;
   width: 190px;
   height: 267px;
+}
+
+.anime-list-img {
+  margin-left: 10px;
+  height: 100%;
+  width: 56.25px;
 }
 
 .center {
@@ -158,6 +165,7 @@ li {
 
 .synopsis {
   color: rgb(172, 172, 172);
+  margin-right: 30px;
 }
 
 #star-fix {
@@ -438,7 +446,7 @@ ul#anime-list > li {
     margin-bottom: 18.72px;
   }
 
-  h3 {
+  h3.padding-left-fix {
     width: 400px;
   }
 

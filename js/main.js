@@ -108,6 +108,7 @@ function searchPopUpHandler(event) {
   $topAnimeView.classList.add('z-index-neg');
   $searchResultView.classList.add('z-index-neg');
   $selectedAnimeView.classList.add('z-index-neg');
+  $animeListView.classList.add('z-index-neg');
   $popUpSearch.classList.remove('hidden');
 }
 $searchAnchor.addEventListener('click', searchPopUpHandler);
@@ -143,6 +144,7 @@ $searchButton.addEventListener('click', function () {
   $topAnimeView.classList.remove('z-index-neg');
   $searchResultView.classList.remove('z-index-neg');
   $selectedAnimeView.classList.remove('z-index-neg');
+  $animeListView.classList.remove('z-index-neg');
   $popUpSearch.classList.add('hidden');
 });
 
@@ -322,6 +324,7 @@ function renderAnimeList(userData) {
   outerRowDiv.appendChild(col10Div);
 
   var img = document.createElement('img');
+  img.className = 'anime-list-img';
   img.setAttribute('src', userData.img);
   col10Div.appendChild(img);
 
