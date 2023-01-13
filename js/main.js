@@ -395,11 +395,15 @@ function saveListEntry(event) {
     if (userDataArr[i].id.toString() === userData.currentListItem) {
       if (userScoreInput > 10) {
         userDataArr[i].myScore = 10;
+      } else if (userScoreInput === '') {
+        userDataArr[i].myScore = 0;
       } else {
         userDataArr[i].myScore = userScoreInput.toString();
       }
-      if (userProgressInput > userDataArr[i].progress) {
+      if (Number(userProgressInput) > userDataArr[i].episodes) {
         userDataArr[i].progress = userDataArr[i].episodes;
+      } else if (userScoreInput === '') {
+        userDataArr[i].progress = 0;
       } else {
         userDataArr[i].progress = userProgressInput.toString();
       }
