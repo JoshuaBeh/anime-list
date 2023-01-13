@@ -491,7 +491,11 @@ function renderSelectedAnimeCharacters(response, i) {
 
   var h2 = document.createElement('h2');
   h2.className = 'search-title';
-  h2.textContent = response[i].character.name;
+  if (response[i].character.name.length > 15) {
+    h2.textContent = response[i].character.name.split('').splice(0, 15).join('') + '...';
+  } else {
+    h2.textContent = response[i].character.name;
+  }
   divForTitle.appendChild(h2);
 
   return $selectedAnimeCharacters;
