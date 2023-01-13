@@ -35,6 +35,7 @@ $listNavAnchor.addEventListener('click', function () {
 
 window.addEventListener('load', function () {
   selectedAnimeGet(userData.userTarget);
+  searchResultGet();
   viewSwap(userData.view);
   loadAnimeList();
 });
@@ -154,7 +155,7 @@ $searchButton.addEventListener('click', function () {
 
 function renderSearchResult(response, i) {
   var col5025div = document.createElement('div');
-  col5025div.className = 'col-50-25';
+  col5025div.className = 'col-50-25 center';
   col5025div.setAttribute('id', response[i].mal_id);
   $searchAppend.appendChild(col5025div);
 
@@ -452,6 +453,17 @@ function animeListClosePopUp() {
   $animeListView.classList.remove('z-index-neg');
   $popUpList.classList.add('hidden');
 }
+
+function selectedAnimeCharactersGet(userTarget) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://api.jikan.moe/v4/anime/' + userTarget + '/' + 'characters');
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    // console.log(xhr.response);
+  });
+  xhr.send();
+}
+selectedAnimeCharactersGet(41467);
 
 function viewSwap(userview) {
   if (userview === 'top-anime') {

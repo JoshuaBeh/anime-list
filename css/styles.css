@@ -71,6 +71,7 @@ img.search-result-img {
   margin-top: 20px;
   margin-right: 10px;
   margin-left: 25px;
+  background-color: #1a1c1e;
 }
 
 .back-to-top-div {
@@ -125,7 +126,7 @@ li {
 }
 
 .search-title-div {
-  width: 76%;
+  width: 100%;
   background-color: #1a1c1e;
   height: 40px;
 }
