@@ -20,8 +20,27 @@ var $animeListView = document.querySelector('[data-view="anime-list"]');
 var $ulAnimeList = document.querySelector('#anime-list');
 var $popUpList = document.querySelector('.pop-up-list');
 var $saveButton = document.querySelector('.save-button');
+var $selectedAnimeCharacters = document.querySelector('#selected-anime-characters');
 var userSearchInput = '';
 var pageNumber = 1;
+
+var selectedAnimeInfo = {
+  img: '',
+  score: 0,
+  myScore: 0,
+  id: 0,
+  title: '',
+  episodes: 0,
+  progress: 0,
+  inList: false
+};
+
+// eslint-disable-next-line no-unused-vars
+var selectedAnimeCharactersInfo = {
+  mal_id: 0,
+  name: '',
+  img: ''
+};
 
 $animeNavAnchor.addEventListener('click', function () {
   viewSwap('top-anime');
@@ -229,16 +248,6 @@ function selectedAnimeGet(userTarget) {
   xhr.send();
 }
 
-var selectedAnimeInfo = {
-  img: '',
-  score: 0,
-  myScore: 0,
-  id: 0,
-  title: '',
-  episodes: 0,
-  progress: 0,
-  inList: false
-};
 function userSelectAnimeHandler(event) {
   var closestSelectedDiv = event.target.closest('.col-50-25');
   var closestID = closestSelectedDiv.getAttribute('id');
@@ -454,16 +463,46 @@ function animeListClosePopUp() {
   $popUpList.classList.add('hidden');
 }
 
-function selectedAnimeCharactersGet(userTarget) {
+function renderSelectedAnimeCharacters(response, i) {
+  var col5025div = document.createElement('div');
+  col5025div.className = 'col-50-25 center';
+  col5025div.setAttribute('id', response[i].character.mal_id);
+  $selectedAnimeCharacters.appendChild(col5025div);
+
+  var imgDiv = document.createElement('div');
+  imgDiv.className = 'search-img-margin';
+  col5025div.appendChild(imgDiv);
+
+  var img = document.createElement('img');
+  img.className = 'search-result-img';
+  img.setAttribute('src', response[i].character.images.jpg.image_url);
+  imgDiv.appendChild(img);
+
+  var divForTitle = document.createElement('div');
+  divForTitle.className = 'center search-title-div';
+  imgDiv.appendChild(divForTitle);
+
+  var h2 = document.createElement('h2');
+  h2.className = 'search-title';
+  h2.textContent = response[i].character.name;
+  divForTitle.appendChild(h2);
+
+  return $selectedAnimeCharacters;
+}
+
+function selectedAnimeCharactersGet() {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.jikan.moe/v4/anime/' + userTarget + '/' + 'characters');
+  xhr.open('GET', 'https://api.jikan.moe/v4/anime/' + userData.userTarget + '/' + 'characters');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    // console.log(xhr.response);
+    var response = xhr.response.data;
+    for (var i = 0; i < response.length; i++) {
+      renderSelectedAnimeCharacters(response, i);
+    }
   });
   xhr.send();
 }
-selectedAnimeCharactersGet(41467);
+selectedAnimeCharactersGet();
 
 function viewSwap(userview) {
   if (userview === 'top-anime') {
