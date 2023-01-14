@@ -18,11 +18,14 @@ var $listNavAnchor = document.querySelector('.list-anchor');
 var $selectedAnimeView = document.querySelector('[data-view="selected-anime"]');
 var $animeListView = document.querySelector('[data-view="anime-list"]');
 var $selectedAnimeCharactersView = document.querySelector('[data-view="selected-anime-characters"]');
+var $characterListView = document.querySelector('[data-view="character-list"]');
 var $ulAnimeList = document.querySelector('#anime-list');
 var $popUpList = document.querySelector('.pop-up-list');
 var $saveButton = document.querySelector('.save-button');
 var $selectedAnimeCharacters = document.querySelector('#selected-anime-characters');
 var $charactersButton = document.querySelector('.characters-button');
+var $characterList = document.querySelector('#character-list');
+var $characterNavAnchor = document.querySelector('.characters-anchor');
 var userSearchInput = '';
 var pageNumber = 1;
 
@@ -54,11 +57,18 @@ $listNavAnchor.addEventListener('click', function () {
   viewSwap('anime-list');
 });
 
+$characterNavAnchor.addEventListener('click', function () {
+  $characterList.replaceChildren();
+  loadCharacterList();
+  viewSwap('character-list');
+});
+
 window.addEventListener('load', function () {
   selectedAnimeGet(userData.userTarget);
   searchResultGet();
   viewSwap(userData.view);
   loadAnimeList();
+  loadCharacterList();
   selectedAnimeCharactersGet();
 });
 
@@ -474,6 +484,7 @@ function renderSelectedAnimeCharacters(response, i) {
   var testStorage = window.localStorage.getItem('animelist-local-storage');
   var parseStorage = JSON.parse(testStorage);
   var userDataArr = parseStorage.characterList;
+
   var col5025div = document.createElement('div');
   col5025div.className = 'col-50-25 center';
   col5025div.setAttribute('id', response[i].character.mal_id);
@@ -559,9 +570,47 @@ function selectedAnimeCharactersListHandler(event) {
   window.localStorage.setItem('animelist-local-storage', dataJSON);
   // eslint-disable-next-line no-global-assign
   userData = parseStorage;
-  // viewSwap('character-list');
+  $characterList.replaceChildren();
+  loadCharacterList();
+  viewSwap('character-list');
 }
 $selectedAnimeCharacters.addEventListener('click', selectedAnimeCharactersListHandler);
+
+function renderCharacterList(userData) {
+  var col5025div = document.createElement('div');
+  col5025div.className = 'col-50-25 center';
+
+  var imgDiv = document.createElement('div');
+  imgDiv.className = 'search-img-margin';
+  col5025div.appendChild(imgDiv);
+
+  var img = document.createElement('img');
+  img.className = 'search-result-img';
+  img.setAttribute('src', userData.img);
+  imgDiv.appendChild(img);
+
+  var divForTitle = document.createElement('div');
+  divForTitle.className = 'center search-title-div';
+  imgDiv.appendChild(divForTitle);
+
+  var h2 = document.createElement('h2');
+  h2.className = 'search-title';
+  if (userData.name.length > 15) {
+    h2.textContent = userData.name.split('').splice(0, 15).join('') + '...';
+  } else {
+    h2.textContent = userData.name;
+  }
+  divForTitle.appendChild(h2);
+
+  return col5025div;
+}
+
+function loadCharacterList() {
+  var characterListArr = userData.characterList;
+  characterListArr.forEach(userData => {
+    $characterList.appendChild(renderCharacterList(userData));
+  });
+}
 
 function viewSwap(userview) {
   if (userview === 'top-anime') {
@@ -570,6 +619,7 @@ function viewSwap(userview) {
     $selectedAnimeView.classList.add('hidden');
     $animeListView.classList.add('hidden');
     $selectedAnimeCharactersView.classList.add('hidden');
+    $characterListView.classList.add('hidden');
     userData.view = 'top-anime';
     removeSearchResults();
     removeSelectedAnimeCharacters();
@@ -579,6 +629,7 @@ function viewSwap(userview) {
     $selectedAnimeView.classList.add('hidden');
     $animeListView.classList.add('hidden');
     $selectedAnimeCharactersView.classList.add('hidden');
+    $characterListView.classList.add('hidden');
     userData.view = 'search-result';
     removeSelectedAnimeCharacters();
   } else if (userview === 'selected-anime') {
@@ -587,6 +638,7 @@ function viewSwap(userview) {
     $searchResultView.classList.add('hidden');
     $animeListView.classList.add('hidden');
     $selectedAnimeCharactersView.classList.add('hidden');
+    $characterListView.classList.add('hidden');
     userData.view = 'selected-anime';
     removeSearchResults();
     removeSelectedAnimeCharacters();
@@ -596,6 +648,7 @@ function viewSwap(userview) {
     $searchResultView.classList.add('hidden');
     $selectedAnimeView.classList.add('hidden');
     $selectedAnimeCharactersView.classList.add('hidden');
+    $characterListView.classList.add('hidden');
     userData.view = 'anime-list';
     removeSearchResults();
     removeSelectedAnimeCharacters();
@@ -604,8 +657,19 @@ function viewSwap(userview) {
     $searchResultView.classList.add('hidden');
     $selectedAnimeView.classList.add('hidden');
     $animeListView.classList.add('hidden');
+    $characterListView.classList.add('hidden');
     $selectedAnimeCharactersView.classList.remove('hidden');
     userData.view = 'selectedAnimeCharacters';
     removeSearchResults();
+  } else if (userview === 'character-list') {
+    $topAnimeView.classList.add('hidden');
+    $searchResultView.classList.add('hidden');
+    $selectedAnimeView.classList.add('hidden');
+    $animeListView.classList.add('hidden');
+    $selectedAnimeCharactersView.classList.add('hidden');
+    $characterListView.classList.remove('hidden');
+    userData.view = 'character-list';
+    removeSearchResults();
+    removeSelectedAnimeCharacters();
   }
 }
