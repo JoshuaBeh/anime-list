@@ -519,6 +519,38 @@ $charactersButton.addEventListener('click', function (event) {
   viewSwap('selectedAnimeCharacters');
 });
 
+function selectedAnimeCharactersListHandler(event) {
+  var closestSelectedDiv = event.target.closest('.col-50-25');
+  var closestID = closestSelectedDiv.getAttribute('id');
+  var closestImg = closestSelectedDiv.querySelector('img').getAttribute('src');
+  var closestName = closestSelectedDiv.querySelector('h2').textContent;
+  selectedAnimeCharactersInfo.mal_id = closestID;
+  selectedAnimeCharactersInfo.img = closestImg;
+  selectedAnimeCharactersInfo.name = closestName;
+  var testStorage = window.localStorage.getItem('animelist-local-storage');
+  var parseStorage = JSON.parse(testStorage);
+  var userDataArr = parseStorage.characterList;
+
+  var trueOrFalse = false;
+  for (var i = 0; i < userDataArr.length; i++) {
+    if (userDataArr[i].mal_id === closestID) {
+      trueOrFalse = true;
+      break;
+    } else {
+      trueOrFalse = false;
+    }
+  }
+  if (trueOrFalse === false) {
+    userDataArr.unshift(selectedAnimeCharactersInfo);
+  }
+  var dataJSON = JSON.stringify(parseStorage);
+  window.localStorage.setItem('animelist-local-storage', dataJSON);
+  // eslint-disable-next-line no-global-assign
+  userData = parseStorage;
+  // viewSwap('character-list');
+}
+$selectedAnimeCharacters.addEventListener('click', selectedAnimeCharactersListHandler);
+
 function viewSwap(userview) {
   if (userview === 'top-anime') {
     $topAnimeView.classList.remove('hidden');

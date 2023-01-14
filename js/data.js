@@ -3,6 +3,7 @@
 var userData = {
   userTarget: '',
   animeList: [],
+  characterList: [],
   view: 'top-anime',
   currentListItem: ''
 };
