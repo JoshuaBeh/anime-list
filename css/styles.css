@@ -74,6 +74,13 @@ img.search-result-img {
   background-color: #1a1c1e;
 }
 
+.search-img-margin-green {
+  margin-top: 20px;
+  margin-right: 10px;
+  margin-left: 25px;
+  background-color: rgb(2, 92, 2);
+}
+
 .back-to-top-div {
   padding-bottom: 15px;
   padding-right: 10px;
@@ -127,13 +134,19 @@ li {
 
 .search-title-div {
   width: 100%;
-  background-color: #1a1c1e;
   height: 40px;
 }
 
 .search-title {
   font-size: 1.3rem;
   color: #27b3fd;
+  margin: 0;
+  text-align: center;
+}
+
+.search-title-white {
+  font-size: 1.3rem;
+  color: white;
   margin: 0;
   text-align: center;
 }

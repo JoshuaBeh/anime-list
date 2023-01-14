@@ -471,13 +471,15 @@ function animeListClosePopUp() {
 }
 
 function renderSelectedAnimeCharacters(response, i) {
+  var testStorage = window.localStorage.getItem('animelist-local-storage');
+  var parseStorage = JSON.parse(testStorage);
+  var userDataArr = parseStorage.characterList;
   var col5025div = document.createElement('div');
   col5025div.className = 'col-50-25 center';
   col5025div.setAttribute('id', response[i].character.mal_id);
   $selectedAnimeCharacters.appendChild(col5025div);
 
   var imgDiv = document.createElement('div');
-  imgDiv.className = 'search-img-margin';
   col5025div.appendChild(imgDiv);
 
   var img = document.createElement('img');
@@ -490,13 +492,22 @@ function renderSelectedAnimeCharacters(response, i) {
   imgDiv.appendChild(divForTitle);
 
   var h2 = document.createElement('h2');
-  h2.className = 'search-title';
   if (response[i].character.name.length > 15) {
     h2.textContent = response[i].character.name.split('').splice(0, 15).join('') + '...';
   } else {
     h2.textContent = response[i].character.name;
   }
   divForTitle.appendChild(h2);
+  for (var j = 0; j < userDataArr.length; j++) {
+    if (Number(userDataArr[j].mal_id) === response[i].character.mal_id) {
+      imgDiv.className = 'search-img-margin-green';
+      h2.className = 'search-title-white';
+      break;
+    } else {
+      imgDiv.className = 'search-img-margin';
+      h2.className = 'search-title';
+    }
+  }
 
   return $selectedAnimeCharacters;
 }
@@ -542,6 +553,7 @@ function selectedAnimeCharactersListHandler(event) {
   }
   if (trueOrFalse === false) {
     userDataArr.unshift(selectedAnimeCharactersInfo);
+
   }
   var dataJSON = JSON.stringify(parseStorage);
   window.localStorage.setItem('animelist-local-storage', dataJSON);
