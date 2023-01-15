@@ -439,12 +439,15 @@ function saveListEntry(event) {
       }
       if (Number(userProgressInput) > userDataArr[i].episodes) {
         userDataArr[i].progress = userDataArr[i].episodes;
-      } else if (userScoreInput === '') {
+      } else if (userProgressInput === '') {
         userDataArr[i].progress = 0;
       } else {
         userDataArr[i].progress = userProgressInput.toString();
       }
     }
+  }
+  if (userDataArr.every(index => index.myScore !== 0)) {
+    userDataArr.sort((x, y) => y.myScore - x.myScore);
   }
   var dataJSON = JSON.stringify(parseStorage);
   window.localStorage.setItem('animelist-local-storage', dataJSON);
