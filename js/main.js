@@ -27,6 +27,9 @@ var $charactersButton = document.querySelector('.characters-button');
 var $characterList = document.querySelector('#character-list');
 var $characterNavAnchor = document.querySelector('.characters-anchor');
 var $popUpCharacters = document.querySelector('.pop-up-characters');
+var $popUpH1 = document.querySelector('.pop-up-h1');
+var $noButton = document.querySelector('.no-button');
+var $yesButton = document.querySelector('.yes-button');
 var userSearchInput = '';
 var pageNumber = 1;
 
@@ -620,13 +623,41 @@ function loadCharacterList() {
   });
 }
 
-var $popUpH1 = document.querySelector('.pop-up-h1');
 function characterListPopUp() {
   $characterListView.classList.add('z-index-neg');
   $header.classList.add('z-index-neg');
   $outerDiv.classList.add('pop-up-background');
   $popUpCharacters.classList.remove('hidden');
 }
+
+$noButton.addEventListener('click', function (event) {
+  $characterListView.classList.remove('z-index-neg');
+  $header.classList.remove('z-index-neg');
+  $outerDiv.classList.remove('pop-up-background');
+  $popUpCharacters.classList.add('hidden');
+});
+
+$yesButton.addEventListener('click', function (event) {
+  var testStorage = window.localStorage.getItem('animelist-local-storage');
+  var parseStorage = JSON.parse(testStorage);
+  var userDataArr = parseStorage.characterList;
+  for (var i = 0; i < userDataArr.length; i++) {
+    if (userDataArr[i].mal_id === userData.currentCharacter) {
+      userDataArr.splice(i, 1);
+    }
+  }
+  var dataJSON = JSON.stringify(parseStorage);
+  window.localStorage.setItem('animelist-local-storage', dataJSON);
+  // eslint-disable-next-line no-global-assign
+  userData = parseStorage;
+  $characterList.replaceChildren();
+  loadCharacterList();
+
+  $characterListView.classList.remove('z-index-neg');
+  $header.classList.remove('z-index-neg');
+  $outerDiv.classList.remove('pop-up-background');
+  $popUpCharacters.classList.add('hidden');
+});
 
 $characterList.addEventListener('click', function () {
   var closestListItem = event.target.closest('.col-50-25');
