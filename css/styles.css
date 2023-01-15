@@ -206,6 +206,11 @@ li {
   font-size: 1.4rem;
 }
 
+.nav-anchor-grey {
+  color: grey;
+  font-size: 1.4rem;
+}
+
 .font-0-7 {
   font-size: 0.7rem;
 }

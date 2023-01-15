@@ -623,6 +623,8 @@ function viewSwap(userview) {
     $selectedAnimeCharactersView.classList.add('hidden');
     $characterListView.classList.add('hidden');
     userData.view = 'top-anime';
+    $characterNavAnchor.className = 'nav-anchor characters-anchor';
+    $listNavAnchor.className = 'nav-anchor list-anchor';
     removeSearchResults();
     removeSelectedAnimeCharacters();
   } else if (userview === 'search-result') {
@@ -633,6 +635,8 @@ function viewSwap(userview) {
     $selectedAnimeCharactersView.classList.add('hidden');
     $characterListView.classList.add('hidden');
     userData.view = 'search-result';
+    $characterNavAnchor.className = 'nav-anchor characters-anchor';
+    $listNavAnchor.className = 'nav-anchor list-anchor';
     removeSelectedAnimeCharacters();
   } else if (userview === 'selected-anime') {
     $selectedAnimeView.classList.remove('hidden');
@@ -642,6 +646,8 @@ function viewSwap(userview) {
     $selectedAnimeCharactersView.classList.add('hidden');
     $characterListView.classList.add('hidden');
     userData.view = 'selected-anime';
+    $characterNavAnchor.className = 'nav-anchor characters-anchor';
+    $listNavAnchor.className = 'nav-anchor list-anchor';
     removeSearchResults();
     removeSelectedAnimeCharacters();
   } else if (userview === 'anime-list') {
@@ -652,6 +658,8 @@ function viewSwap(userview) {
     $selectedAnimeCharactersView.classList.add('hidden');
     $characterListView.classList.add('hidden');
     userData.view = 'anime-list';
+    $characterNavAnchor.className = 'nav-anchor characters-anchor';
+    $listNavAnchor.className = 'nav-anchor-grey list-anchor';
     removeSearchResults();
     removeSelectedAnimeCharacters();
   } else if (userview === 'selectedAnimeCharacters') {
@@ -662,6 +670,8 @@ function viewSwap(userview) {
     $characterListView.classList.add('hidden');
     $selectedAnimeCharactersView.classList.remove('hidden');
     userData.view = 'selectedAnimeCharacters';
+    $characterNavAnchor.className = 'nav-anchor characters-anchor';
+    $listNavAnchor.className = 'nav-anchor list-anchor';
     removeSearchResults();
   } else if (userview === 'character-list') {
     $topAnimeView.classList.add('hidden');
@@ -671,6 +681,8 @@ function viewSwap(userview) {
     $selectedAnimeCharactersView.classList.add('hidden');
     $characterListView.classList.remove('hidden');
     userData.view = 'character-list';
+    $characterNavAnchor.className = 'nav-anchor-grey characters-anchor';
+    $listNavAnchor.className = 'nav-anchor list-anchor';
     removeSearchResults();
     removeSelectedAnimeCharacters();
   }
