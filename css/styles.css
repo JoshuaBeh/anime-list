@@ -362,7 +362,7 @@ img.selected-picture {
 .pop-up-background {
   position: relative;
   background-color: rgba(0, 0, 0, 0.633);
-  height: 100vh;
+  height: 100%;
 }
 
 .pop-up-search {
