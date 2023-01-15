@@ -63,14 +63,14 @@ $characterNavAnchor.addEventListener('click', function () {
   viewSwap('character-list');
 });
 
-window.addEventListener('load', function () {
-  selectedAnimeGet(userData.userTarget);
-  searchResultGet();
-  viewSwap(userData.view);
-  loadAnimeList();
-  loadCharacterList();
-  selectedAnimeCharactersGet();
-});
+// window.addEventListener('load', function () {
+//   selectedAnimeGet(userData.userTarget);
+//   searchResultGet();
+//   viewSwap(userData.view);
+//   loadAnimeList();
+//   loadCharacterList();
+//   selectedAnimeCharactersGet();
+// });
 
 function renderTopAnime(response, i) {
   var li = document.createElement('li');
