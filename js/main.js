@@ -295,6 +295,7 @@ function addButtonHandler(event) {
       userDataArr.splice(i, 1);
       $addButton.setAttribute('id', 'not-inlist');
       $addButton.textContent = 'ADD';
+      parseStorage.userTarget = selectedAnimeInfo.id;
       var dataJSON = JSON.stringify(parseStorage);
       window.localStorage.setItem('animelist-local-storage', dataJSON);
       // eslint-disable-next-line no-global-assign
@@ -306,6 +307,7 @@ function addButtonHandler(event) {
     userDataArr.unshift(selectedAnimeInfo);
     $addButton.setAttribute('id', 'inlist');
     $addButton.textContent = 'IN LIST';
+    parseStorage.userTarget = selectedAnimeInfo.id;
     var userDataJSON = JSON.stringify(parseStorage);
     window.localStorage.setItem('animelist-local-storage', userDataJSON);
     // eslint-disable-next-line no-global-assign
