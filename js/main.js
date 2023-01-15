@@ -501,6 +501,7 @@ function renderSelectedAnimeCharacters(response, i) {
   $selectedAnimeCharacters.appendChild(col5025div);
 
   var imgDiv = document.createElement('div');
+  imgDiv.className = 'search-img-margin';
   col5025div.appendChild(imgDiv);
 
   var img = document.createElement('img');
@@ -513,6 +514,7 @@ function renderSelectedAnimeCharacters(response, i) {
   imgDiv.appendChild(divForTitle);
 
   var h2 = document.createElement('h2');
+  h2.className = 'search-title';
   if (response[i].character.name.length > 15) {
     h2.textContent = response[i].character.name.split('').splice(0, 15).join('') + '...';
   } else {
