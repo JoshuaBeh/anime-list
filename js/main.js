@@ -26,6 +26,7 @@ var $selectedAnimeCharacters = document.querySelector('#selected-anime-character
 var $charactersButton = document.querySelector('.characters-button');
 var $characterList = document.querySelector('#character-list');
 var $characterNavAnchor = document.querySelector('.characters-anchor');
+var $popUpCharacters = document.querySelector('.pop-up-characters');
 var userSearchInput = '';
 var pageNumber = 1;
 
@@ -63,14 +64,14 @@ $characterNavAnchor.addEventListener('click', function () {
   viewSwap('character-list');
 });
 
-// window.addEventListener('load', function () {
-//   selectedAnimeGet(userData.userTarget);
-//   searchResultGet();
-//   viewSwap(userData.view);
-//   loadAnimeList();
-//   loadCharacterList();
-//   selectedAnimeCharactersGet();
-// });
+window.addEventListener('load', function () {
+  selectedAnimeGet(userData.userTarget);
+  searchResultGet();
+  viewSwap(userData.view);
+  loadAnimeList();
+  loadCharacterList();
+  selectedAnimeCharactersGet();
+});
 
 function renderTopAnime(response, i) {
   var li = document.createElement('li');
@@ -146,6 +147,8 @@ function searchPopUpHandler(event) {
   $searchResultView.classList.add('z-index-neg');
   $selectedAnimeView.classList.add('z-index-neg');
   $animeListView.classList.add('z-index-neg');
+  $characterListView.classList.add('z-index-neg');
+  $selectedAnimeCharactersView.classList.add('z-index-neg');
   $popUpSearch.classList.remove('hidden');
 }
 $searchAnchor.addEventListener('click', searchPopUpHandler);
@@ -186,6 +189,8 @@ $searchButton.addEventListener('click', function () {
   $searchResultView.classList.remove('z-index-neg');
   $selectedAnimeView.classList.remove('z-index-neg');
   $animeListView.classList.remove('z-index-neg');
+  $characterListView.classList.remove('z-index-neg');
+  $selectedAnimeCharactersView.classList.remove('z-index-neg');
   $popUpSearch.classList.add('hidden');
 });
 
@@ -581,6 +586,7 @@ $selectedAnimeCharacters.addEventListener('click', selectedAnimeCharactersListHa
 function renderCharacterList(userData) {
   var col5025div = document.createElement('div');
   col5025div.className = 'col-50-25 center';
+  col5025div.setAttribute('id', userData.mal_id);
 
   var imgDiv = document.createElement('div');
   imgDiv.className = 'search-img-margin';
@@ -613,6 +619,30 @@ function loadCharacterList() {
     $characterList.appendChild(renderCharacterList(userData));
   });
 }
+
+var $popUpH1 = document.querySelector('.pop-up-h1');
+function characterListPopUp() {
+  $characterListView.classList.add('z-index-neg');
+  $header.classList.add('z-index-neg');
+  $outerDiv.classList.add('pop-up-background');
+  $popUpCharacters.classList.remove('hidden');
+}
+
+$characterList.addEventListener('click', function () {
+  var closestListItem = event.target.closest('.col-50-25');
+  var userChangedListItem = closestListItem.getAttribute('id');
+  userData.currentCharacter = userChangedListItem;
+  var testStorage = window.localStorage.getItem('animelist-local-storage');
+  var parseStorage = JSON.parse(testStorage);
+  var userDataArr = parseStorage.characterList;
+  for (var i = 0; i < userDataArr.length; i++) {
+    if (userDataArr[i].mal_id === userChangedListItem) {
+      var currentName = userDataArr[i].name.split(',');
+      $popUpH1.textContent = 'Remove ' + currentName[0].toString() + '?';
+    }
+  }
+  characterListPopUp();
+});
 
 function viewSwap(userview) {
   if (userview === 'top-anime') {
