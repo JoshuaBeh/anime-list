@@ -109,7 +109,7 @@ a:hover {
   cursor: pointer;
 }
 
-i:hover {
+i#search-button:hover {
   cursor: pointer;
 }
 
@@ -478,6 +478,23 @@ img.selected-picture {
 
 ul#anime-list > li {
   margin: 0;
+}
+
+ul#anime-list > li > div:hover {
+  cursor: pointer;
+  background-color: #017ec0 !important;
+}
+
+ul#top-anime > li {
+  cursor: pointer;
+}
+
+div#selected-anime-characters > div > div > img:hover {
+  cursor: pointer;
+}
+
+div#character-list > div > div > img:hover {
+  cursor: pointer;
 }
 
 @media screen and (min-width: 768px) {
