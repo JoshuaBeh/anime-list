@@ -62,6 +62,10 @@ h3.type-hide {
   width: 80%;
 }
 
+.col-567 {
+  width: 567px;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     max-width: 900px;

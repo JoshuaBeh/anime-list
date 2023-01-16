@@ -3,8 +3,10 @@
 var userData = {
   userTarget: '',
   animeList: [],
+  characterList: [],
   view: 'top-anime',
-  currentListItem: ''
+  currentListItem: '',
+  currentCharacter: ''
 };
 
 function beforeunloadHandler(event) {

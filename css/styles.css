@@ -71,6 +71,14 @@ img.search-result-img {
   margin-top: 20px;
   margin-right: 10px;
   margin-left: 25px;
+  background-color: #1a1c1e;
+}
+
+.search-img-margin-green {
+  margin-top: 20px;
+  margin-right: 10px;
+  margin-left: 25px;
+  background-color: green;
 }
 
 .back-to-top-div {
@@ -101,7 +109,7 @@ a:hover {
   cursor: pointer;
 }
 
-i:hover {
+i#search-button:hover {
   cursor: pointer;
 }
 
@@ -125,8 +133,7 @@ li {
 }
 
 .search-title-div {
-  width: 76%;
-  background-color: #1a1c1e;
+  width: 100%;
   height: 40px;
 }
 
@@ -135,6 +142,17 @@ li {
   color: #27b3fd;
   margin: 0;
   text-align: center;
+}
+
+.search-title-white {
+  font-size: 1.3rem;
+  color: white;
+  margin: 0;
+  text-align: center;
+}
+
+.margin-0 {
+  margin: 0;
 }
 
 .margin-0t {
@@ -189,6 +207,11 @@ li {
 
 .nav-anchor {
   color: #0094ff;
+  font-size: 1.4rem;
+}
+
+.nav-anchor-grey {
+  color: grey;
   font-size: 1.4rem;
 }
 
@@ -339,7 +362,7 @@ img.selected-picture {
 .pop-up-background {
   position: relative;
   background-color: rgba(0, 0, 0, 0.633);
-  height: 100vh;
+  height: 100%;
 }
 
 .pop-up-search {
@@ -350,6 +373,13 @@ img.selected-picture {
 }
 
 .pop-up-list {
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  transform: translateX(-50%);
+}
+
+.pop-up-characters {
   position: fixed;
   left: 50%;
   top: 40%;
@@ -415,8 +445,56 @@ img.selected-picture {
   height: 35px;
 }
 
+.no-button {
+  background-color: red;
+  color: white;
+  font-size: 1.1rem;
+  border: 1px solid red;
+  border-radius: 5px;
+  width: 85px;
+  height: 40px;
+}
+
+.yes-button {
+  background-color: green;
+  color: white;
+  font-size: 1.1rem;
+  border: 1px solid green;
+  border-radius: 5px;
+  width: 85px;
+  height: 40px;
+}
+
+.pop-up-char-title {
+  height: 50px;
+  color: #27b3fd;
+  background-color: #232628;
+}
+
+.pop-up-char-buttons {
+  height: 80px;
+  background-color: #1a1c1e;
+}
+
 ul#anime-list > li {
   margin: 0;
+}
+
+ul#anime-list > li > div:hover {
+  cursor: pointer;
+  background-color: #017ec0 !important;
+}
+
+ul#top-anime > li {
+  cursor: pointer;
+}
+
+div#selected-anime-characters > div > div > img:hover {
+  cursor: pointer;
+}
+
+div#character-list > div > div > img:hover {
+  cursor: pointer;
 }
 
 @media screen and (min-width: 768px) {
@@ -431,6 +509,12 @@ ul#anime-list > li {
 
   .search-title-div {
     width: 100%;
+  }
+
+  img.search-result-img {
+    object-fit: fill;
+    width: 190px;
+    height: 267px;
   }
 
   .padding-right {

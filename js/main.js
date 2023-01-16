@@ -17,11 +17,39 @@ var $animeNavAnchor = document.querySelector('.anime');
 var $listNavAnchor = document.querySelector('.list-anchor');
 var $selectedAnimeView = document.querySelector('[data-view="selected-anime"]');
 var $animeListView = document.querySelector('[data-view="anime-list"]');
+var $selectedAnimeCharactersView = document.querySelector('[data-view="selected-anime-characters"]');
+var $characterListView = document.querySelector('[data-view="character-list"]');
 var $ulAnimeList = document.querySelector('#anime-list');
 var $popUpList = document.querySelector('.pop-up-list');
 var $saveButton = document.querySelector('.save-button');
+var $selectedAnimeCharacters = document.querySelector('#selected-anime-characters');
+var $charactersButton = document.querySelector('.characters-button');
+var $characterList = document.querySelector('#character-list');
+var $characterNavAnchor = document.querySelector('.characters-anchor');
+var $popUpCharacters = document.querySelector('.pop-up-characters');
+var $popUpH1 = document.querySelector('.pop-up-h1');
+var $noButton = document.querySelector('.no-button');
+var $yesButton = document.querySelector('.yes-button');
 var userSearchInput = '';
 var pageNumber = 1;
+
+var selectedAnimeInfo = {
+  img: '',
+  score: 0,
+  myScore: 0,
+  id: 0,
+  title: '',
+  episodes: 0,
+  progress: 0,
+  inList: false
+};
+
+// eslint-disable-next-line no-unused-vars
+var selectedAnimeCharactersInfo = {
+  mal_id: 0,
+  name: '',
+  img: ''
+};
 
 $animeNavAnchor.addEventListener('click', function () {
   viewSwap('top-anime');
@@ -33,10 +61,19 @@ $listNavAnchor.addEventListener('click', function () {
   viewSwap('anime-list');
 });
 
+$characterNavAnchor.addEventListener('click', function () {
+  $characterList.replaceChildren();
+  loadCharacterList();
+  viewSwap('character-list');
+});
+
 window.addEventListener('load', function () {
   selectedAnimeGet(userData.userTarget);
+  searchResultGet();
   viewSwap(userData.view);
   loadAnimeList();
+  loadCharacterList();
+  selectedAnimeCharactersGet();
 });
 
 function renderTopAnime(response, i) {
@@ -113,12 +150,18 @@ function searchPopUpHandler(event) {
   $searchResultView.classList.add('z-index-neg');
   $selectedAnimeView.classList.add('z-index-neg');
   $animeListView.classList.add('z-index-neg');
+  $characterListView.classList.add('z-index-neg');
+  $selectedAnimeCharactersView.classList.add('z-index-neg');
   $popUpSearch.classList.remove('hidden');
 }
 $searchAnchor.addEventListener('click', searchPopUpHandler);
 
 function removeSearchResults() {
   $searchAppend.replaceChildren();
+}
+
+function removeSelectedAnimeCharacters() {
+  $selectedAnimeCharacters.replaceChildren();
 }
 
 function searchResultGet() {
@@ -149,12 +192,14 @@ $searchButton.addEventListener('click', function () {
   $searchResultView.classList.remove('z-index-neg');
   $selectedAnimeView.classList.remove('z-index-neg');
   $animeListView.classList.remove('z-index-neg');
+  $characterListView.classList.remove('z-index-neg');
+  $selectedAnimeCharactersView.classList.remove('z-index-neg');
   $popUpSearch.classList.add('hidden');
 });
 
 function renderSearchResult(response, i) {
   var col5025div = document.createElement('div');
-  col5025div.className = 'col-50-25';
+  col5025div.className = 'col-50-25 center';
   col5025div.setAttribute('id', response[i].mal_id);
   $searchAppend.appendChild(col5025div);
 
@@ -228,16 +273,6 @@ function selectedAnimeGet(userTarget) {
   xhr.send();
 }
 
-var selectedAnimeInfo = {
-  img: '',
-  score: 0,
-  myScore: 0,
-  id: 0,
-  title: '',
-  episodes: 0,
-  progress: 0,
-  inList: false
-};
 function userSelectAnimeHandler(event) {
   var closestSelectedDiv = event.target.closest('.col-50-25');
   var closestID = closestSelectedDiv.getAttribute('id');
@@ -268,6 +303,7 @@ function addButtonHandler(event) {
       userDataArr.splice(i, 1);
       $addButton.setAttribute('id', 'not-inlist');
       $addButton.textContent = 'ADD';
+      parseStorage.userTarget = selectedAnimeInfo.id;
       var dataJSON = JSON.stringify(parseStorage);
       window.localStorage.setItem('animelist-local-storage', dataJSON);
       // eslint-disable-next-line no-global-assign
@@ -279,6 +315,7 @@ function addButtonHandler(event) {
     userDataArr.unshift(selectedAnimeInfo);
     $addButton.setAttribute('id', 'inlist');
     $addButton.textContent = 'IN LIST';
+    parseStorage.userTarget = selectedAnimeInfo.id;
     var userDataJSON = JSON.stringify(parseStorage);
     window.localStorage.setItem('animelist-local-storage', userDataJSON);
     // eslint-disable-next-line no-global-assign
@@ -402,12 +439,15 @@ function saveListEntry(event) {
       }
       if (Number(userProgressInput) > userDataArr[i].episodes) {
         userDataArr[i].progress = userDataArr[i].episodes;
-      } else if (userScoreInput === '') {
+      } else if (userProgressInput === '') {
         userDataArr[i].progress = 0;
       } else {
         userDataArr[i].progress = userProgressInput.toString();
       }
     }
+  }
+  if (userDataArr.every(index => index.myScore !== 0)) {
+    userDataArr.sort((x, y) => y.myScore - x.myScore);
   }
   var dataJSON = JSON.stringify(parseStorage);
   window.localStorage.setItem('animelist-local-storage', dataJSON);
@@ -453,33 +493,263 @@ function animeListClosePopUp() {
   $popUpList.classList.add('hidden');
 }
 
+function renderSelectedAnimeCharacters(response, i) {
+  var testStorage = window.localStorage.getItem('animelist-local-storage');
+  var parseStorage = JSON.parse(testStorage);
+  var userDataArr = parseStorage.characterList;
+
+  var col5025div = document.createElement('div');
+  col5025div.className = 'col-50-25 center';
+  col5025div.setAttribute('id', response[i].character.mal_id);
+  $selectedAnimeCharacters.appendChild(col5025div);
+
+  var imgDiv = document.createElement('div');
+  imgDiv.className = 'search-img-margin';
+  col5025div.appendChild(imgDiv);
+
+  var img = document.createElement('img');
+  img.className = 'search-result-img';
+  img.setAttribute('src', response[i].character.images.jpg.image_url);
+  imgDiv.appendChild(img);
+
+  var divForTitle = document.createElement('div');
+  divForTitle.className = 'center search-title-div';
+  imgDiv.appendChild(divForTitle);
+
+  var h2 = document.createElement('h2');
+  h2.className = 'search-title';
+  if (response[i].character.name.length > 15) {
+    h2.textContent = response[i].character.name.split('').splice(0, 15).join('') + '...';
+  } else {
+    h2.textContent = response[i].character.name;
+  }
+  divForTitle.appendChild(h2);
+  for (var j = 0; j < userDataArr.length; j++) {
+    if (Number(userDataArr[j].mal_id) === response[i].character.mal_id) {
+      imgDiv.className = 'search-img-margin-green';
+      h2.className = 'search-title-white';
+      break;
+    } else {
+      imgDiv.className = 'search-img-margin';
+      h2.className = 'search-title';
+    }
+  }
+
+  return $selectedAnimeCharacters;
+}
+
+function selectedAnimeCharactersGet() {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://api.jikan.moe/v4/anime/' + userData.userTarget + '/' + 'characters');
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    var response = xhr.response.data;
+    for (var i = 0; i < response.length; i++) {
+      renderSelectedAnimeCharacters(response, i);
+    }
+  });
+  xhr.send();
+}
+
+$charactersButton.addEventListener('click', function (event) {
+  selectedAnimeCharactersGet();
+  viewSwap('selectedAnimeCharacters');
+});
+
+function selectedAnimeCharactersListHandler(event) {
+  var closestSelectedDiv = event.target.closest('.col-50-25');
+  var closestID = closestSelectedDiv.getAttribute('id');
+  var closestImg = closestSelectedDiv.querySelector('img').getAttribute('src');
+  var closestName = closestSelectedDiv.querySelector('h2').textContent;
+  selectedAnimeCharactersInfo.mal_id = closestID;
+  selectedAnimeCharactersInfo.img = closestImg;
+  selectedAnimeCharactersInfo.name = closestName;
+  var testStorage = window.localStorage.getItem('animelist-local-storage');
+  var parseStorage = JSON.parse(testStorage);
+  var userDataArr = parseStorage.characterList;
+
+  var trueOrFalse = false;
+  for (var i = 0; i < userDataArr.length; i++) {
+    if (userDataArr[i].mal_id === closestID) {
+      trueOrFalse = true;
+      break;
+    } else {
+      trueOrFalse = false;
+    }
+  }
+  if (trueOrFalse === false) {
+    userDataArr.unshift(selectedAnimeCharactersInfo);
+
+  }
+  var dataJSON = JSON.stringify(parseStorage);
+  window.localStorage.setItem('animelist-local-storage', dataJSON);
+  // eslint-disable-next-line no-global-assign
+  userData = parseStorage;
+  $characterList.replaceChildren();
+  loadCharacterList();
+  viewSwap('character-list');
+}
+$selectedAnimeCharacters.addEventListener('click', selectedAnimeCharactersListHandler);
+
+function renderCharacterList(userData) {
+  var col5025div = document.createElement('div');
+  col5025div.className = 'col-50-25 center';
+  col5025div.setAttribute('id', userData.mal_id);
+
+  var imgDiv = document.createElement('div');
+  imgDiv.className = 'search-img-margin';
+  col5025div.appendChild(imgDiv);
+
+  var img = document.createElement('img');
+  img.className = 'search-result-img';
+  img.setAttribute('src', userData.img);
+  imgDiv.appendChild(img);
+
+  var divForTitle = document.createElement('div');
+  divForTitle.className = 'center search-title-div';
+  imgDiv.appendChild(divForTitle);
+
+  var h2 = document.createElement('h2');
+  h2.className = 'search-title';
+  if (userData.name.length > 15) {
+    h2.textContent = userData.name.split('').splice(0, 15).join('') + '...';
+  } else {
+    h2.textContent = userData.name;
+  }
+  divForTitle.appendChild(h2);
+
+  return col5025div;
+}
+
+function loadCharacterList() {
+  var characterListArr = userData.characterList;
+  characterListArr.forEach(userData => {
+    $characterList.appendChild(renderCharacterList(userData));
+  });
+}
+
+function characterListPopUp() {
+  $characterListView.classList.add('z-index-neg');
+  $header.classList.add('z-index-neg');
+  $outerDiv.classList.add('pop-up-background');
+  $popUpCharacters.classList.remove('hidden');
+}
+
+$noButton.addEventListener('click', function (event) {
+  $characterListView.classList.remove('z-index-neg');
+  $header.classList.remove('z-index-neg');
+  $outerDiv.classList.remove('pop-up-background');
+  $popUpCharacters.classList.add('hidden');
+});
+
+$yesButton.addEventListener('click', function (event) {
+  var testStorage = window.localStorage.getItem('animelist-local-storage');
+  var parseStorage = JSON.parse(testStorage);
+  var userDataArr = parseStorage.characterList;
+  for (var i = 0; i < userDataArr.length; i++) {
+    if (userDataArr[i].mal_id === userData.currentCharacter) {
+      userDataArr.splice(i, 1);
+    }
+  }
+  var dataJSON = JSON.stringify(parseStorage);
+  window.localStorage.setItem('animelist-local-storage', dataJSON);
+  // eslint-disable-next-line no-global-assign
+  userData = parseStorage;
+  $characterList.replaceChildren();
+  loadCharacterList();
+
+  $characterListView.classList.remove('z-index-neg');
+  $header.classList.remove('z-index-neg');
+  $outerDiv.classList.remove('pop-up-background');
+  $popUpCharacters.classList.add('hidden');
+});
+
+$characterList.addEventListener('click', function () {
+  var closestListItem = event.target.closest('.col-50-25');
+  var userChangedListItem = closestListItem.getAttribute('id');
+  userData.currentCharacter = userChangedListItem;
+  var testStorage = window.localStorage.getItem('animelist-local-storage');
+  var parseStorage = JSON.parse(testStorage);
+  var userDataArr = parseStorage.characterList;
+  for (var i = 0; i < userDataArr.length; i++) {
+    if (userDataArr[i].mal_id === userChangedListItem) {
+      var currentName = userDataArr[i].name.split(',');
+      $popUpH1.textContent = 'Remove ' + currentName[0].toString() + '?';
+    }
+  }
+  characterListPopUp();
+});
+
 function viewSwap(userview) {
   if (userview === 'top-anime') {
     $topAnimeView.classList.remove('hidden');
     $searchResultView.classList.add('hidden');
     $selectedAnimeView.classList.add('hidden');
     $animeListView.classList.add('hidden');
+    $selectedAnimeCharactersView.classList.add('hidden');
+    $characterListView.classList.add('hidden');
     userData.view = 'top-anime';
+    $characterNavAnchor.className = 'nav-anchor characters-anchor';
+    $listNavAnchor.className = 'nav-anchor list-anchor';
     removeSearchResults();
+    removeSelectedAnimeCharacters();
   } else if (userview === 'search-result') {
     $searchResultView.classList.remove('hidden');
     $topAnimeView.classList.add('hidden');
     $selectedAnimeView.classList.add('hidden');
     $animeListView.classList.add('hidden');
+    $selectedAnimeCharactersView.classList.add('hidden');
+    $characterListView.classList.add('hidden');
     userData.view = 'search-result';
+    $characterNavAnchor.className = 'nav-anchor characters-anchor';
+    $listNavAnchor.className = 'nav-anchor list-anchor';
+    removeSelectedAnimeCharacters();
   } else if (userview === 'selected-anime') {
     $selectedAnimeView.classList.remove('hidden');
     $topAnimeView.classList.add('hidden');
     $searchResultView.classList.add('hidden');
     $animeListView.classList.add('hidden');
+    $selectedAnimeCharactersView.classList.add('hidden');
+    $characterListView.classList.add('hidden');
     userData.view = 'selected-anime';
+    $characterNavAnchor.className = 'nav-anchor characters-anchor';
+    $listNavAnchor.className = 'nav-anchor list-anchor';
     removeSearchResults();
+    removeSelectedAnimeCharacters();
   } else if (userview === 'anime-list') {
     $animeListView.classList.remove('hidden');
     $topAnimeView.classList.add('hidden');
     $searchResultView.classList.add('hidden');
     $selectedAnimeView.classList.add('hidden');
+    $selectedAnimeCharactersView.classList.add('hidden');
+    $characterListView.classList.add('hidden');
     userData.view = 'anime-list';
+    $characterNavAnchor.className = 'nav-anchor characters-anchor';
+    $listNavAnchor.className = 'nav-anchor-grey list-anchor';
     removeSearchResults();
+    removeSelectedAnimeCharacters();
+  } else if (userview === 'selectedAnimeCharacters') {
+    $topAnimeView.classList.add('hidden');
+    $searchResultView.classList.add('hidden');
+    $selectedAnimeView.classList.add('hidden');
+    $animeListView.classList.add('hidden');
+    $characterListView.classList.add('hidden');
+    $selectedAnimeCharactersView.classList.remove('hidden');
+    userData.view = 'selectedAnimeCharacters';
+    $characterNavAnchor.className = 'nav-anchor characters-anchor';
+    $listNavAnchor.className = 'nav-anchor list-anchor';
+    removeSearchResults();
+  } else if (userview === 'character-list') {
+    $topAnimeView.classList.add('hidden');
+    $searchResultView.classList.add('hidden');
+    $selectedAnimeView.classList.add('hidden');
+    $animeListView.classList.add('hidden');
+    $selectedAnimeCharactersView.classList.add('hidden');
+    $characterListView.classList.remove('hidden');
+    userData.view = 'character-list';
+    $characterNavAnchor.className = 'nav-anchor-grey characters-anchor';
+    $listNavAnchor.className = 'nav-anchor list-anchor';
+    removeSearchResults();
+    removeSelectedAnimeCharacters();
   }
 }
