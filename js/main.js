@@ -31,6 +31,7 @@ var $popUpH1 = document.querySelector('.pop-up-h1');
 var $noButton = document.querySelector('.no-button');
 var $yesButton = document.querySelector('.yes-button');
 var $form = document.querySelector('form');
+var $topAnimeLoading = document.querySelector('#top-anime-loading');
 var userSearchInput = '';
 var pageNumber = 1;
 
@@ -118,11 +119,17 @@ function topAnimeGet() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.jikan.moe/v4/top/anime?page=' + pageNumber);
   xhr.responseType = 'json';
+  $topAnimeLoading.classList.remove('hidden');
   xhr.addEventListener('load', function () {
     var response = xhr.response.data;
+    if (!response) {
+      $topAnimeLoading.classList.add('hidden');
+      return false;
+    }
     for (var i = 0; i < response.length; i++) {
       renderTopAnime(response, i);
     }
+    $topAnimeLoading.classList.add('hidden');
   });
   xhr.send();
 }
@@ -158,17 +165,33 @@ function removeSearchResults() {
 function removeSelectedAnimeCharacters() {
   $selectedAnimeCharacters.replaceChildren();
 }
-
+var $searchResultLoading = document.querySelector('#search-result-loading');
+var $searchResultFalse = document.querySelector('#search-result-false');
+var $searchResultError = document.querySelector('#search-result-error');
 function searchResultGet() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.jikan.moe/v4/anime?q=' + userSearchInput + '&sfw');
   xhr.responseType = 'json';
+  $searchResultFalse.className = 'white hidden';
+  $searchResultError.className = 'white hidden';
+  $searchResultLoading.classList.remove('hidden');
   xhr.addEventListener('load', function () {
     removeSearchResults();
     var response = xhr.response.data;
+    var status = xhr.status;
+    if (status >= 499 && status < 600) {
+      $searchResultLoading.classList.add('hidden');
+      $searchResultError.className = 'white';
+    }
+    if (!response || response.length === 0) {
+      $searchResultLoading.classList.add('hidden');
+      $searchResultFalse.className = 'white';
+      return false;
+    }
     for (var i = 0; i < response.length; i++) {
       renderSearchResult(response, i);
     }
+    $searchResultLoading.classList.add('hidden');
   });
   xhr.send();
 }
@@ -505,16 +528,25 @@ function renderSelectedAnimeCharacters(response, i) {
 
   return $selectedAnimeCharacters;
 }
-
+var $selectedCharactersLoading = document.querySelector('#selected-characters-loading');
+var $selectedCharactersFalse = document.querySelector('#selected-characters-false');
 function selectedAnimeCharactersGet() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.jikan.moe/v4/anime/' + userData.userTarget + '/' + 'characters');
+  $selectedCharactersFalse.className = 'white hidden';
+  $selectedCharactersLoading.classList.remove('hidden');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     var response = xhr.response.data;
+    if (!response) {
+      $selectedCharactersLoading.classList.add('hidden');
+      $selectedCharactersFalse.className = 'white';
+      return false;
+    }
     for (var i = 0; i < response.length; i++) {
       renderSelectedAnimeCharacters(response, i);
     }
+    $selectedCharactersLoading.classList.add('hidden');
   });
   xhr.send();
 }
