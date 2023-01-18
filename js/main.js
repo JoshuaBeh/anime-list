@@ -343,27 +343,27 @@ function renderAnimeList(userData) {
   outerRowDiv.className = 'row center top-background';
   li.appendChild(outerRowDiv);
 
-  var col10Div = document.createElement('div');
-  col10Div.className = 'col-10';
-  outerRowDiv.appendChild(col10Div);
+  var col15Div = document.createElement('div');
+  col15Div.className = 'col-15';
+  outerRowDiv.appendChild(col15Div);
 
   var img = document.createElement('img');
   img.className = 'anime-list-img';
   img.setAttribute('src', userData.img);
-  col10Div.appendChild(img);
+  col15Div.appendChild(img);
 
-  var col90Div = document.createElement('div');
-  col90Div.className = 'col-90 white anime-list-inline';
-  outerRowDiv.appendChild(col90Div);
+  var col85Div = document.createElement('div');
+  col85Div.className = 'col-85 white anime-list-inline';
+  outerRowDiv.appendChild(col85Div);
 
   var h3 = document.createElement('h3');
   h3.className = 'padding-left-fix margin-tb-fix';
   h3.textContent = userData.title;
-  col90Div.appendChild(h3);
+  col85Div.appendChild(h3);
 
   var spanFixDiv = document.createElement('div');
   spanFixDiv.className = 'span-fix';
-  col90Div.appendChild(spanFixDiv);
+  col85Div.appendChild(spanFixDiv);
 
   var scoreSpan = document.createElement('span');
   scoreSpan.textContent = 'Score: ' + userData.myScore;
