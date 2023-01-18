@@ -15,7 +15,7 @@
     <header>
       <div class="container anchor-background relative">
         <div class="row relative">
-          <div id="anchor-bar" class="col-full justify-between relative">
+          <div id="anchor-bar" class="col-full justify-around relative">
             <a class="anime" href="#">Anime</a>
             <a class="nav-anchor list-anchor" href="#">List</a>
             <a class="nav-anchor characters-anchor" href="#">Characters</a>
@@ -110,42 +110,44 @@
           </div>
         </div>
       </div>
-      <div class="row pop-up-list center hidden">
-        <div class="col-list-pop-up">
-          <div class="row">
-            <div class="col-full flex-end">
-              <div class="save-button-div">
-                <button class="save-button">Save</button>
+      <form>
+        <div class="row pop-up-list center hidden">
+          <div class="col-list-pop-up">
+            <div class="row">
+              <div class="col-full flex-end">
+                <div class="save-button-div">
+                  <button type="submit" class="save-button">Save</button>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-full inline-around">
-              <div>
-                <label for="score-input">Score</label>
-                <input id="score-input" type="text" placeholder="5.5">
-              </div>
-              <div>
-                <label for="progress-input">Progress</label>
-                <input id="progress-input" type="text" placeholder="10">
+            <div class="row">
+              <div class="col-full inline-around">
+                <div>
+                  <label for="score-input">Score</label>
+                  <input id="score-input" type="text" placeholder="5.5">
+                </div>
+                <div>
+                  <label for="progress-input">Progress</label>
+                  <input id="progress-input" type="text" placeholder="10">
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-full flex-end">
-              <div class="delete-button-div">
-                <button class="delete-button">Delete</button>
+            <div class="row">
+              <div class="col-full flex-end">
+                <div class="delete-button-div">
+                  <button class="delete-button">Delete</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </form>
       <div class="row pop-up-characters hidden">
         <div class="col-567">
           <div class="row center pop-up-char-title">
             <h1 class="margin-0 pop-up-h1"></h1>
           </div>
-          <div class="row justify-between pop-up-char-buttons">
+          <div class="row justify-around pop-up-char-buttons">
             <button class="no-button">No</button>
             <button class="yes-button">Yes</button>
           </div>

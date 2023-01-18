@@ -30,6 +30,7 @@ var $popUpCharacters = document.querySelector('.pop-up-characters');
 var $popUpH1 = document.querySelector('.pop-up-h1');
 var $noButton = document.querySelector('.no-button');
 var $yesButton = document.querySelector('.yes-button');
+var $form = document.querySelector('form');
 var userSearchInput = '';
 var pageNumber = 1;
 
@@ -49,6 +50,10 @@ var selectedAnimeCharactersInfo = {
   name: '',
   img: ''
 };
+
+$form.addEventListener('submit', function (event) {
+  event.preventDefault();
+});
 
 $animeNavAnchor.addEventListener('click', function () {
   viewSwap('top-anime');

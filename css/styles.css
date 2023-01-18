@@ -39,7 +39,7 @@ img.search-result-img {
   align-items: center;
 }
 
-.justify-between {
+.justify-around {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -481,6 +481,12 @@ img.selected-picture {
   background-color: #1a1c1e;
 }
 
+.col-list-pop-up {
+  background-color: #1a1c1e;
+  width: 400px;
+  padding: 25px;
+}
+
 ul#anime-list > li {
   margin: 0;
 }
@@ -510,6 +516,10 @@ div#character-list > div > div > img:hover {
 
   .search-bar {
     width: 768px;
+  }
+
+  .col-list-pop-up {
+    width: 600px;
   }
 
   .search-title-div {

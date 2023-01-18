@@ -15,6 +15,8 @@ function beforeunloadHandler(event) {
 }
 window.addEventListener('beforeunload', beforeunloadHandler);
 
+window.addEventListener('pagehide', beforeunloadHandler);
+
 var localStorageJson = window.localStorage.getItem('animelist-local-storage');
 
 if (localStorageJson !== null) {
