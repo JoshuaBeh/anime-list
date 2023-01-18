@@ -39,7 +39,7 @@ img.search-result-img {
   align-items: center;
 }
 
-.justify-between {
+.justify-around {
   display: flex;
   justify-content: space-around;
   align-items: center;
