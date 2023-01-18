@@ -44,7 +44,6 @@ var selectedAnimeInfo = {
   inList: false
 };
 
-// eslint-disable-next-line no-unused-vars
 var selectedAnimeCharactersInfo = {
   mal_id: 0,
   name: '',
@@ -65,15 +64,6 @@ $characterNavAnchor.addEventListener('click', function () {
   $characterList.replaceChildren();
   loadCharacterList();
   viewSwap('character-list');
-});
-
-window.addEventListener('load', function () {
-  selectedAnimeGet(userData.userTarget);
-  searchResultGet();
-  viewSwap(userData.view);
-  loadAnimeList();
-  loadCharacterList();
-  selectedAnimeCharactersGet();
 });
 
 function renderTopAnime(response, i) {
@@ -244,6 +234,7 @@ function selectedAnimeGet(userTarget) {
   xhr.addEventListener('load', function () {
     var response = xhr.response.data;
     checkDataForButton(response);
+    selectedAnimeInfo = {};
     selectedAnimeInfo.img = response.images.jpg.small_image_url;
     selectedAnimeInfo.score = response.score;
     selectedAnimeInfo.id = response.mal_id;
@@ -251,6 +242,8 @@ function selectedAnimeGet(userTarget) {
     selectedAnimeInfo.title = response.title;
     selectedAnimeInfo.type = response.type;
     selectedAnimeInfo.inList = true;
+    selectedAnimeInfo.myScore = 0;
+    selectedAnimeInfo.progress = 0;
 
     $selectedTitle.textContent = response.title;
     $selectedPicture.setAttribute('src', response.images.jpg.large_image_url);
@@ -280,6 +273,7 @@ function userSelectAnimeHandler(event) {
   var userTarget = closestID;
   selectedAnimeGet(userTarget);
   viewSwap('selected-anime');
+  return userData.userTarget;
 }
 $searchAppend.addEventListener('click', userSelectAnimeHandler);
 
@@ -289,13 +283,12 @@ function userSelectTopAnimeHandler(event) {
   userData.userTarget = userTarget;
   selectedAnimeGet(userTarget);
   viewSwap('selected-anime');
+  return userData.userTarget;
 }
 $topAnimeList.addEventListener('click', userSelectTopAnimeHandler);
 
 function addButtonHandler(event) {
-  var testStorage = window.localStorage.getItem('animelist-local-storage');
-  var parseStorage = JSON.parse(testStorage);
-  var userDataArr = parseStorage.animeList;
+  var userDataArr = userData.animeList;
   var trueOrFalse = true;
   for (var i = 0; i < userDataArr.length; i++) {
     if (userDataArr[i].id === selectedAnimeInfo.id) {
@@ -303,11 +296,7 @@ function addButtonHandler(event) {
       userDataArr.splice(i, 1);
       $addButton.setAttribute('id', 'not-inlist');
       $addButton.textContent = 'ADD';
-      parseStorage.userTarget = selectedAnimeInfo.id;
-      var dataJSON = JSON.stringify(parseStorage);
-      window.localStorage.setItem('animelist-local-storage', dataJSON);
-      // eslint-disable-next-line no-global-assign
-      userData = parseStorage;
+      userData.userTarget = userDataArr[i].id;
       break;
     }
   }
@@ -315,39 +304,29 @@ function addButtonHandler(event) {
     userDataArr.unshift(selectedAnimeInfo);
     $addButton.setAttribute('id', 'inlist');
     $addButton.textContent = 'IN LIST';
-    parseStorage.userTarget = selectedAnimeInfo.id;
-    var userDataJSON = JSON.stringify(parseStorage);
-    window.localStorage.setItem('animelist-local-storage', userDataJSON);
-    // eslint-disable-next-line no-global-assign
-    userData = parseStorage;
+    userData.userTarget = userDataArr[i].id;
   }
 }
 $addButton.addEventListener('click', addButtonHandler);
 
 function checkDataForButton(response) {
-  var testStorage = window.localStorage.getItem('animelist-local-storage');
-  var parseStorage = JSON.parse(testStorage);
-  var userDataArr = parseStorage.animeList;
-  var trueOrFalse;
+  var userDataArr = userData.animeList;
+  var trueOrFalse = false;
   if (userDataArr.length === 0) {
-    return;
+    return false;
   }
   for (var i = 0; i < userDataArr.length; i++) {
     if (userDataArr[i].id === response.mal_id) {
       trueOrFalse = true;
       break;
-    } else {
-      trueOrFalse = false;
     }
   }
   if (trueOrFalse === true) {
     $addButton.setAttribute('id', 'inlist');
     $addButton.textContent = 'IN LIST';
-    return $addButton;
   } else {
     $addButton.setAttribute('id', 'not-inlist');
     $addButton.textContent = 'ADD';
-    return $addButton;
   }
 }
 
@@ -394,9 +373,7 @@ function renderAnimeList(userData) {
 }
 
 function loadAnimeList() {
-  var testStorage = window.localStorage.getItem('animelist-local-storage');
-  var parseStorage = JSON.parse(testStorage);
-  var userDataArr = parseStorage.animeList;
+  var userDataArr = userData.animeList;
   userDataArr.forEach(userData => {
     $ulAnimeList.appendChild(renderAnimeList(userData));
   });
@@ -425,9 +402,7 @@ $progressInput.addEventListener('input', function () {
 });
 
 function saveListEntry(event) {
-  var testStorage = window.localStorage.getItem('animelist-local-storage');
-  var parseStorage = JSON.parse(testStorage);
-  var userDataArr = parseStorage.animeList;
+  var userDataArr = userData.animeList;
   for (var i = 0; i < userDataArr.length; i++) {
     if (userDataArr[i].id.toString() === userData.currentListItem) {
       if (userScoreInput > 10) {
@@ -449,10 +424,6 @@ function saveListEntry(event) {
   if (userDataArr.every(index => index.myScore !== 0)) {
     userDataArr.sort((x, y) => y.myScore - x.myScore);
   }
-  var dataJSON = JSON.stringify(parseStorage);
-  window.localStorage.setItem('animelist-local-storage', dataJSON);
-  // eslint-disable-next-line no-global-assign
-  userData = parseStorage;
   $ulAnimeList.replaceChildren();
   loadAnimeList();
   animeListClosePopUp();
@@ -461,18 +432,12 @@ $saveButton.addEventListener('click', saveListEntry);
 
 var $deleteButton = document.querySelector('.delete-button');
 function deleteButtonHandler() {
-  var testStorage = window.localStorage.getItem('animelist-local-storage');
-  var parseStorage = JSON.parse(testStorage);
-  var userDataArr = parseStorage.animeList;
+  var userDataArr = userData.animeList;
   for (var i = 0; i < userDataArr.length; i++) {
     if (userDataArr[i].id.toString() === userData.currentListItem) {
       userDataArr.splice(i, 1);
     }
   }
-  var dataJSON = JSON.stringify(parseStorage);
-  window.localStorage.setItem('animelist-local-storage', dataJSON);
-  // eslint-disable-next-line no-global-assign
-  userData = parseStorage;
   $ulAnimeList.replaceChildren();
   loadAnimeList();
   animeListClosePopUp();
@@ -494,9 +459,7 @@ function animeListClosePopUp() {
 }
 
 function renderSelectedAnimeCharacters(response, i) {
-  var testStorage = window.localStorage.getItem('animelist-local-storage');
-  var parseStorage = JSON.parse(testStorage);
-  var userDataArr = parseStorage.characterList;
+  var userDataArr = userData.characterList;
 
   var col5025div = document.createElement('div');
   col5025div.className = 'col-50-25 center';
@@ -561,12 +524,11 @@ function selectedAnimeCharactersListHandler(event) {
   var closestID = closestSelectedDiv.getAttribute('id');
   var closestImg = closestSelectedDiv.querySelector('img').getAttribute('src');
   var closestName = closestSelectedDiv.querySelector('h2').textContent;
+  selectedAnimeCharactersInfo = {};
   selectedAnimeCharactersInfo.mal_id = closestID;
   selectedAnimeCharactersInfo.img = closestImg;
   selectedAnimeCharactersInfo.name = closestName;
-  var testStorage = window.localStorage.getItem('animelist-local-storage');
-  var parseStorage = JSON.parse(testStorage);
-  var userDataArr = parseStorage.characterList;
+  var userDataArr = userData.characterList;
 
   var trueOrFalse = false;
   for (var i = 0; i < userDataArr.length; i++) {
@@ -581,10 +543,6 @@ function selectedAnimeCharactersListHandler(event) {
     userDataArr.unshift(selectedAnimeCharactersInfo);
 
   }
-  var dataJSON = JSON.stringify(parseStorage);
-  window.localStorage.setItem('animelist-local-storage', dataJSON);
-  // eslint-disable-next-line no-global-assign
-  userData = parseStorage;
   $characterList.replaceChildren();
   loadCharacterList();
   viewSwap('character-list');
@@ -643,18 +601,12 @@ $noButton.addEventListener('click', function (event) {
 });
 
 $yesButton.addEventListener('click', function (event) {
-  var testStorage = window.localStorage.getItem('animelist-local-storage');
-  var parseStorage = JSON.parse(testStorage);
-  var userDataArr = parseStorage.characterList;
+  var userDataArr = userData.characterList;
   for (var i = 0; i < userDataArr.length; i++) {
     if (userDataArr[i].mal_id === userData.currentCharacter) {
       userDataArr.splice(i, 1);
     }
   }
-  var dataJSON = JSON.stringify(parseStorage);
-  window.localStorage.setItem('animelist-local-storage', dataJSON);
-  // eslint-disable-next-line no-global-assign
-  userData = parseStorage;
   $characterList.replaceChildren();
   loadCharacterList();
 
@@ -668,9 +620,7 @@ $characterList.addEventListener('click', function () {
   var closestListItem = event.target.closest('.col-50-25');
   var userChangedListItem = closestListItem.getAttribute('id');
   userData.currentCharacter = userChangedListItem;
-  var testStorage = window.localStorage.getItem('animelist-local-storage');
-  var parseStorage = JSON.parse(testStorage);
-  var userDataArr = parseStorage.characterList;
+  var userDataArr = userData.characterList;
   for (var i = 0; i < userDataArr.length; i++) {
     if (userDataArr[i].mal_id === userChangedListItem) {
       var currentName = userDataArr[i].name.split(',');
