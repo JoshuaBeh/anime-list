@@ -280,6 +280,10 @@ li {
   font-size: 1.4rem;
 }
 
+.font-2 {
+  font-size: 0.85rem;
+}
+
 .font-0-7 {
   font-size: 0.7rem;
 }
@@ -479,15 +483,6 @@ div.row.pop-up-characters {
   margin-bottom: 10px !important;
 }
 
-.margin-tb-fix {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.margin-left-70 {
-  margin-left: 50px;
-}
-
 .span-fix {
   display: block;
   margin-top: 15px;
@@ -606,6 +601,10 @@ div#character-list > div > div > img:hover {
     width: 35%;
   }
 
+  .font-2 {
+    font-size: 1rem;
+  }
+
   .block {
     display: inline-flex;
   }
@@ -651,11 +650,6 @@ div#character-list > div > div > img:hover {
     padding-left: 0;
   }
 
-  .margin-tb-fix {
-    margin-top: 18.72px;
-    margin-bottom: 18.72px;
-  }
-
   h3.padding-left-fix {
     width: 400px;
   }
@@ -675,10 +669,6 @@ div#character-list > div > div > img:hover {
     margin-top: 0;
     margin-left: 75px;
     margin-right: 80px;
-  }
-
-  .margin-left-70 {
-    margin-left: 70px;
   }
 }
 
