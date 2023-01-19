@@ -73,6 +73,22 @@ img.search-result-img {
   width: 56.25px;
 }
 
+.width-list-title {
+  width: 100%;
+}
+
+.width-inputs {
+  width: 100%;
+}
+
+.width-100px {
+  width: 100px;
+}
+
+.block {
+  display: block;
+}
+
 .center {
   display: flex;
   justify-content: center;
@@ -94,6 +110,10 @@ img.search-result-img {
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.just-inline {
+  display: inline-flex;
 }
 
 .inline-around {
@@ -454,6 +474,11 @@ div.row.pop-up-characters {
   padding-left: 20px;
 }
 
+.test-margin {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+
 .margin-tb-fix {
   margin-top: 0;
   margin-bottom: 0;
@@ -569,6 +594,22 @@ div#character-list > div > div > img:hover {
 }
 
 @media screen and (min-width: 768px) {
+  .width-100px {
+    width: 120px;
+  }
+
+  .width-list-title {
+    width: 65%;
+  }
+
+  .width-inputs {
+    width: 35%;
+  }
+
+  .block {
+    display: inline-flex;
+  }
+
   .top-titles {
     font-size: 1.8rem;
     padding-right: 0;
@@ -652,8 +693,20 @@ div#character-list > div > div > img:hover {
     width: 73px;
   }
 
+  .width-100px {
+    width: 180px;
+  }
+
   .top-titles {
     font-size: 2rem;
+  }
+
+  .font-2 {
+    font-size: 1.3rem;
+  }
+
+  .top-scores {
+    margin-right: 100px;
   }
 
   .anime-list-inline {

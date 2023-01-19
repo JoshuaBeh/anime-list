@@ -385,36 +385,45 @@ function renderAnimeList(userData) {
   outerRowDiv.className = 'row center top-background';
   li.appendChild(outerRowDiv);
 
-  var col15Div = document.createElement('div');
-  col15Div.className = 'col-15';
-  outerRowDiv.appendChild(col15Div);
+  var col20Div = document.createElement('div');
+  col20Div.className = 'col-20-list';
+  outerRowDiv.appendChild(col20Div);
 
   var img = document.createElement('img');
   img.className = 'anime-list-img';
   img.setAttribute('src', userData.img);
-  col15Div.appendChild(img);
+  col20Div.appendChild(img);
 
-  var col85Div = document.createElement('div');
-  col85Div.className = 'col-85 white anime-list-inline';
-  outerRowDiv.appendChild(col85Div);
+  var col80Div = document.createElement('div');
+  col80Div.className = 'col-80-list white font-2';
+  outerRowDiv.appendChild(col80Div);
+
+  var innerRowDiv = document.createElement('div');
+  innerRowDiv.className = 'row';
+  col80Div.appendChild(innerRowDiv);
+
+  var colFullDiv = document.createElement('div');
+  colFullDiv.className = 'col-full block';
+  innerRowDiv.appendChild(colFullDiv);
 
   var h3 = document.createElement('h3');
-  h3.className = 'padding-left-fix margin-tb-fix';
+  h3.className = 'test-margin width-list-title';
   h3.textContent = userData.title;
-  col85Div.appendChild(h3);
+  colFullDiv.appendChild(h3);
 
-  var spanFixDiv = document.createElement('div');
-  spanFixDiv.className = 'span-fix';
-  col85Div.appendChild(spanFixDiv);
+  var inputDiv = document.createElement('div');
+  inputDiv.className = 'just-inline width-inputs';
+  colFullDiv.appendChild(inputDiv);
 
-  var scoreSpan = document.createElement('span');
-  scoreSpan.textContent = 'Score: ' + userData.myScore;
-  spanFixDiv.appendChild(scoreSpan);
+  var h4Score = document.createElement('h4');
+  h4Score.className = 'test-margin width-100px';
+  h4Score.textContent = 'Score: ' + userData.myScore;
+  inputDiv.appendChild(h4Score);
 
-  var progressSpan = document.createElement('span');
-  progressSpan.className = 'margin-left-70';
-  progressSpan.textContent = 'Progress: ' + userData.progress + '/' + userData.episodes;
-  spanFixDiv.appendChild(progressSpan);
+  var h4Progress = document.createElement('h4');
+  h4Progress.className = 'test-margin';
+  h4Progress.textContent = 'Progress: ' + userData.progress + '/' + userData.episodes;
+  inputDiv.appendChild(h4Progress);
 
   return li;
 }
