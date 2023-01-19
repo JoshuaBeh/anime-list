@@ -569,6 +569,10 @@ div.row.pop-up-characters {
   padding: 25px;
 }
 
+.no-characters-text {
+  font-size: 1.1rem;
+}
+
 ul#anime-list > li {
   margin: 0;
 }
@@ -593,6 +597,10 @@ div#character-list > div > div > img:hover {
 @media screen and (min-width: 421px) {
   .font-2 {
     font-size: 0.85rem;
+  }
+
+  .no-characters-text {
+    font-size: 1.5rem;
   }
 
   .selected-anime-stats {

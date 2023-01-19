@@ -37,6 +37,7 @@ var $searchResultFalse = document.querySelector('#search-result-false');
 var $searchResultError = document.querySelector('#search-result-error');
 var $selectedCharactersLoading = document.querySelector('#selected-characters-loading');
 var $selectedCharactersFalse = document.querySelector('#selected-characters-false');
+var $noAnime = document.querySelector('.no-anime');
 var userSearchInput = '';
 var pageNumber = 1;
 
@@ -79,12 +80,34 @@ $animeNavAnchor.addEventListener('click', function () {
 });
 
 $listNavAnchor.addEventListener('click', function () {
-  $ulAnimeList.replaceChildren();
-  loadAnimeList();
-  viewSwap('anime-list');
+  if (userData.animeList.length === 0) {
+    $noAnime.classList.remove('hidden');
+    viewSwap('anime-list');
+  } else {
+    $noAnime.classList.add('hidden');
+    $ulAnimeList.replaceChildren();
+    loadAnimeList();
+    viewSwap('anime-list');
+  }
 });
 
 $characterNavAnchor.addEventListener('click', function () {
+  if (userData.characterList.length === 0) {
+    $characterList.replaceChildren();
+    var centerH2 = document.createElement('div');
+    centerH2.className = 'col-full center';
+    var h2 = document.createElement('h2');
+    h2.className = 'white no-characters-text';
+    h2.textContent = 'No characters yet, go add some!';
+    centerH2.appendChild(h2);
+    $characterList.appendChild(centerH2);
+    viewSwap('character-list');
+    return $characterList;
+  } else {
+    $characterList.replaceChildren();
+    loadCharacterList();
+    viewSwap('character-list');
+  }
   $characterList.replaceChildren();
   loadCharacterList();
   viewSwap('character-list');
