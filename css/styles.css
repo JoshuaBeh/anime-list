@@ -460,7 +460,7 @@ div.row.pop-up-list {
 .pop-up-list {
   position: fixed;
   left: 50%;
-  top: 30%;
+  top: 20%;
   transform: translateX(-50%);
 }
 
@@ -617,7 +617,7 @@ div#character-list > div > div > img:hover {
   }
 
   .selected-anime-stats {
-    font-size: 1rem;
+    font-size: 1.3rem;
   }
 
   .width-list-title {
