@@ -648,6 +648,10 @@ div#character-list > div > div > img:hover {
     width: 73px;
   }
 
+  .top-titles {
+    font-size: 2rem;
+  }
+
   .anime-list-inline {
     display: inline-flex;
     align-items: center;

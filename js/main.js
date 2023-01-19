@@ -232,34 +232,37 @@ $searchButton.addEventListener('click', function () {
 });
 
 function renderSearchResult(response, i) {
-  var col5025div = document.createElement('div');
-  col5025div.className = 'col-50-25 center';
-  col5025div.setAttribute('id', response[i].mal_id);
-  $searchAppend.appendChild(col5025div);
+  if (response[i].images.jpg.image_url !== 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png') {
 
-  var imgDiv = document.createElement('div');
-  imgDiv.className = 'search-img-margin';
-  col5025div.appendChild(imgDiv);
+    var col5025div = document.createElement('div');
+    col5025div.className = 'col-50-25 center';
+    col5025div.setAttribute('id', response[i].mal_id);
+    $searchAppend.appendChild(col5025div);
 
-  var img = document.createElement('img');
-  img.className = 'search-result-img';
-  img.setAttribute('src', response[i].images.jpg.image_url);
-  imgDiv.appendChild(img);
+    var imgDiv = document.createElement('div');
+    imgDiv.className = 'search-img-margin';
+    col5025div.appendChild(imgDiv);
 
-  var divForTitle = document.createElement('div');
-  divForTitle.className = 'center search-title-div';
-  imgDiv.appendChild(divForTitle);
+    var img = document.createElement('img');
+    img.className = 'search-result-img';
+    img.setAttribute('src', response[i].images.jpg.image_url);
+    imgDiv.appendChild(img);
 
-  var anchorTitle = document.createElement('a');
-  anchorTitle.className = 'search-title';
-  if (response[i].title.length > 15) {
-    anchorTitle.textContent = response[i].title.split('').splice(0, 15).join('') + '...';
-  } else {
-    anchorTitle.textContent = response[i].title;
+    var divForTitle = document.createElement('div');
+    divForTitle.className = 'center search-title-div';
+    imgDiv.appendChild(divForTitle);
+
+    var anchorTitle = document.createElement('a');
+    anchorTitle.className = 'search-title';
+    if (response[i].title.length > 15) {
+      anchorTitle.textContent = response[i].title.split('').splice(0, 15).join('') + '...';
+    } else {
+      anchorTitle.textContent = response[i].title;
+    }
+    divForTitle.appendChild(anchorTitle);
+
+    return $searchAppend;
   }
-  divForTitle.appendChild(anchorTitle);
-
-  return $searchAppend;
 }
 
 var $selectedTitle = document.querySelector('.selected-title');
