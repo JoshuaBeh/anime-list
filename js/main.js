@@ -343,7 +343,6 @@ function addButtonHandler(event) {
       userDataArr.splice(i, 1);
       $addButton.setAttribute('id', 'not-inlist');
       $addButton.textContent = 'ADD';
-      userData.userTarget = userDataArr[i].id;
       break;
     }
   }
@@ -351,7 +350,6 @@ function addButtonHandler(event) {
     userDataArr.unshift(selectedAnimeInfo);
     $addButton.setAttribute('id', 'inlist');
     $addButton.textContent = 'IN LIST';
-    userData.userTarget = userDataArr[i].id;
   }
 }
 $addButton.addEventListener('click', addButtonHandler);
