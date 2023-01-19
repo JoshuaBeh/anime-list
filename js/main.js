@@ -31,6 +31,12 @@ var $popUpH1 = document.querySelector('.pop-up-h1');
 var $noButton = document.querySelector('.no-button');
 var $yesButton = document.querySelector('.yes-button');
 var $form = document.querySelector('form');
+var $topAnimeLoading = document.querySelector('#top-anime-loading');
+var $searchResultLoading = document.querySelector('#search-result-loading');
+var $searchResultFalse = document.querySelector('#search-result-false');
+var $searchResultError = document.querySelector('#search-result-error');
+var $selectedCharactersLoading = document.querySelector('#selected-characters-loading');
+var $selectedCharactersFalse = document.querySelector('#selected-characters-false');
 var userSearchInput = '';
 var pageNumber = 1;
 
@@ -50,6 +56,19 @@ var selectedAnimeCharactersInfo = {
   name: '',
   img: ''
 };
+
+window.addEventListener('offline', function (event) {
+  if (!navigator.onLine) {
+    $searchResultLoading.classList.add('hidden');
+    $searchResultError.className = 'white';
+    $topAnimeView.classList.add('hidden');
+    $searchResultView.classList.add('hidden');
+    $selectedAnimeView.classList.add('hidden');
+    $animeListView.classList.add('hidden');
+    $selectedAnimeCharactersView.add('hidden');
+    $characterListView.add('hidden');
+  }
+});
 
 $form.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -118,11 +137,17 @@ function topAnimeGet() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.jikan.moe/v4/top/anime?page=' + pageNumber);
   xhr.responseType = 'json';
+  $topAnimeLoading.classList.remove('hidden');
   xhr.addEventListener('load', function () {
     var response = xhr.response.data;
+    if (!response) {
+      $topAnimeLoading.classList.add('hidden');
+      return false;
+    }
     for (var i = 0; i < response.length; i++) {
       renderTopAnime(response, i);
     }
+    $topAnimeLoading.classList.add('hidden');
   });
   xhr.send();
 }
@@ -163,12 +188,26 @@ function searchResultGet() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.jikan.moe/v4/anime?q=' + userSearchInput + '&sfw');
   xhr.responseType = 'json';
+  $searchResultFalse.className = 'white hidden';
+  $searchResultError.className = 'white hidden';
+  $searchResultLoading.classList.remove('hidden');
   xhr.addEventListener('load', function () {
     removeSearchResults();
     var response = xhr.response.data;
+    var status = xhr.status;
+    if (status >= 400) {
+      $searchResultLoading.classList.add('hidden');
+      $searchResultError.className = 'white';
+    }
+    if (!response || response.length === 0) {
+      $searchResultLoading.classList.add('hidden');
+      $searchResultFalse.className = 'white';
+      return false;
+    }
     for (var i = 0; i < response.length; i++) {
       renderSearchResult(response, i);
     }
+    $searchResultLoading.classList.add('hidden');
   });
   xhr.send();
 }
@@ -193,34 +232,37 @@ $searchButton.addEventListener('click', function () {
 });
 
 function renderSearchResult(response, i) {
-  var col5025div = document.createElement('div');
-  col5025div.className = 'col-50-25 center';
-  col5025div.setAttribute('id', response[i].mal_id);
-  $searchAppend.appendChild(col5025div);
+  if (response[i].images.jpg.image_url !== 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png') {
 
-  var imgDiv = document.createElement('div');
-  imgDiv.className = 'search-img-margin';
-  col5025div.appendChild(imgDiv);
+    var col5025div = document.createElement('div');
+    col5025div.className = 'col-50-25 center';
+    col5025div.setAttribute('id', response[i].mal_id);
+    $searchAppend.appendChild(col5025div);
 
-  var img = document.createElement('img');
-  img.className = 'search-result-img';
-  img.setAttribute('src', response[i].images.jpg.image_url);
-  imgDiv.appendChild(img);
+    var imgDiv = document.createElement('div');
+    imgDiv.className = 'search-img-margin';
+    col5025div.appendChild(imgDiv);
 
-  var divForTitle = document.createElement('div');
-  divForTitle.className = 'center search-title-div';
-  imgDiv.appendChild(divForTitle);
+    var img = document.createElement('img');
+    img.className = 'search-result-img';
+    img.setAttribute('src', response[i].images.jpg.image_url);
+    imgDiv.appendChild(img);
 
-  var anchorTitle = document.createElement('a');
-  anchorTitle.className = 'search-title';
-  if (response[i].title.length > 15) {
-    anchorTitle.textContent = response[i].title.split('').splice(0, 15).join('') + '...';
-  } else {
-    anchorTitle.textContent = response[i].title;
+    var divForTitle = document.createElement('div');
+    divForTitle.className = 'center search-title-div';
+    imgDiv.appendChild(divForTitle);
+
+    var anchorTitle = document.createElement('a');
+    anchorTitle.className = 'search-title';
+    if (response[i].title.length > 15) {
+      anchorTitle.textContent = response[i].title.split('').splice(0, 15).join('') + '...';
+    } else {
+      anchorTitle.textContent = response[i].title;
+    }
+    divForTitle.appendChild(anchorTitle);
+
+    return $searchAppend;
   }
-  divForTitle.appendChild(anchorTitle);
-
-  return $searchAppend;
 }
 
 var $selectedTitle = document.querySelector('.selected-title');
@@ -301,7 +343,6 @@ function addButtonHandler(event) {
       userDataArr.splice(i, 1);
       $addButton.setAttribute('id', 'not-inlist');
       $addButton.textContent = 'ADD';
-      userData.userTarget = userDataArr[i].id;
       break;
     }
   }
@@ -309,7 +350,6 @@ function addButtonHandler(event) {
     userDataArr.unshift(selectedAnimeInfo);
     $addButton.setAttribute('id', 'inlist');
     $addButton.textContent = 'IN LIST';
-    userData.userTarget = userDataArr[i].id;
   }
 }
 $addButton.addEventListener('click', addButtonHandler);
@@ -343,36 +383,45 @@ function renderAnimeList(userData) {
   outerRowDiv.className = 'row center top-background';
   li.appendChild(outerRowDiv);
 
-  var col10Div = document.createElement('div');
-  col10Div.className = 'col-10';
-  outerRowDiv.appendChild(col10Div);
+  var col20Div = document.createElement('div');
+  col20Div.className = 'col-20-list';
+  outerRowDiv.appendChild(col20Div);
 
   var img = document.createElement('img');
   img.className = 'anime-list-img';
   img.setAttribute('src', userData.img);
-  col10Div.appendChild(img);
+  col20Div.appendChild(img);
 
-  var col90Div = document.createElement('div');
-  col90Div.className = 'col-90 white anime-list-inline';
-  outerRowDiv.appendChild(col90Div);
+  var col80Div = document.createElement('div');
+  col80Div.className = 'col-80-list white font-2';
+  outerRowDiv.appendChild(col80Div);
+
+  var innerRowDiv = document.createElement('div');
+  innerRowDiv.className = 'row';
+  col80Div.appendChild(innerRowDiv);
+
+  var colFullDiv = document.createElement('div');
+  colFullDiv.className = 'col-full block';
+  innerRowDiv.appendChild(colFullDiv);
 
   var h3 = document.createElement('h3');
-  h3.className = 'padding-left-fix margin-tb-fix';
+  h3.className = 'test-margin width-list-title';
   h3.textContent = userData.title;
-  col90Div.appendChild(h3);
+  colFullDiv.appendChild(h3);
 
-  var spanFixDiv = document.createElement('div');
-  spanFixDiv.className = 'span-fix';
-  col90Div.appendChild(spanFixDiv);
+  var inputDiv = document.createElement('div');
+  inputDiv.className = 'just-inline width-inputs';
+  colFullDiv.appendChild(inputDiv);
 
-  var scoreSpan = document.createElement('span');
-  scoreSpan.textContent = 'Score: ' + userData.myScore;
-  spanFixDiv.appendChild(scoreSpan);
+  var h4Score = document.createElement('h4');
+  h4Score.className = 'test-margin width-100px';
+  h4Score.textContent = 'Score: ' + userData.myScore;
+  inputDiv.appendChild(h4Score);
 
-  var progressSpan = document.createElement('span');
-  progressSpan.className = 'margin-left-70';
-  progressSpan.textContent = 'Progress: ' + userData.progress + '/' + userData.episodes;
-  spanFixDiv.appendChild(progressSpan);
+  var h4Progress = document.createElement('h4');
+  h4Progress.className = 'test-margin';
+  h4Progress.textContent = 'Progress: ' + userData.progress + '/' + userData.episodes;
+  inputDiv.appendChild(h4Progress);
 
   return li;
 }
@@ -509,12 +558,20 @@ function renderSelectedAnimeCharacters(response, i) {
 function selectedAnimeCharactersGet() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.jikan.moe/v4/anime/' + userData.userTarget + '/' + 'characters');
+  $selectedCharactersFalse.className = 'white hidden';
+  $selectedCharactersLoading.classList.remove('hidden');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     var response = xhr.response.data;
+    if (!response) {
+      $selectedCharactersLoading.classList.add('hidden');
+      $selectedCharactersFalse.className = 'white';
+      return false;
+    }
     for (var i = 0; i < response.length; i++) {
       renderSelectedAnimeCharacters(response, i);
     }
+    $selectedCharactersLoading.classList.add('hidden');
   });
   xhr.send();
 }
@@ -636,6 +693,7 @@ $characterList.addEventListener('click', function () {
 });
 
 function viewSwap(userview) {
+  $searchResultError.className = 'white hidden';
   if (userview === 'top-anime') {
     $topAnimeView.classList.remove('hidden');
     $searchResultView.classList.add('hidden');

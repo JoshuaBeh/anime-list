@@ -18,14 +18,75 @@ img.top-image {
 
 img.search-result-img {
   object-fit: fill;
-  width: 190px;
-  height: 267px;
+  width: 100%;
+  height: 100%;
+  min-height: 190px;
+}
+
+.lds-facebook {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-facebook div {
+  display: inline-block;
+  position: absolute;
+  left: 8px;
+  width: 16px;
+  background: #fff;
+  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+
+.lds-facebook div:nth-child(1) {
+  left: 8px;
+  animation-delay: -0.24s;
+}
+
+.lds-facebook div:nth-child(2) {
+  left: 32px;
+  animation-delay: -0.12s;
+}
+
+.lds-facebook div:nth-child(3) {
+  left: 56px;
+  animation-delay: 0;
+}
+
+@keyframes lds-facebook {
+  0% {
+    top: 8px;
+    height: 64px;
+  }
+
+  50%,
+  100% {
+    top: 24px;
+    height: 32px;
+  }
 }
 
 .anime-list-img {
   margin-left: 10px;
   height: 100%;
   width: 56.25px;
+}
+
+.width-list-title {
+  width: 100%;
+}
+
+.width-inputs {
+  width: 100%;
+}
+
+.width-100px {
+  width: 100px;
+}
+
+.block {
+  display: block;
 }
 
 .center {
@@ -51,6 +112,10 @@ img.search-result-img {
   align-items: center;
 }
 
+.just-inline {
+  display: inline-flex;
+}
+
 .inline-around {
   display: inline-flex;
   justify-content: space-around;
@@ -69,15 +134,15 @@ img.search-result-img {
 
 .search-img-margin {
   margin-top: 20px;
-  margin-right: 10px;
-  margin-left: 25px;
+  margin-right: 15px;
+  margin-left: 15px;
   background-color: #1a1c1e;
 }
 
 .search-img-margin-green {
   margin-top: 20px;
-  margin-right: 10px;
-  margin-left: 25px;
+  margin-right: 15px;
+  margin-left: 15px;
   background-color: green;
 }
 
@@ -138,7 +203,7 @@ li {
 }
 
 .search-title {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   color: #27b3fd;
   margin: 0;
   text-align: center;
@@ -178,7 +243,7 @@ li {
 
 #synopsis {
   font-weight: normal;
-  line-height: 1.2;
+  line-height: 1.4;
 }
 
 .synopsis {
@@ -192,6 +257,7 @@ li {
 
 .selected-anime-stats {
   padding-left: 25px;
+  font-size: 0.85rem;
   color: rgb(172, 172, 172);
 }
 
@@ -213,6 +279,10 @@ li {
 .nav-anchor-grey {
   color: grey;
   font-size: 1.4rem;
+}
+
+.font-2 {
+  font-size: 0.8rem;
 }
 
 .font-0-7 {
@@ -255,8 +325,9 @@ li {
 }
 
 .top-titles {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   padding-right: 15px;
+  margin-left: 5px;
   color: #27b3fd;
 }
 
@@ -277,7 +348,8 @@ li {
 
 .search-bar {
   height: 50px;
-  width: 576px;
+  width: 100%;
+  max-width: 100%;
   background-color: #1a1c1e;
 }
 
@@ -370,6 +442,10 @@ img.selected-picture {
   height: 100%;
 }
 
+div.row.pop-up-search {
+  width: 100%;
+}
+
 .pop-up-search {
   position: fixed;
   left: 50%;
@@ -377,10 +453,14 @@ img.selected-picture {
   transform: translateX(-50%);
 }
 
+div.row.pop-up-list {
+  width: 90%;
+}
+
 .pop-up-list {
   position: fixed;
   left: 50%;
-  top: 40%;
+  top: 20%;
   transform: translateX(-50%);
 }
 
@@ -391,17 +471,18 @@ img.selected-picture {
   transform: translateX(-50%);
 }
 
+div.row.pop-up-characters {
+  width: 80%;
+  max-width: 567px;
+}
+
 .padding-left-fix {
   padding-left: 20px;
 }
 
-.margin-tb-fix {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.margin-left-70 {
-  margin-left: 50px;
+.test-margin {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
 }
 
 .span-fix {
@@ -473,6 +554,7 @@ img.selected-picture {
 .pop-up-char-title {
   height: 50px;
   color: #27b3fd;
+  font-size: 0.8rem;
   background-color: #232628;
 }
 
@@ -508,7 +590,52 @@ div#character-list > div > div > img:hover {
   cursor: pointer;
 }
 
+@media screen and (min-width: 421px) {
+  .font-2 {
+    font-size: 0.85rem;
+  }
+
+  .selected-anime-stats {
+    font-size: 1rem;
+  }
+
+  .top-titles {
+    font-size: 1.5rem;
+  }
+
+  img.search-result-img {
+    object-fit: fill;
+    width: 100%;
+    height: 100%;
+    min-height: 237.34px;
+  }
+}
+
 @media screen and (min-width: 768px) {
+  .width-100px {
+    width: 120px;
+  }
+
+  .selected-anime-stats {
+    font-size: 1.3rem;
+  }
+
+  .width-list-title {
+    width: 65%;
+  }
+
+  .width-inputs {
+    width: 35%;
+  }
+
+  .font-2 {
+    font-size: 1rem;
+  }
+
+  .block {
+    display: inline-flex;
+  }
+
   .top-titles {
     font-size: 1.8rem;
     padding-right: 0;
@@ -516,6 +643,10 @@ div#character-list > div > div > img:hover {
 
   .search-bar {
     width: 768px;
+  }
+
+  .search-title {
+    font-size: 1.3rem;
   }
 
   .col-list-pop-up {
@@ -546,11 +677,6 @@ div#character-list > div > div > img:hover {
     padding-left: 0;
   }
 
-  .margin-tb-fix {
-    margin-top: 18.72px;
-    margin-bottom: 18.72px;
-  }
-
   h3.padding-left-fix {
     width: 400px;
   }
@@ -558,6 +684,11 @@ div#character-list > div > div > img:hover {
   .anime-list-inline {
     display: inline-flex;
     align-items: center;
+    justify-content: space-between;
+  }
+
+  .pop-up-char-title {
+    font-size: 1rem;
   }
 
   .span-fix {
@@ -566,8 +697,49 @@ div#character-list > div > div > img:hover {
     margin-left: 75px;
     margin-right: 80px;
   }
+}
 
-  .margin-left-70 {
-    margin-left: 70px;
+@media screen and (min-width: 1280px) {
+  ul#top-anime > li > div.row {
+    height: 100px;
+  }
+
+  img.top-image {
+    object-fit: fill;
+    height: 100px;
+    width: 73px;
+  }
+
+  .width-100px {
+    width: 180px;
+  }
+
+  .top-titles {
+    font-size: 2rem;
+  }
+
+  .font-2 {
+    font-size: 1.3rem;
+  }
+
+  .top-scores {
+    margin-right: 100px;
+  }
+
+  .anime-list-inline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .selected-picture-div {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  img.selected-picture {
+    width: 328.23px;
+    max-height: 457.5px;
+    object-fit: fill;
   }
 }

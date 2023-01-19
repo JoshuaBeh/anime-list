@@ -44,11 +44,28 @@
               <button class="back-to-top">Top</button>
             </div>
           </div>
+          <div class="col-full center">
+            <div id="top-anime-loading" class="lds-facebook hidden">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
         </div>
       </div>
       <div data-view="search-result">
         <div id="search-append" class="row">
 
+        </div>
+        <div class="row">
+          <div class="col-full center">
+            <h1 id="search-result-false" class="white hidden">No Results</h1>
+            <div id="search-result-loading" class="lds-facebook hidden">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
         </div>
       </div>
       <div data-view="selected-anime" class="hidden">
@@ -81,7 +98,7 @@
           </div>
         </div>
         <div class="row margin-15l">
-          <div class="col-full">
+          <div class="col-synopsis">
             <h3 class="synopsis">Synopsis:&nbsp; <span id="synopsis"></span></h3>
           </div>
         </div>
@@ -93,6 +110,16 @@
       <div data-view="selected-anime-characters" class="hidden">
         <div id="selected-anime-characters" class="row">
 
+        </div>
+        <div class="row">
+          <div class="col-full center">
+            <h1 id="selected-characters-false" class="white hidden">No Characters</h1>
+            <div id="selected-characters-loading" class="lds-facebook hidden">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
         </div>
       </div>
       <div data-view="character-list" class="hidden">
@@ -152,6 +179,10 @@
             <button class="yes-button">Yes</button>
           </div>
         </div>
+      </div>
+      <div class="center padding-left-fix font-0-7">
+        <h2 id="search-result-error" class="white hidden">Sorry, there was an error connecting to the network!
+        Please check your internet connection and try again.</h2>
       </div>
     </main>
   </div>

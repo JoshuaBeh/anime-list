@@ -13,7 +13,7 @@ h3.type-hide {
 }
 
 .container {
-  max-width: 576px;
+  max-width: 420px;
   margin: 0 auto;
   padding: 0;
 }
@@ -40,14 +40,6 @@ h3.type-hide {
   width: 50%;
 }
 
-.col-10 {
-  width: 10%;
-}
-
-.col-90 {
-  width: 90%;
-}
-
 .col-20 {
   width: 20%;
 }
@@ -56,13 +48,35 @@ h3.type-hide {
   width: 80%;
 }
 
+.col-20-list {
+  width: 25%;
+}
+
+.col-80-list {
+  width: 75%;
+}
+
 .col-567 {
-  width: 567px;
+  width: 100%;
+}
+
+@media screen and (min-width: 421px) {
+  .container {
+    max-width: 750px;
+  }
+
+  .col-20-list {
+    width: 20%;
+  }
+
+  .col-80-list {
+    width: 80%;
+  }
 }
 
 @media screen and (min-width: 768px) {
   .container {
-    max-width: 900px;
+    max-width: 1000px;
   }
 
   .col-full,
@@ -86,9 +100,59 @@ h3.type-hide {
     width: 77%;
   }
 
+  .col-60 {
+    width: 66%;
+  }
+
+  .col-15 {
+    width: 10%;
+  }
+
+  .col-85 {
+    width: 90%;
+  }
+
+  .col-20-list {
+    width: 10%;
+  }
+
+  .col-80-list {
+    width: 90%;
+  }
+
   h1.star-hide,
   h2.type-hide,
   h3.type-hide {
     display: inline-flex;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .container {
+    max-width: 1435px;
+  }
+
+  .col-20 {
+    width: 15%;
+  }
+
+  .col-80 {
+    width: 85%;
+  }
+
+  .col-50-25 {
+    width: calc(100% / 6);
+  }
+
+  .col-40-33 {
+    width: 25%;
+  }
+
+  .col-60 {
+    width: 75%;
+  }
+
+  .col-synopsis {
+    width: 80%;
   }
 }
