@@ -5,7 +5,6 @@ var $backToTop = document.querySelector('.back-to-top');
 var $topOfPage = document.querySelector('.anchor-background');
 var $searchAnchor = document.querySelector('#search-pop-up');
 var $outerDiv = document.querySelector('.search-pop-up');
-var $header = document.querySelector('header');
 var $topAnimeView = document.querySelector('[data-view="top-anime"]');
 var $searchResultView = document.querySelector('[data-view="search-result"]');
 var $popUpSearch = document.querySelector('.pop-up-search');
@@ -188,16 +187,16 @@ $backToTop.addEventListener('click', function (event) {
 
 function searchPopUpHandler(event) {
   $outerDiv.classList.add('pop-up-background');
-  $header.classList.add('z-index-neg');
-  $topAnimeView.classList.add('z-index-neg');
-  $searchResultView.classList.add('z-index-neg');
-  $selectedAnimeView.classList.add('z-index-neg');
-  $animeListView.classList.add('z-index-neg');
-  $characterListView.classList.add('z-index-neg');
-  $selectedAnimeCharactersView.classList.add('z-index-neg');
   $popUpSearch.classList.remove('hidden');
 }
 $searchAnchor.addEventListener('click', searchPopUpHandler);
+
+$outerDiv.addEventListener('click', function () {
+  $outerDiv.classList.remove('pop-up-background');
+  $popUpSearch.classList.add('hidden');
+  $popUpCharacters.classList.add('hidden');
+  $popUpList.classList.add('hidden');
+});
 
 function removeSearchResults() {
   $searchAppend.replaceChildren();
@@ -244,14 +243,14 @@ $searchButton.addEventListener('click', function () {
   searchResultGet();
   viewSwap('search-result');
   $outerDiv.classList.remove('pop-up-background');
-  $header.classList.remove('z-index-neg');
-  $topAnimeView.classList.remove('z-index-neg');
-  $searchResultView.classList.remove('z-index-neg');
-  $selectedAnimeView.classList.remove('z-index-neg');
-  $animeListView.classList.remove('z-index-neg');
-  $characterListView.classList.remove('z-index-neg');
-  $selectedAnimeCharactersView.classList.remove('z-index-neg');
   $popUpSearch.classList.add('hidden');
+});
+
+$searchInput.addEventListener('keyup', function (event) {
+  event.preventDefault();
+  if (event.keyCode === 13) {
+    $searchButton.click();
+  }
 });
 
 function renderSearchResult(response, i) {
@@ -523,15 +522,11 @@ $deleteButton.addEventListener('click', deleteButtonHandler);
 
 function animeListPopUp() {
   $outerDiv.classList.add('pop-up-background');
-  $header.classList.add('z-index-neg');
-  $animeListView.classList.add('z-index-neg');
   $popUpList.classList.remove('hidden');
 }
 
 function animeListClosePopUp() {
   $outerDiv.classList.remove('pop-up-background');
-  $header.classList.remove('z-index-neg');
-  $animeListView.classList.remove('z-index-neg');
   $popUpList.classList.add('hidden');
 }
 
@@ -672,15 +667,11 @@ function loadCharacterList() {
 }
 
 function characterListPopUp() {
-  $characterListView.classList.add('z-index-neg');
-  $header.classList.add('z-index-neg');
   $outerDiv.classList.add('pop-up-background');
   $popUpCharacters.classList.remove('hidden');
 }
 
 $noButton.addEventListener('click', function (event) {
-  $characterListView.classList.remove('z-index-neg');
-  $header.classList.remove('z-index-neg');
   $outerDiv.classList.remove('pop-up-background');
   $popUpCharacters.classList.add('hidden');
 });
@@ -695,8 +686,6 @@ $yesButton.addEventListener('click', function (event) {
   $characterList.replaceChildren();
   loadCharacterList();
 
-  $characterListView.classList.remove('z-index-neg');
-  $header.classList.remove('z-index-neg');
   $outerDiv.classList.remove('pop-up-background');
   $popUpCharacters.classList.add('hidden');
 });

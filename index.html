@@ -23,182 +23,181 @@
   <link rel="manifest" href="site.webmanifest">
 </head>
 <body>
-  <div class="search-pop-up">
-    <header>
-      <div class="container anchor-background relative">
-        <div class="row relative">
-          <div id="anchor-bar" class="col-full justify-around relative">
-            <a class="anime" href="#">Anime</a>
-            <a class="nav-anchor list-anchor" href="#">List</a>
-            <a class="nav-anchor characters-anchor" href="#">Characters</a>
-            <a id="search-pop-up" class="nav-anchor inline" href="#"><i class="fas fa-search font-0-7"></i>Search</a>
-          </div>
+  <div class="search-pop-up"></div>
+  <header>
+    <div class="container anchor-background">
+      <div class="row">
+        <div id="anchor-bar" class="col-full justify-around">
+          <a class="anime" href="#">Anime</a>
+          <a class="nav-anchor list-anchor" href="#">List</a>
+          <a class="nav-anchor characters-anchor" href="#">Characters</a>
+          <a id="search-pop-up" class="nav-anchor inline" href="#"><i class="fas fa-search font-0-7"></i>Search</a>
         </div>
       </div>
-    </header>
-    <main class="container relative">
-      <div data-view="top-anime">
-        <div class="row top-anime relative">
-          <div class="col-full center relative">
-            <h1 class="margin-10tb">Top Anime</h1>
-          </div>
-        </div>
-        <ul id="top-anime">
-
-        </ul>
-        <div class="row relative">
-          <div class="col-full inline relative">
-            <i id="hide-arrow" class="fa-solid fa-arrow-left"></i>
-            <div class="arrow-down-div">
-              <i class="fa-solid fa-arrow-down"></i>
-            </div>
-            <div class="back-to-top-div">
-              <button class="back-to-top">Top</button>
-            </div>
-          </div>
-          <div class="col-full center">
-            <div id="top-anime-loading" class="lds-facebook hidden">
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div data-view="search-result">
-        <div id="search-append" class="row">
-
-        </div>
-        <div class="row">
-          <div class="col-full center">
-            <h1 id="search-result-false" class="white hidden">No Results</h1>
-            <div id="search-result-loading" class="lds-facebook hidden">
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div data-view="selected-anime" class="hidden">
-        <div class="row margin-15t">
-          <div class="col-full inline">
-            <div class="characters-button-div">
-              <button class="characters-button">CHARACTERS</button>
-            </div>
-            <div class="add-button-div">
-              <button class="add-button">ADD</button>
-            </div>
-          </div>
-        </div>
-        <div class="row margin-15l">
-          <div class="col-full">
-            <h1 class="selected-title"></h1>
-          </div>
-        </div>
-        <div class="row margin-15l">
-          <div class="col-40-33 selected-picture-div">
-            <img class="selected-picture" src="">
-          </div>
-          <div class="col-60">
-            <h1 class="white margin-0t align-center" id="score"></h1>
-            <h3 class="selected-anime-stats">Episodes:&nbsp; <span id="episodes"></span></h3>
-            <h3 class="selected-anime-stats">Rank:&nbsp; <span id="rank"></span></h3>
-            <h3 class="selected-anime-stats">Premiered:&nbsp; <span id="premiered"></span></h3>
-            <h3 class="selected-anime-stats">Status:&nbsp; <span id="status"></span></h3>
-            <h3 class="selected-anime-stats">Type:&nbsp; <span id="type"></span></h3>
-          </div>
-        </div>
-        <div class="row margin-15l">
-          <div class="col-synopsis">
-            <h3 class="synopsis">Synopsis:&nbsp; <span id="synopsis"></span></h3>
-          </div>
-        </div>
-      </div>
-      <div data-view="anime-list" class="hidden">
-        <h2 class="no-anime white center no-characters-text hidden">No animes yet? Go add some!</h2>
-        <ul id="anime-list" class="margin-30t">
-        </ul>
-      </div>
-      <div data-view="selected-anime-characters" class="hidden">
-        <div id="selected-anime-characters" class="row">
-
-        </div>
-        <div class="row">
-          <div class="col-full center">
-            <h1 id="selected-characters-false" class="white hidden">No Characters</h1>
-            <div id="selected-characters-loading" class="lds-facebook hidden">
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div data-view="character-list" class="hidden">
-        <div id="character-list" class="row">
-
-        </div>
-      </div>
-      <div class="row pop-up-search hidden">
+    </div>
+  </header>
+  <main class="container">
+    <div data-view="top-anime">
+      <div class="row top-anime">
         <div class="col-full center">
-          <div class="search-bar align-center">
-            <div class="search-bar-icon-div">
-              <i id="search-button" class="fas fa-search"></i>
-            </div>
-            <input class="search-input" type="text" placeholder="Search Anime">
+          <h1 class="margin-10tb">Top Anime</h1>
+        </div>
+      </div>
+      <ul id="top-anime">
+
+      </ul>
+      <div class="row">
+        <div class="col-full inline">
+          <i id="hide-arrow" class="fa-solid fa-arrow-left"></i>
+          <div class="arrow-down-div">
+            <i class="fa-solid fa-arrow-down"></i>
+          </div>
+          <div class="back-to-top-div">
+            <button class="back-to-top">Top</button>
+          </div>
+        </div>
+        <div class="col-full center">
+          <div id="top-anime-loading" class="lds-facebook hidden">
+            <div></div>
+            <div></div>
+            <div></div>
           </div>
         </div>
       </div>
-      <form>
-        <div class="row pop-up-list center hidden">
-          <div class="col-list-pop-up">
-            <div class="row">
-              <div class="col-full flex-end">
-                <div class="save-button-div">
-                  <button type="submit" class="save-button">Save</button>
-                </div>
+    </div>
+    <div data-view="search-result">
+      <div id="search-append" class="row">
+
+      </div>
+      <div class="row">
+        <div class="col-full center">
+          <h1 id="search-result-false" class="white hidden">No Results</h1>
+          <div id="search-result-loading" class="lds-facebook hidden">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div data-view="selected-anime" class="hidden">
+      <div class="row margin-15t">
+        <div class="col-full inline">
+          <div class="characters-button-div">
+            <button class="characters-button">CHARACTERS</button>
+          </div>
+          <div class="add-button-div">
+            <button class="add-button">ADD</button>
+          </div>
+        </div>
+      </div>
+      <div class="row margin-15l">
+        <div class="col-full">
+          <h1 class="selected-title"></h1>
+        </div>
+      </div>
+      <div class="row margin-15l">
+        <div class="col-40-33 selected-picture-div">
+          <img class="selected-picture" src="">
+        </div>
+        <div class="col-60">
+          <h1 class="white margin-0t align-center" id="score"></h1>
+          <h3 class="selected-anime-stats">Episodes:&nbsp; <span id="episodes"></span></h3>
+          <h3 class="selected-anime-stats">Rank:&nbsp; <span id="rank"></span></h3>
+          <h3 class="selected-anime-stats">Premiered:&nbsp; <span id="premiered"></span></h3>
+          <h3 class="selected-anime-stats">Status:&nbsp; <span id="status"></span></h3>
+          <h3 class="selected-anime-stats">Type:&nbsp; <span id="type"></span></h3>
+        </div>
+      </div>
+      <div class="row margin-15l">
+        <div class="col-synopsis">
+          <h3 class="synopsis">Synopsis:&nbsp; <span id="synopsis"></span></h3>
+        </div>
+      </div>
+    </div>
+    <div data-view="anime-list" class="hidden">
+      <h2 class="no-anime white center no-characters-text hidden">No animes yet? Go add some!</h2>
+      <ul id="anime-list" class="margin-30t">
+      </ul>
+    </div>
+    <div data-view="selected-anime-characters" class="hidden">
+      <div id="selected-anime-characters" class="row">
+
+      </div>
+      <div class="row">
+        <div class="col-full center">
+          <h1 id="selected-characters-false" class="white hidden">No Characters</h1>
+          <div id="selected-characters-loading" class="lds-facebook hidden">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div data-view="character-list" class="hidden">
+      <div id="character-list" class="row">
+
+      </div>
+    </div>
+    <div class="row pop-up-search hidden">
+      <div class="col-full center">
+        <div class="search-bar align-center">
+          <div class="search-bar-icon-div">
+            <i id="search-button" class="fas fa-search"></i>
+          </div>
+          <input class="search-input" type="text" placeholder="Search Anime">
+        </div>
+      </div>
+    </div>
+    <form>
+      <div class="row pop-up-list center hidden">
+        <div class="col-list-pop-up">
+          <div class="row">
+            <div class="col-full flex-end">
+              <div class="save-button-div">
+                <button type="submit" class="save-button">Save</button>
               </div>
             </div>
-            <div class="row">
-              <div class="col-full inline-around">
-                <div>
-                  <label for="score-input">Score</label>
-                  <input id="score-input" type="text" placeholder="5.5">
-                </div>
-                <div>
-                  <label for="progress-input">Progress</label>
-                  <input id="progress-input" type="text" placeholder="10">
-                </div>
+          </div>
+          <div class="row">
+            <div class="col-full inline-around">
+              <div>
+                <label for="score-input">Score</label>
+                <input id="score-input" type="text" placeholder="5.5">
+              </div>
+              <div>
+                <label for="progress-input">Progress</label>
+                <input id="progress-input" type="text" placeholder="10">
               </div>
             </div>
-            <div class="row">
-              <div class="col-full flex-end">
-                <div class="delete-button-div">
-                  <button class="delete-button">Delete</button>
-                </div>
+          </div>
+          <div class="row">
+            <div class="col-full flex-end">
+              <div class="delete-button-div">
+                <button class="delete-button">Delete</button>
               </div>
             </div>
           </div>
         </div>
-      </form>
-      <div class="row pop-up-characters hidden">
-        <div class="col-567">
-          <div class="row center pop-up-char-title">
-            <h1 class="margin-0 pop-up-h1"></h1>
-          </div>
-          <div class="row justify-around pop-up-char-buttons">
-            <button class="no-button">No</button>
-            <button class="yes-button">Yes</button>
-          </div>
+      </div>
+    </form>
+    <div class="row pop-up-characters hidden">
+      <div class="col-567">
+        <div class="row center pop-up-char-title">
+          <h1 class="margin-0 pop-up-h1"></h1>
+        </div>
+        <div class="row justify-around pop-up-char-buttons">
+          <button class="no-button">No</button>
+          <button class="yes-button">Yes</button>
         </div>
       </div>
-      <div class="center padding-left-fix font-0-7">
-        <h2 id="search-result-error" class="white hidden">Sorry, there was an error connecting to the network!
-        Please check your internet connection and try again.</h2>
-      </div>
-    </main>
-  </div>
+    </div>
+    <div class="center padding-left-fix font-0-7">
+      <h2 id="search-result-error" class="white hidden">Sorry, there was an error connecting to the network!
+      Please check your internet connection and try again.</h2>
+    </div>
+  </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>
