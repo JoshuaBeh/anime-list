@@ -535,7 +535,6 @@ function renderSelectedAnimeCharacters(response, i) {
 
   var col5025div = document.createElement('div');
   col5025div.className = 'col-50-25 center';
-  col5025div.setAttribute('id', response[i].character.mal_id);
   $selectedAnimeCharacters.appendChild(col5025div);
 
   var imgDiv = document.createElement('div');
@@ -545,6 +544,7 @@ function renderSelectedAnimeCharacters(response, i) {
   var img = document.createElement('img');
   img.className = 'search-result-img';
   img.setAttribute('src', response[i].character.images.jpg.image_url);
+  img.setAttribute('id', response[i].character.mal_id);
   imgDiv.appendChild(img);
 
   var divForTitle = document.createElement('div');
@@ -601,8 +601,8 @@ $charactersButton.addEventListener('click', function (event) {
 
 function selectedAnimeCharactersListHandler(event) {
   var closestSelectedDiv = event.target.closest('.col-50-25');
-  var closestID = closestSelectedDiv.getAttribute('id');
   var closestImg = closestSelectedDiv.querySelector('img').getAttribute('src');
+  var closestID = closestSelectedDiv.querySelector('img').getAttribute('id');
   var closestName = closestSelectedDiv.querySelector('h2').textContent;
   selectedAnimeCharactersInfo = {};
   selectedAnimeCharactersInfo.mal_id = closestID;
@@ -632,7 +632,6 @@ $selectedAnimeCharacters.addEventListener('click', selectedAnimeCharactersListHa
 function renderCharacterList(userData) {
   var col5025div = document.createElement('div');
   col5025div.className = 'col-50-25 center';
-  col5025div.setAttribute('id', userData.mal_id);
 
   var imgDiv = document.createElement('div');
   imgDiv.className = 'search-img-margin';
@@ -641,6 +640,7 @@ function renderCharacterList(userData) {
   var img = document.createElement('img');
   img.className = 'search-result-img';
   img.setAttribute('src', userData.img);
+  img.setAttribute('id', userData.mal_id);
   imgDiv.appendChild(img);
 
   var divForTitle = document.createElement('div');
@@ -691,7 +691,7 @@ $yesButton.addEventListener('click', function (event) {
 });
 
 $characterList.addEventListener('click', function () {
-  var closestListItem = event.target.closest('.col-50-25');
+  var closestListItem = event.target.closest('img');
   var userChangedListItem = closestListItem.getAttribute('id');
   userData.currentCharacter = userChangedListItem;
   var userDataArr = userData.characterList;
