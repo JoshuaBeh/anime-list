@@ -246,6 +246,13 @@ $searchButton.addEventListener('click', function () {
   $popUpSearch.classList.add('hidden');
 });
 
+$searchInput.addEventListener('keyup', function (event) {
+  event.preventDefault();
+  if (event.keyCode === 13) {
+    $searchButton.click();
+  }
+});
+
 function renderSearchResult(response, i) {
   if (response[i].images.jpg.image_url !== 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png') {
 
