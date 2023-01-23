@@ -23,6 +23,10 @@ img.search-result-img {
   min-height: 190px;
 }
 
+img.search-result-img:hover {
+  cursor: pointer;
+}
+
 .lds-facebook {
   display: inline-block;
   position: relative;
@@ -344,6 +348,10 @@ li {
 .fa-arrow-down {
   color: white;
   font-size: 2rem;
+}
+
+.fa-arrow-down:hover {
+  cursor: pointer;
 }
 
 .search-bar {
