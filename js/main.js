@@ -379,9 +379,6 @@ $addButton.addEventListener('click', addButtonHandler);
 function checkDataForButton(response) {
   var userDataArr = userData.animeList;
   var trueOrFalse = false;
-  if (userDataArr.length === 0) {
-    return false;
-  }
   for (var i = 0; i < userDataArr.length; i++) {
     if (userDataArr[i].id === response.mal_id) {
       trueOrFalse = true;
