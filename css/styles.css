@@ -72,7 +72,8 @@ img.search-result-img:hover {
 }
 
 .anime-list-img {
-  margin-left: 10px;
+  margin-top: 4px;
+  margin-left: 15px;
   height: 100%;
   width: 56.25px;
 }
@@ -456,6 +457,7 @@ div.row.pop-up-search {
 
 div.row.pop-up-list {
   width: 90%;
+  max-width: 600px;
 }
 
 .pop-up-list {
