@@ -1,46 +1,46 @@
 /* global userData */
-var $topAnimeList = document.querySelector('#top-anime');
-var $arrowDown = document.querySelector('.fa-arrow-down');
-var $backToTop = document.querySelector('.back-to-top');
-var $topOfPage = document.querySelector('.anchor-background');
-var $searchAnchor = document.querySelector('#search-pop-up');
-var $outerDiv = document.querySelector('.search-pop-up');
-var $topAnimeView = document.querySelector('[data-view="top-anime"]');
-var $searchResultView = document.querySelector('[data-view="search-result"]');
-var $popUpSearch = document.querySelector('.pop-up-search');
-var $searchInput = document.querySelector('.search-input');
-var $searchButton = document.querySelector('#search-button');
-var $addButton = document.querySelector('.add-button');
-var $searchAppend = document.querySelector('#search-append');
-var $animeNavAnchor = document.querySelector('.anime');
-var $listNavAnchor = document.querySelector('.list-anchor');
-var $selectedAnimeView = document.querySelector('[data-view="selected-anime"]');
-var $animeListView = document.querySelector('[data-view="anime-list"]');
-var $selectedAnimeCharactersView = document.querySelector('[data-view="selected-anime-characters"]');
-var $characterListView = document.querySelector('[data-view="character-list"]');
-var $ulAnimeList = document.querySelector('#anime-list');
-var $popUpList = document.querySelector('.pop-up-list');
-var $saveButton = document.querySelector('.save-button');
-var $selectedAnimeCharacters = document.querySelector('#selected-anime-characters');
-var $charactersButton = document.querySelector('.characters-button');
-var $characterList = document.querySelector('#character-list');
-var $characterNavAnchor = document.querySelector('.characters-anchor');
-var $popUpCharacters = document.querySelector('.pop-up-characters');
-var $popUpH1 = document.querySelector('.pop-up-h1');
-var $noButton = document.querySelector('.no-button');
-var $yesButton = document.querySelector('.yes-button');
-var $form = document.querySelector('form');
-var $topAnimeLoading = document.querySelector('#top-anime-loading');
-var $searchResultLoading = document.querySelector('#search-result-loading');
-var $searchResultFalse = document.querySelector('#search-result-false');
-var $searchResultError = document.querySelector('#search-result-error');
-var $selectedCharactersLoading = document.querySelector('#selected-characters-loading');
-var $selectedCharactersFalse = document.querySelector('#selected-characters-false');
-var $noAnime = document.querySelector('.no-anime');
-var userSearchInput = '';
-var pageNumber = 1;
+const $topAnimeList = document.querySelector('#top-anime');
+const $arrowDown = document.querySelector('.fa-arrow-down');
+const $backToTop = document.querySelector('.back-to-top');
+const $topOfPage = document.querySelector('.anchor-background');
+const $searchAnchor = document.querySelector('#search-pop-up');
+const $outerDiv = document.querySelector('.search-pop-up');
+const $topAnimeView = document.querySelector('[data-view="top-anime"]');
+const $searchResultView = document.querySelector('[data-view="search-result"]');
+const $popUpSearch = document.querySelector('.pop-up-search');
+const $searchInput = document.querySelector('.search-input');
+const $searchButton = document.querySelector('#search-button');
+const $addButton = document.querySelector('.add-button');
+const $searchAppend = document.querySelector('#search-append');
+const $animeNavAnchor = document.querySelector('.anime');
+const $listNavAnchor = document.querySelector('.list-anchor');
+const $selectedAnimeView = document.querySelector('[data-view="selected-anime"]');
+const $animeListView = document.querySelector('[data-view="anime-list"]');
+const $selectedAnimeCharactersView = document.querySelector('[data-view="selected-anime-characters"]');
+const $characterListView = document.querySelector('[data-view="character-list"]');
+const $ulAnimeList = document.querySelector('#anime-list');
+const $popUpList = document.querySelector('.pop-up-list');
+const $saveButton = document.querySelector('.save-button');
+const $selectedAnimeCharacters = document.querySelector('#selected-anime-characters');
+const $charactersButton = document.querySelector('.characters-button');
+const $characterList = document.querySelector('#character-list');
+const $characterNavAnchor = document.querySelector('.characters-anchor');
+const $popUpCharacters = document.querySelector('.pop-up-characters');
+const $popUpH1 = document.querySelector('.pop-up-h1');
+const $noButton = document.querySelector('.no-button');
+const $yesButton = document.querySelector('.yes-button');
+const $form = document.querySelector('form');
+const $topAnimeLoading = document.querySelector('#top-anime-loading');
+const $searchResultLoading = document.querySelector('#search-result-loading');
+const $searchResultFalse = document.querySelector('#search-result-false');
+const $searchResultError = document.querySelector('#search-result-error');
+const $selectedCharactersLoading = document.querySelector('#selected-characters-loading');
+const $selectedCharactersFalse = document.querySelector('#selected-characters-false');
+const $noAnime = document.querySelector('.no-anime');
+let userSearchInput = '';
+let pageNumber = 1;
 
-var selectedAnimeInfo = {
+let selectedAnimeInfo = {
   img: '',
   score: 0,
   myScore: 0,
@@ -51,7 +51,7 @@ var selectedAnimeInfo = {
   inList: false
 };
 
-var selectedAnimeCharactersInfo = {
+let selectedAnimeCharactersInfo = {
   mal_id: 0,
   name: '',
   img: ''
@@ -93,9 +93,9 @@ $listNavAnchor.addEventListener('click', function () {
 $characterNavAnchor.addEventListener('click', function () {
   if (userData.characterList.length === 0) {
     $characterList.replaceChildren();
-    var centerH2 = document.createElement('div');
+    const centerH2 = document.createElement('div');
     centerH2.className = 'col-full center';
-    var h2 = document.createElement('h2');
+    const h2 = document.createElement('h2');
     h2.className = 'white no-characters-text';
     h2.textContent = 'No characters yet, go add some!';
     centerH2.appendChild(h2);
@@ -113,32 +113,32 @@ $characterNavAnchor.addEventListener('click', function () {
 });
 
 function renderTopAnime(response, i) {
-  var li = document.createElement('li');
+  const li = document.createElement('li');
   li.setAttribute('id', response[i].mal_id);
 
-  var rowDiv = document.createElement('div');
+  const rowDiv = document.createElement('div');
   rowDiv.className = 'row top-background';
   li.appendChild(rowDiv);
 
-  var col20Div = document.createElement('div');
+  const col20Div = document.createElement('div');
   col20Div.className = 'col-20 center';
   rowDiv.appendChild(col20Div);
 
-  var img = document.createElement('img');
+  const img = document.createElement('img');
   img.setAttribute('src', response[i].images.jpg.small_image_url);
   img.className = 'top-image';
   col20Div.appendChild(img);
 
-  var col80Div = document.createElement('div');
+  const col80Div = document.createElement('div');
   col80Div.className = 'col-80 inline';
   rowDiv.appendChild(col80Div);
 
-  var title = document.createElement('a');
+  const title = document.createElement('a');
   title.className = 'top-titles';
   title.textContent = response[i].title;
   col80Div.appendChild(title);
 
-  var h1Score = document.createElement('h1');
+  const h1Score = document.createElement('h1');
   h1Score.className = 'top-scores inline star-hide';
   if (response[i].score.toString().length === 3) {
     h1Score.textContent = response[i].score + '0';
@@ -147,7 +147,7 @@ function renderTopAnime(response, i) {
   }
   col80Div.appendChild(h1Score);
 
-  var iStar = document.createElement('i');
+  const iStar = document.createElement('i');
   iStar.className = 'fa-solid fa-star';
   h1Score.prepend(iStar);
   $topAnimeList.appendChild(li);
@@ -156,17 +156,17 @@ function renderTopAnime(response, i) {
 }
 
 function topAnimeGet() {
-  var xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.jikan.moe/v4/top/anime?page=' + pageNumber);
   xhr.responseType = 'json';
   $topAnimeLoading.classList.remove('hidden');
   xhr.addEventListener('load', function () {
-    var response = xhr.response.data;
+    const response = xhr.response.data;
     if (!response) {
       $topAnimeLoading.classList.add('hidden');
       return false;
     }
-    for (var i = 0; i < response.length; i++) {
+    for (let i = 0; i < response.length; i++) {
       renderTopAnime(response, i);
     }
     $topAnimeLoading.classList.add('hidden');
@@ -207,7 +207,7 @@ function removeSelectedAnimeCharacters() {
 }
 
 function searchResultGet() {
-  var xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.jikan.moe/v4/anime?q=' + userSearchInput + '&sfw');
   xhr.responseType = 'json';
   $searchResultFalse.className = 'white hidden';
@@ -215,8 +215,8 @@ function searchResultGet() {
   $searchResultLoading.classList.remove('hidden');
   xhr.addEventListener('load', function () {
     removeSearchResults();
-    var response = xhr.response.data;
-    var status = xhr.status;
+    const response = xhr.response.data;
+    const status = xhr.status;
     if (status >= 400) {
       $searchResultLoading.classList.add('hidden');
       $searchResultError.className = 'white';
@@ -226,7 +226,7 @@ function searchResultGet() {
       $searchResultFalse.className = 'white';
       return false;
     }
-    for (var i = 0; i < response.length; i++) {
+    for (let i = 0; i < response.length; i++) {
       renderSearchResult(response, i);
     }
     $searchResultLoading.classList.add('hidden');
@@ -256,25 +256,25 @@ $searchInput.addEventListener('keyup', function (event) {
 function renderSearchResult(response, i) {
   if (response[i].images.jpg.image_url !== 'https://cdn.myanimelist.net/img/sp/icon/apple-touch-icon-256.png') {
 
-    var col5025div = document.createElement('div');
+    const col5025div = document.createElement('div');
     col5025div.className = 'col-50-25 center';
     col5025div.setAttribute('id', response[i].mal_id);
     $searchAppend.appendChild(col5025div);
 
-    var imgDiv = document.createElement('div');
+    const imgDiv = document.createElement('div');
     imgDiv.className = 'search-img-margin';
     col5025div.appendChild(imgDiv);
 
-    var img = document.createElement('img');
+    const img = document.createElement('img');
     img.className = 'search-result-img';
     img.setAttribute('src', response[i].images.jpg.image_url);
     imgDiv.appendChild(img);
 
-    var divForTitle = document.createElement('div');
+    const divForTitle = document.createElement('div');
     divForTitle.className = 'center search-title-div';
     imgDiv.appendChild(divForTitle);
 
-    var anchorTitle = document.createElement('a');
+    const anchorTitle = document.createElement('a');
     anchorTitle.className = 'search-title';
     if (response[i].title.length > 15) {
       anchorTitle.textContent = response[i].title.split('').splice(0, 15).join('') + '...';
@@ -287,21 +287,21 @@ function renderSearchResult(response, i) {
   }
 }
 
-var $selectedTitle = document.querySelector('.selected-title');
-var $selectedPicture = document.querySelector('.selected-picture');
-var $score = document.querySelector('#score');
-var $episodes = document.querySelector('#episodes');
-var $rank = document.querySelector('#rank');
-var $premiered = document.querySelector('#premiered');
-var $status = document.querySelector('#status');
-var $type = document.querySelector('#type');
-var $synopsis = document.querySelector('#synopsis');
+const $selectedTitle = document.querySelector('.selected-title');
+const $selectedPicture = document.querySelector('.selected-picture');
+const $score = document.querySelector('#score');
+const $episodes = document.querySelector('#episodes');
+const $rank = document.querySelector('#rank');
+const $premiered = document.querySelector('#premiered');
+const $status = document.querySelector('#status');
+const $type = document.querySelector('#type');
+const $synopsis = document.querySelector('#synopsis');
 function selectedAnimeGet(userTarget) {
-  var xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.jikan.moe/v4/anime/' + userTarget);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    var response = xhr.response.data;
+    const response = xhr.response.data;
     checkDataForButton(response);
     selectedAnimeInfo = {};
     selectedAnimeInfo.img = response.images.jpg.small_image_url;
@@ -316,7 +316,7 @@ function selectedAnimeGet(userTarget) {
 
     $selectedTitle.textContent = response.title;
     $selectedPicture.setAttribute('src', response.images.jpg.large_image_url);
-    var starIcon = document.createElement('i');
+    const starIcon = document.createElement('i');
     starIcon.setAttribute('id', 'star-fix');
     starIcon.className = 'fa-solid fa-star';
     $score.textContent = response.score;
@@ -336,10 +336,10 @@ function selectedAnimeGet(userTarget) {
 }
 
 function userSelectAnimeHandler(event) {
-  var closestSelectedDiv = event.target.closest('.col-50-25');
-  var closestID = closestSelectedDiv.getAttribute('id');
+  const closestSelectedDiv = event.target.closest('.col-50-25');
+  const closestID = closestSelectedDiv.getAttribute('id');
   userData.userTarget = closestID;
-  var userTarget = closestID;
+  const userTarget = closestID;
   selectedAnimeGet(userTarget);
   viewSwap('selected-anime');
   return userData.userTarget;
@@ -347,8 +347,8 @@ function userSelectAnimeHandler(event) {
 $searchAppend.addEventListener('click', userSelectAnimeHandler);
 
 function userSelectTopAnimeHandler(event) {
-  var closestListItem = event.target.closest('li');
-  var userTarget = closestListItem.getAttribute('id');
+  const closestListItem = event.target.closest('li');
+  const userTarget = closestListItem.getAttribute('id');
   userData.userTarget = userTarget;
   selectedAnimeGet(userTarget);
   viewSwap('selected-anime');
@@ -357,9 +357,9 @@ function userSelectTopAnimeHandler(event) {
 $topAnimeList.addEventListener('click', userSelectTopAnimeHandler);
 
 function addButtonHandler(event) {
-  var userDataArr = userData.animeList;
-  var trueOrFalse = true;
-  for (var i = 0; i < userDataArr.length; i++) {
+  const userDataArr = userData.animeList;
+  let trueOrFalse = true;
+  for (let i = 0; i < userDataArr.length; i++) {
     if (userDataArr[i].id === selectedAnimeInfo.id) {
       trueOrFalse = false;
       userDataArr.splice(i, 1);
@@ -377,9 +377,9 @@ function addButtonHandler(event) {
 $addButton.addEventListener('click', addButtonHandler);
 
 function checkDataForButton(response) {
-  var userDataArr = userData.animeList;
-  var trueOrFalse = false;
-  for (var i = 0; i < userDataArr.length; i++) {
+  const userDataArr = userData.animeList;
+  let trueOrFalse = false;
+  for (let i = 0; i < userDataArr.length; i++) {
     if (userDataArr[i].id === response.mal_id) {
       trueOrFalse = true;
       break;
@@ -395,49 +395,49 @@ function checkDataForButton(response) {
 }
 
 function renderAnimeList(userData) {
-  var li = document.createElement('li');
+  const li = document.createElement('li');
   li.setAttribute('class', userData.id);
 
-  var outerRowDiv = document.createElement('div');
+  const outerRowDiv = document.createElement('div');
   outerRowDiv.className = 'row center top-background';
   li.appendChild(outerRowDiv);
 
-  var col20Div = document.createElement('div');
+  const col20Div = document.createElement('div');
   col20Div.className = 'col-20-list';
   outerRowDiv.appendChild(col20Div);
 
-  var img = document.createElement('img');
+  const img = document.createElement('img');
   img.className = 'anime-list-img';
   img.setAttribute('src', userData.img);
   col20Div.appendChild(img);
 
-  var col80Div = document.createElement('div');
+  const col80Div = document.createElement('div');
   col80Div.className = 'col-80-list white font-2';
   outerRowDiv.appendChild(col80Div);
 
-  var innerRowDiv = document.createElement('div');
+  const innerRowDiv = document.createElement('div');
   innerRowDiv.className = 'row';
   col80Div.appendChild(innerRowDiv);
 
-  var colFullDiv = document.createElement('div');
+  const colFullDiv = document.createElement('div');
   colFullDiv.className = 'col-full block';
   innerRowDiv.appendChild(colFullDiv);
 
-  var h3 = document.createElement('h3');
+  const h3 = document.createElement('h3');
   h3.className = 'test-margin width-list-title';
   h3.textContent = userData.title;
   colFullDiv.appendChild(h3);
 
-  var inputDiv = document.createElement('div');
+  const inputDiv = document.createElement('div');
   inputDiv.className = 'just-inline width-inputs';
   colFullDiv.appendChild(inputDiv);
 
-  var h4Score = document.createElement('h4');
+  const h4Score = document.createElement('h4');
   h4Score.className = 'test-margin width-100px';
   h4Score.textContent = 'Score: ' + userData.myScore;
   inputDiv.appendChild(h4Score);
 
-  var h4Progress = document.createElement('h4');
+  const h4Progress = document.createElement('h4');
   h4Progress.className = 'test-margin';
   h4Progress.textContent = 'Progress: ' + userData.progress + '/' + userData.episodes;
   inputDiv.appendChild(h4Progress);
@@ -446,37 +446,37 @@ function renderAnimeList(userData) {
 }
 
 function loadAnimeList() {
-  var userDataArr = userData.animeList;
+  const userDataArr = userData.animeList;
   userDataArr.forEach(userData => {
     $ulAnimeList.appendChild(renderAnimeList(userData));
   });
 }
 
 function getCurrentAnimeListItem(event) {
-  var closestListItem = event.target.closest('li');
-  var userChangedListItem = closestListItem.getAttribute('class');
+  const closestListItem = event.target.closest('li');
+  const userChangedListItem = closestListItem.getAttribute('class');
   userData.currentListItem = userChangedListItem;
   animeListPopUp();
 }
 $ulAnimeList.addEventListener('click', getCurrentAnimeListItem);
 
-var $scoreInput = document.querySelector('#score-input');
-var userScoreInput = '';
+const $scoreInput = document.querySelector('#score-input');
+let userScoreInput = '';
 $scoreInput.addEventListener('input', function (event) {
   userScoreInput = event.target.value;
   return userScoreInput;
 });
 
-var $progressInput = document.querySelector('#progress-input');
-var userProgressInput = '';
+const $progressInput = document.querySelector('#progress-input');
+let userProgressInput = '';
 $progressInput.addEventListener('input', function () {
   userProgressInput = event.target.value;
   return userProgressInput;
 });
 
 function saveListEntry(event) {
-  var userDataArr = userData.animeList;
-  for (var i = 0; i < userDataArr.length; i++) {
+  const userDataArr = userData.animeList;
+  for (let i = 0; i < userDataArr.length; i++) {
     if (userDataArr[i].id.toString() === userData.currentListItem) {
       if (userScoreInput > 10) {
         userDataArr[i].myScore = 10;
@@ -503,10 +503,10 @@ function saveListEntry(event) {
 }
 $saveButton.addEventListener('click', saveListEntry);
 
-var $deleteButton = document.querySelector('.delete-button');
+const $deleteButton = document.querySelector('.delete-button');
 function deleteButtonHandler() {
-  var userDataArr = userData.animeList;
-  for (var i = 0; i < userDataArr.length; i++) {
+  const userDataArr = userData.animeList;
+  for (let i = 0; i < userDataArr.length; i++) {
     if (userDataArr[i].id.toString() === userData.currentListItem) {
       userDataArr.splice(i, 1);
     }
@@ -528,27 +528,27 @@ function animeListClosePopUp() {
 }
 
 function renderSelectedAnimeCharacters(response, i) {
-  var userDataArr = userData.characterList;
+  const userDataArr = userData.characterList;
 
-  var col5025div = document.createElement('div');
+  const col5025div = document.createElement('div');
   col5025div.className = 'col-50-25 center';
   $selectedAnimeCharacters.appendChild(col5025div);
 
-  var imgDiv = document.createElement('div');
+  const imgDiv = document.createElement('div');
   imgDiv.className = 'search-img-margin';
   col5025div.appendChild(imgDiv);
 
-  var img = document.createElement('img');
+  const img = document.createElement('img');
   img.className = 'search-result-img';
   img.setAttribute('src', response[i].character.images.jpg.image_url);
   img.setAttribute('id', response[i].character.mal_id);
   imgDiv.appendChild(img);
 
-  var divForTitle = document.createElement('div');
+  const divForTitle = document.createElement('div');
   divForTitle.className = 'center search-title-div';
   imgDiv.appendChild(divForTitle);
 
-  var h2 = document.createElement('h2');
+  const h2 = document.createElement('h2');
   h2.className = 'search-title';
   if (response[i].character.name.length > 15) {
     h2.textContent = response[i].character.name.split('').splice(0, 15).join('') + '...';
@@ -556,7 +556,7 @@ function renderSelectedAnimeCharacters(response, i) {
     h2.textContent = response[i].character.name;
   }
   divForTitle.appendChild(h2);
-  for (var j = 0; j < userDataArr.length; j++) {
+  for (let j = 0; j < userDataArr.length; j++) {
     if (Number(userDataArr[j].mal_id) === response[i].character.mal_id) {
       imgDiv.className = 'search-img-margin-green';
       h2.className = 'search-title-white';
@@ -571,19 +571,19 @@ function renderSelectedAnimeCharacters(response, i) {
 }
 
 function selectedAnimeCharactersGet() {
-  var xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.jikan.moe/v4/anime/' + userData.userTarget + '/' + 'characters');
   $selectedCharactersFalse.className = 'white hidden';
   $selectedCharactersLoading.classList.remove('hidden');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    var response = xhr.response.data;
+    const response = xhr.response.data;
     if (!response) {
       $selectedCharactersLoading.classList.add('hidden');
       $selectedCharactersFalse.className = 'white';
       return false;
     }
-    for (var i = 0; i < response.length; i++) {
+    for (let i = 0; i < response.length; i++) {
       renderSelectedAnimeCharacters(response, i);
     }
     $selectedCharactersLoading.classList.add('hidden');
@@ -597,18 +597,18 @@ $charactersButton.addEventListener('click', function (event) {
 });
 
 function selectedAnimeCharactersListHandler(event) {
-  var closestSelectedDiv = event.target.closest('.col-50-25');
-  var closestImg = closestSelectedDiv.querySelector('img').getAttribute('src');
-  var closestID = closestSelectedDiv.querySelector('img').getAttribute('id');
-  var closestName = closestSelectedDiv.querySelector('h2').textContent;
+  const closestSelectedDiv = event.target.closest('.col-50-25');
+  const closestImg = closestSelectedDiv.querySelector('img').getAttribute('src');
+  const closestID = closestSelectedDiv.querySelector('img').getAttribute('id');
+  const closestName = closestSelectedDiv.querySelector('h2').textContent;
   selectedAnimeCharactersInfo = {};
   selectedAnimeCharactersInfo.mal_id = closestID;
   selectedAnimeCharactersInfo.img = closestImg;
   selectedAnimeCharactersInfo.name = closestName;
-  var userDataArr = userData.characterList;
+  const userDataArr = userData.characterList;
 
-  var trueOrFalse = false;
-  for (var i = 0; i < userDataArr.length; i++) {
+  let trueOrFalse = false;
+  for (let i = 0; i < userDataArr.length; i++) {
     if (userDataArr[i].mal_id === closestID) {
       trueOrFalse = true;
       break;
@@ -627,24 +627,24 @@ function selectedAnimeCharactersListHandler(event) {
 $selectedAnimeCharacters.addEventListener('click', selectedAnimeCharactersListHandler);
 
 function renderCharacterList(userData) {
-  var col5025div = document.createElement('div');
+  const col5025div = document.createElement('div');
   col5025div.className = 'col-50-25 center';
 
-  var imgDiv = document.createElement('div');
+  const imgDiv = document.createElement('div');
   imgDiv.className = 'search-img-margin';
   col5025div.appendChild(imgDiv);
 
-  var img = document.createElement('img');
+  const img = document.createElement('img');
   img.className = 'search-result-img';
   img.setAttribute('src', userData.img);
   img.setAttribute('id', userData.mal_id);
   imgDiv.appendChild(img);
 
-  var divForTitle = document.createElement('div');
+  const divForTitle = document.createElement('div');
   divForTitle.className = 'center search-title-div';
   imgDiv.appendChild(divForTitle);
 
-  var h2 = document.createElement('h2');
+  const h2 = document.createElement('h2');
   h2.className = 'search-title';
   if (userData.name.length > 15) {
     h2.textContent = userData.name.split('').splice(0, 15).join('') + '...';
@@ -657,7 +657,7 @@ function renderCharacterList(userData) {
 }
 
 function loadCharacterList() {
-  var characterListArr = userData.characterList;
+  const characterListArr = userData.characterList;
   characterListArr.forEach(userData => {
     $characterList.appendChild(renderCharacterList(userData));
   });
@@ -674,8 +674,8 @@ $noButton.addEventListener('click', function (event) {
 });
 
 $yesButton.addEventListener('click', function (event) {
-  var userDataArr = userData.characterList;
-  for (var i = 0; i < userDataArr.length; i++) {
+  const userDataArr = userData.characterList;
+  for (let i = 0; i < userDataArr.length; i++) {
     if (userDataArr[i].mal_id === userData.currentCharacter) {
       userDataArr.splice(i, 1);
     }
@@ -688,13 +688,13 @@ $yesButton.addEventListener('click', function (event) {
 });
 
 $characterList.addEventListener('click', function () {
-  var closestListItem = event.target.closest('img');
-  var userChangedListItem = closestListItem.getAttribute('id');
+  const closestListItem = event.target.closest('img');
+  const userChangedListItem = closestListItem.getAttribute('id');
   userData.currentCharacter = userChangedListItem;
-  var userDataArr = userData.characterList;
-  for (var i = 0; i < userDataArr.length; i++) {
+  const userDataArr = userData.characterList;
+  for (let i = 0; i < userDataArr.length; i++) {
     if (userDataArr[i].mal_id === userChangedListItem) {
-      var currentName = userDataArr[i].name.split(',');
+      const currentName = userDataArr[i].name.split(',');
       $popUpH1.textContent = 'Remove ' + currentName[0].toString() + '?';
     }
   }
