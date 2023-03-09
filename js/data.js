@@ -1,6 +1,6 @@
 /* exported data */
 
-var userData = {
+let userData = {
   userTarget: '',
   animeList: [],
   characterList: [],
@@ -10,14 +10,14 @@ var userData = {
 };
 
 function beforeunloadHandler(event) {
-  var dataJSON = JSON.stringify(userData);
+  const dataJSON = JSON.stringify(userData);
   window.localStorage.setItem('animelist-local-storage', dataJSON);
 }
 window.addEventListener('beforeunload', beforeunloadHandler);
 
 window.addEventListener('pagehide', beforeunloadHandler);
 
-var localStorageJson = window.localStorage.getItem('animelist-local-storage');
+const localStorageJson = window.localStorage.getItem('animelist-local-storage');
 
 if (localStorageJson !== null) {
   userData = JSON.parse(localStorageJson);
