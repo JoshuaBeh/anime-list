@@ -27,6 +27,7 @@ img.search-result-img:hover {
   cursor: pointer;
 }
 
+/* Loading Spinner */
 .lds-facebook {
   display: inline-block;
   position: relative;
@@ -94,6 +95,7 @@ img.search-result-img:hover {
   display: block;
 }
 
+/* General Flexbox */
 .center {
   display: flex;
   justify-content: center;
@@ -133,8 +135,13 @@ img.search-result-img:hover {
   align-items: center;
 }
 
+/* colors */
 .white {
   color: white;
+}
+
+.selected-title {
+  color: #27b3fd;
 }
 
 .search-img-margin {
@@ -269,6 +276,10 @@ li {
 #anchor-bar {
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+#anchor-bar > a:hover:not(.anime) {
+  color: grey;
 }
 
 .anime {
@@ -422,10 +433,6 @@ input.search-input:active {
   border: 1px solid green;
 }
 
-.selected-title {
-  color: #27b3fd;
-}
-
 img.selected-picture {
   width: 100%;
   object-fit: contain;
@@ -572,6 +579,8 @@ div.row.pop-up-characters {
   background-color: #1a1c1e;
   width: 400px;
   padding: 25px;
+  border: 1px solid #1a1c1e;
+  border-radius: 4px;
 }
 
 .no-characters-text {
